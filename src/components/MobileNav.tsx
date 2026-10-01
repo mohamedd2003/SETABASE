@@ -69,6 +69,7 @@ export function MobileNav({ links, appLink }: MobileNavProps) {
               variant="brand"
               size="pill"
               className="mt-2 w-full"
+              nativeButton={false}
               render={<Link href={appLink.href} onClick={() => setOpen(false)} />}
             >
               {appLink.label}

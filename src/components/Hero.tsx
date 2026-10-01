@@ -59,6 +59,7 @@ export function Hero({ hero }: HeroProps) {
             size="pill"
             className="anim-rise"
             style={at(landed + 110)}
+            nativeButton={false}
             render={<a href="#contact" />}
           >
             {hero.cta}

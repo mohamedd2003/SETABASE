@@ -56,6 +56,7 @@ export function SiteHeader({ switchLink }: SiteHeaderProps) {
               variant="brand"
               size="pill-sm"
               className="hidden nav:inline-flex"
+              nativeButton={false}
               render={<Link href={site.appUrl} />}
             >
               Get the app

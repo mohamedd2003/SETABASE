@@ -16,7 +16,7 @@ type BoxProps = {
 };
 
 /** A solid block: a top and four walls, folded up from its footprint in CSS 3D. */
-function Box({ x, y, w, d, h, z = 0, className, front }: BoxProps) {
+export function Box({ x, y, w, d, h, z = 0, className, front }: BoxProps) {
   const style = {
     left: x,
     top: y,
