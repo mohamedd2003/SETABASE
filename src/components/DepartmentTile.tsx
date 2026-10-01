@@ -15,11 +15,12 @@ export function DepartmentTile({ department }: DepartmentTileProps) {
   return (
     <a
       href="#contact"
-      className="tile-body group relative flex h-full flex-col gap-3 bg-navy-deep p-7 transition-colors duration-500 hover:bg-[color-mix(in_srgb,var(--navy-deep)_82%,var(--navy-medium))] focus-visible:outline-offset-[-2px] nav:p-8"
+      className="tile-body group relative flex h-full flex-col gap-3 overflow-hidden rounded-3xl border border-line-gold-soft bg-navy-deep p-7 transition-colors duration-500 hover:border-line-gold hover:bg-[color-mix(in_srgb,var(--navy-deep)_82%,var(--navy-medium))] nav:p-8"
     >
+      {/* Inset from the corners so the sweep sits on the straight part of the top edge. */}
       <span
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-500 ease-out group-hover:scale-x-100 rtl:origin-right"
+        className="absolute inset-x-7 top-0 h-px origin-left scale-x-0 rounded-full bg-gold transition-transform duration-500 ease-out group-hover:scale-x-100 rtl:origin-right"
       />
       <DepartmentIcon
         id={department.id}

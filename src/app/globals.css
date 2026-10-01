@@ -56,7 +56,8 @@
   --border: var(--line-gold-soft);
   --input: color-mix(in srgb, var(--gold) 40%, transparent);
   --ring: var(--gold);
-  --radius: 0.125rem;
+  /* Soft corners everywhere: fields and small controls at 12px, cards and panels larger. */
+  --radius: 0.75rem;
 }
 
 @theme inline {
@@ -96,10 +97,12 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --radius-sm: var(--radius);
-  --radius-md: var(--radius);
-  --radius-lg: var(--radius);
-  --radius-xl: var(--radius);
+  --radius-sm: 0.5rem; /* 8px — menu items, tags */
+  --radius-md: var(--radius); /* 12px — inputs, select, textarea */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.25rem; /* 20px */
+  --radius-2xl: 1.5rem; /* 24px — cards */
+  --radius-3xl: 1.75rem; /* 28px — panels */
 
   --font-sans: var(--font-ibm-plex-sans), "IBM Plex Sans", system-ui, sans-serif;
   --font-serif: var(--font-newsreader), "Newsreader", Georgia, serif;

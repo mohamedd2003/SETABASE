@@ -9,9 +9,6 @@ type ServicesGridProps = {
 
 const delay = (ms: number) => ({ "--reveal-delay": `${ms}ms` }) as React.CSSProperties;
 
-/** Grid cell: draws its end and bottom lines; the grid wrapper draws the start and top. */
-const cell = "border-e border-b border-line-gold-soft";
-
 export function ServicesGrid({ services }: ServicesGridProps) {
   const count = services.departments.length;
   // The closing card fills whatever the last row leaves empty, in both the
@@ -33,27 +30,24 @@ export function ServicesGrid({ services }: ServicesGridProps) {
         </p>
       </div>
 
-      <div className="grid border-s border-t border-line-gold-soft sm:grid-cols-2 nav:grid-cols-3">
+      {/* Separate rounded cards with a small gap — shared cell borders can't round their corners. */}
+      <div className="grid gap-3 sm:grid-cols-2 nav:grid-cols-3 nav:gap-4">
         {services.departments.map((department, i) => (
           <div
             key={department.id}
             id={department.id}
             data-reveal
             style={delay((i % 3) * 110)}
-            className={cn("tile scroll-mt-24", cell)}
+            className="tile scroll-mt-24"
           >
             <DepartmentTile department={department} />
           </div>
         ))}
 
-        <div
-          data-reveal
-          style={delay((count % 3) * 110)}
-          className={cn(cell, smSpan, navSpan)}
-        >
+        <div data-reveal style={delay((count % 3) * 110)} className={cn(smSpan, navSpan)}>
           <a
             href="#contact"
-            className="group relative flex h-full flex-col justify-between gap-8 overflow-hidden bg-[color-mix(in_srgb,var(--navy-medium)_18%,var(--navy-deep))] p-7 focus-visible:outline-offset-[-2px] nav:p-8"
+            className="group relative flex h-full flex-col justify-between gap-8 overflow-hidden rounded-3xl border border-line-gold-soft bg-[color-mix(in_srgb,var(--navy-medium)_18%,var(--navy-deep))] p-7 transition-colors duration-500 hover:border-line-gold nav:p-8"
           >
             <span
               aria-hidden="true"
@@ -70,7 +64,7 @@ export function ServicesGrid({ services }: ServicesGridProps) {
             </span>
           </a>
         </div>
-    </div>
+      </div>
     </section>
   );
 }
