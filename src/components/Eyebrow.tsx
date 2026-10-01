@@ -1,6 +1,6 @@
 import { cn } from "cn";
 
-type EyebrowProps = React.ComponentProps<"p"> & {
+type EyebrowProps = React.ComponentPropsWithoutRef<"p"> & {
   /** Use the solid dark-gold version on cream backgrounds. */
   onLight?: boolean;
 };
