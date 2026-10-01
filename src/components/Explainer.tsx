@@ -81,7 +81,7 @@ export function Explainer({ explainer }: ExplainerProps) {
 
         <div className="container-site relative py-16 nav:py-24">
           <div data-reveal className="max-w-[44rem]">
-            <h2 className="font-serif text-[2rem]/[1.15] font-medium text-balance text-white sm:text-[2.5rem] nav:text-3xl">
+            <h2 className="font-serif text-[1.75rem]/[1.15] font-medium min-[22.5rem]:text-[2rem] text-balance text-white sm:text-[2.5rem] nav:text-3xl">
               {explainer.title}
             </h2>
             <p className="mt-4 max-w-[56ch] text-ink-soft">{explainer.intro}</p>

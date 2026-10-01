@@ -11,7 +11,7 @@ export function ServicesGrid({ services }: ServicesGridProps) {
       <div className="mb-4 flex flex-col gap-3 nav:mb-0 nav:flex-row nav:items-baseline nav:justify-between">
         <h2
           data-reveal
-          className="font-serif text-[2rem]/[1.15] font-medium text-gold-gradient sm:text-[2.5rem] nav:text-3xl"
+          className="font-serif text-[1.75rem]/[1.15] font-medium min-[22.5rem]:text-[2rem] text-gold-gradient sm:text-[2.5rem] nav:text-3xl"
         >
           {services.title}
         </h2>

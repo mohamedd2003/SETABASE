@@ -20,7 +20,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
         />
         <div className="container-site relative grid gap-12 py-16 nav:grid-cols-12 nav:gap-16 nav:py-24">
           <div data-reveal className="nav:col-span-5">
-            <h2 className="font-serif text-[2rem]/[1.15] font-medium text-gold-gradient sm:text-[2.5rem] nav:text-3xl">
+            <h2 className="font-serif text-[1.75rem]/[1.15] font-medium min-[22.5rem]:text-[2rem] text-gold-gradient sm:text-[2.5rem] nav:text-3xl">
               {contact.title}
             </h2>
 
@@ -37,7 +37,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
                 <dd className="mt-1">
                   <a
                     href={`mailto:${site.email}`}
-                    className="-my-2 inline-flex min-h-10 items-center text-ink transition-colors hover:text-gold"
+                    className="-my-2.5 inline-flex min-h-11 items-center text-ink transition-colors hover:text-gold"
                   >
                     {site.email}
                   </a>
@@ -48,7 +48,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
                 <dd className="mt-1">
                   <a
                     href={`tel:${site.phone.replace(/\s/g, "")}`}
-                    className="-my-2 inline-flex min-h-10 items-center text-ink transition-colors hover:text-gold"
+                    className="-my-2.5 inline-flex min-h-11 items-center text-ink transition-colors hover:text-gold"
                   >
                     {site.phone}
                   </a>

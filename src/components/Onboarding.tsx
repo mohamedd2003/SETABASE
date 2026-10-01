@@ -143,7 +143,7 @@ export function Onboarding() {
           aria-label="Main"
           className="flex h-14 items-center justify-between gap-2 rounded-full border border-white/10 bg-navy-deep/45 ps-3 pe-1.5 shadow-[0_12px_40px_-16px_rgb(2_8_20/0.9),inset_0_1px_0_rgb(255_255_255/0.06)] backdrop-blur-xl sm:ps-4 sm:pe-2"
         >
-          <Logo size="sm" className="[&_img]:h-8 sm:[&_img]:h-10" />
+          <Logo size="sm" className="py-1.5 sm:py-0 [&_img]:h-8 sm:[&_img]:h-10" />
 
           <div className="flex items-center gap-2">
             {/* Returning visitors skip the questions; hovering previews the building. */}

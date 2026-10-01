@@ -628,6 +628,13 @@
     perspective-origin: 50% 25%;
   }
 
+  /* The smallest phones: a little smaller, so the plate's corners stay on screen. */
+  @media (width < 24rem) {
+    .hero-stage {
+      --scale: 0.52;
+    }
+  }
+
   @media (width >= 40rem) {
     .hero-stage {
       --scale: 0.8;
@@ -773,6 +780,14 @@
   }
 
   @media (width >= 55rem) {
+    .explainer-stage {
+      --scale: 0.95;
+      height: 22rem;
+    }
+  }
+
+  /* Beside the two answers from 1280px: the model gets its full size. */
+  @media (width >= 80rem) {
     .explainer-stage {
       --scale: 1.15;
       height: 28rem;
