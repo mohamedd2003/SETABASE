@@ -116,7 +116,7 @@ export function PhotoHero({ hero }: PhotoHeroProps) {
                   <span className="flex items-center gap-2 text-sm font-medium text-white transition-colors duration-300 group-hover/row:text-gold xl:whitespace-nowrap">
                     <span
                       aria-hidden="true"
-                      className="h-px w-3 origin-left bg-gold transition-[scale] duration-300 group-hover/row:scale-x-[1.8] rtl:origin-right"
+                      className="h-px w-3 shrink-0 origin-left bg-gold transition-[scale] duration-300 group-hover/row:scale-x-[1.8] rtl:origin-right"
                     />
                     {row.label}
                   </span>
