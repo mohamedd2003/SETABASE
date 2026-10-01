@@ -26,6 +26,23 @@
     #b8901f 100%
   );
 
+  /* Section surfaces, darkest to lightest. On a dark UI a higher surface is a lighter
+     tone, so each section's height on the page reads from its colour:
+     night (footer foot) < sunken (contact) < dusk < page (services) < raised (explainer). */
+  --surface-night: #071630;
+  --surface-sunken: var(--navy-deep);
+  --surface-dusk: #0f264c;
+  --surface-horizon: #1a3768;
+  --surface-page: var(--navy);
+  --surface-raised: color-mix(in srgb, var(--navy-medium) 42%, var(--navy));
+
+  /* Scene colours used inside the models and skies. */
+  --ember: var(--ember); /* warm horizon light */
+  --water: var(--water);
+  --water-deep: var(--water-deep);
+  --water-light: var(--water-light);
+  --foliage: var(--foliage);
+
   /* Text on navy */
   --ink-on-navy: var(--white);
   --ink-on-navy-soft: color-mix(in srgb, var(--white) 72%, transparent);
@@ -235,7 +252,7 @@
     --glow-y: 26%;
     background:
       radial-gradient(120% 60% at var(--glow-x) 100%, color-mix(in srgb, var(--navy-medium) 38%, transparent), transparent 62%),
-      linear-gradient(180deg, #050f24 0%, var(--navy-deep) 36%, #0f264c 68%, #1a3768 100%);
+      linear-gradient(180deg, var(--surface-night) 0%, var(--surface-sunken) 36%, var(--surface-dusk) 68%, var(--surface-horizon) 100%);
   }
 
   @media (width >= 40rem) {
@@ -260,7 +277,7 @@
     inset: 0;
     background:
       radial-gradient(38% 22% at var(--glow-x) var(--glow-y), color-mix(in srgb, var(--gold) 26%, transparent), transparent 70%),
-      radial-gradient(70% 34% at var(--glow-x) calc(var(--glow-y) + 4%), color-mix(in srgb, #f0a65a 12%, transparent), transparent 72%);
+      radial-gradient(70% 34% at var(--glow-x) calc(var(--glow-y) + 4%), color-mix(in srgb, var(--ember) 12%, transparent), transparent 72%);
   }
 
   /* Faint lights across the upper sky, like a city seen at dusk. */
@@ -486,9 +503,9 @@
   }
 
   .model-tree {
-    --face-top: color-mix(in srgb, #7fa58a 45%, var(--navy-deep));
-    --face-front: color-mix(in srgb, #7fa58a 32%, var(--navy-deep));
-    --face-side: color-mix(in srgb, #7fa58a 22%, var(--navy-deep));
+    --face-top: color-mix(in srgb, var(--foliage) 45%, var(--navy-deep));
+    --face-front: color-mix(in srgb, var(--foliage) 32%, var(--navy-deep));
+    --face-side: color-mix(in srgb, var(--foliage) 22%, var(--navy-deep));
     --edge: transparent;
   }
 
@@ -542,8 +559,8 @@
     width: 120px;
     height: 40px;
     border-radius: 4px;
-    background: color-mix(in srgb, #6fb3d6 40%, var(--navy-deep));
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, #6fb3d6 60%, transparent);
+    background: color-mix(in srgb, var(--water-deep) 40%, var(--navy-deep));
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--water-deep) 60%, transparent);
   }
 
   /* Plot boundaries, dashed like a survey drawing. */
@@ -658,14 +675,14 @@
      each block's --rise from the middle out and pans the table's --turn with the scroll.
   --------------------------------------------------------------------------- */
   .footer-scene {
-    background: linear-gradient(180deg, var(--navy) 0%, #0d2244 45%, #071630 100%);
+    background: linear-gradient(180deg, var(--surface-page) 0%, var(--surface-dusk) 45%, var(--surface-night) 100%);
   }
 
   /* City glow along the horizon, behind the skyline. */
   .footer-glow {
     background:
       radial-gradient(55% 34% at 50% 40%, color-mix(in srgb, var(--gold) 13%, transparent), transparent 72%),
-      radial-gradient(90% 40% at 50% 46%, color-mix(in srgb, #f0a65a 7%, transparent), transparent 75%);
+      radial-gradient(90% 40% at 50% 46%, color-mix(in srgb, var(--ember) 7%, transparent), transparent 75%);
   }
 
   .footer-floor {
@@ -733,7 +750,7 @@
   .explainer-scene {
     background:
       radial-gradient(40% 46% at 50% 56%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 72%),
-      linear-gradient(180deg, var(--navy-deep) 0%, #0f264c 100%);
+      linear-gradient(180deg, var(--surface-raised) 0%, color-mix(in srgb, var(--surface-raised) 65%, var(--surface-page)) 100%);
   }
 
   .explainer-stage {
@@ -808,9 +825,9 @@
 
   /* Facility Management: the pipe and the leak. */
   .explainer-pipe {
-    --face-top: color-mix(in srgb, #8fc6e6 55%, var(--navy-deep));
-    --face-front: color-mix(in srgb, #8fc6e6 40%, var(--navy-deep));
-    --face-side: color-mix(in srgb, #8fc6e6 28%, var(--navy-deep));
+    --face-top: color-mix(in srgb, var(--water) 55%, var(--navy-deep));
+    --face-front: color-mix(in srgb, var(--water) 40%, var(--navy-deep));
+    --face-side: color-mix(in srgb, var(--water) 28%, var(--navy-deep));
     --edge: transparent;
   }
 
@@ -821,9 +838,9 @@
   }
 
   .explainer-drop {
-    --face-top: #b6e0f7;
-    --face-front: #8fc6e6;
-    --face-side: #6fb3d6;
+    --face-top: var(--water-light);
+    --face-front: var(--water);
+    --face-side: var(--water-deep);
     --edge: transparent;
   }
 
@@ -833,7 +850,7 @@
     height: 36px;
     margin: -18px 0 0 -18px;
     border-radius: 50%;
-    border: 1.5px solid color-mix(in srgb, #8fc6e6 80%, transparent);
+    border: 1.5px solid color-mix(in srgb, var(--water) 80%, transparent);
     opacity: 0;
   }
 
@@ -845,6 +862,14 @@
     .explainer-ripple {
       opacity: 0.6;
     }
+  }
+
+  /* Contact — the sunken surface, dropping towards night, with a warm light where the
+     details sit. */
+  .contact-scene {
+    background:
+      radial-gradient(50% 60% at 12% 18%, color-mix(in srgb, var(--gold) 10%, transparent), transparent 70%),
+      linear-gradient(180deg, var(--surface-sunken) 0%, color-mix(in srgb, var(--surface-sunken) 55%, var(--surface-night)) 100%);
   }
 
   /* ---------------------------------------------------------------------------

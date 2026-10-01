@@ -89,7 +89,7 @@ export function Explainer({ explainer }: ExplainerProps) {
 
           <div className="mt-10 grid grid-cols-[minmax(0,1fr)] items-center gap-5 nav:mt-14 nav:grid-cols-[minmax(0,1fr)_minmax(0,23rem)_minmax(0,1fr)] nav:gap-8">
             {/* Sticky on phones, so the model is in view as each answer scrolls past. */}
-            <div className="sticky top-0 z-10 -mx-5 bg-[linear-gradient(to_bottom,#0c2042_82%,transparent)] px-5 pt-8 md:-mx-8 md:px-8 nav:static nav:order-2 nav:mx-0 nav:bg-none nav:px-0 nav:pt-0">
+            <div className="sticky top-0 z-10 -mx-5 bg-[linear-gradient(to_bottom,var(--surface-raised)_82%,transparent)] px-5 pt-8 md:-mx-8 md:px-8 nav:static nav:order-2 nav:mx-0 nav:bg-none nav:px-0 nav:pt-0">
               <ExplainerModel focus={focus} />
             </div>
 
@@ -104,7 +104,7 @@ export function Explainer({ explainer }: ExplainerProps) {
                   data-lit={lit ? "" : undefined}
                   onPointerEnter={() => setHovered(side.focus)}
                   onPointerLeave={() => setHovered(null)}
-                  className={`group relative rounded-3xl border border-line-gold-soft bg-navy/45 p-6 backdrop-blur-sm transition-colors duration-500 data-[lit]:border-gold data-[lit]:bg-navy/75 sm:p-7 ${
+                  className={`group relative rounded-3xl border border-line-gold-soft bg-navy-deep/45 p-6 backdrop-blur-sm transition-colors duration-500 data-[lit]:border-gold data-[lit]:bg-navy-deep/70 sm:p-7 ${
                     i === 0 ? "nav:order-1" : "nav:order-3"
                   }`}
                 >

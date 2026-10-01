@@ -12,7 +12,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
     <section id="contact" className="scroll-mt-24 px-3 pt-3 sm:px-4 sm:pt-4">
       <div
         data-scale-in
-        className="relative overflow-hidden rounded-[2rem] bg-navy-deep nav:rounded-[2.5rem]"
+        className="contact-scene relative overflow-hidden rounded-[2rem] nav:rounded-[2.5rem]"
       >
         <span
           aria-hidden="true"
