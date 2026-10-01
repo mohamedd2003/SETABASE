@@ -414,7 +414,7 @@
       background-color: color-mix(in srgb, var(--navy-deep) 55%, transparent);
     }
     to {
-      background-color: color-mix(in srgb, var(--navy-deep) 92%, transparent);
+      background-color: color-mix(in srgb, var(--navy-deep) 97%, transparent);
     }
   }
 
