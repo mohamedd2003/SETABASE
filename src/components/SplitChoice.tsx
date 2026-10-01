@@ -71,15 +71,17 @@ export function SplitChoice() {
                 // and the copy to share space without the text losing legibility.
                 "landing-art pointer-events-none absolute inset-x-0 bottom-0 hidden justify-center px-8 pb-10 transition-[opacity,transform] duration-700 group-hover:-translate-y-2 group-focus-visible:-translate-y-2 split:flex",
                 light
-                  ? "text-navy-deep opacity-[0.15] group-hover:opacity-[0.26] group-focus-visible:opacity-[0.26]"
-                  : "text-gold opacity-[0.2] group-hover:opacity-[0.34] group-focus-visible:opacity-[0.34]",
+                  ? "text-navy-deep opacity-[0.22] group-hover:opacity-[0.34] group-focus-visible:opacity-[0.34]"
+                  : "text-gold opacity-[0.3] group-hover:opacity-[0.45] group-focus-visible:opacity-[0.45]",
               ].join(" ")}
             >
-              {light ? (
-                <VillaElevation className="h-auto w-[min(80%,29rem)]" />
-              ) : (
-                <TowerCluster className="h-auto w-[min(80%,29rem)]" />
-              )}
+              <span className="landing-build block w-[min(80%,29rem)]">
+                {light ? (
+                  <VillaElevation className="h-auto w-full" />
+                ) : (
+                  <TowerCluster className="h-auto w-full" />
+                )}
+              </span>
             </span>
 
             <span className="relative z-10 flex w-full max-w-[25rem] flex-col items-center gap-5">
