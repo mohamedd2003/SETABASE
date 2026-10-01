@@ -47,31 +47,31 @@ export function ServicesGrid({ services }: ServicesGridProps) {
           </div>
         ))}
 
-          <div
-            data-reveal
-            style={delay((count % 3) * 110)}
-            className={cn(cell, smSpan, navSpan)}
+        <div
+          data-reveal
+          style={delay((count % 3) * 110)}
+          className={cn(cell, smSpan, navSpan)}
+        >
+          <Link
+            href="#contact"
+            className="group relative flex h-full flex-col justify-between gap-8 overflow-hidden bg-[color-mix(in_srgb,var(--navy-medium)_18%,var(--navy-deep))] p-7 focus-visible:outline-offset-[-2px] nav:p-8"
           >
-            <Link
-              href="#contact"
-              className="group relative flex h-full flex-col justify-between gap-8 overflow-hidden bg-[color-mix(in_srgb,var(--navy-medium)_18%,var(--navy-deep))] p-7 focus-visible:outline-offset-[-2px] nav:p-8"
-            >
-              <span
-                aria-hidden="true"
-                className="blueprint-grid blueprint-grid-gold pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
-              />
-              <span className="relative flex flex-col gap-3">
-                <Eyebrow>Not sure where to start?</Eyebrow>
-                <span className="max-w-[24ch] font-serif text-[1.375rem]/[1.3] font-medium text-balance text-white sm:text-xl">
-                  Describe the situation — we&rsquo;ll route it to the right team.
-                </span>
+            <span
+              aria-hidden="true"
+              className="blueprint-grid blueprint-grid-gold pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
+            />
+            <span className="relative flex flex-col gap-3">
+              <Eyebrow>Not sure where to start?</Eyebrow>
+              <span className="max-w-[24ch] font-serif text-[1.375rem]/[1.3] font-medium text-balance text-white sm:text-xl">
+                Describe the situation — we&rsquo;ll route it to the right team.
               </span>
-              <span className="relative inline-flex items-center gap-2 self-start rounded-full border border-gold px-5 py-2.5 text-xs font-medium tracking-[0.03em] text-gold uppercase transition-colors duration-300 group-hover:bg-gold group-hover:text-navy-deep">
-                Talk to our team
-              </span>
-            </Link>
-          </div>
-      </div>
+            </span>
+            <span className="relative inline-flex items-center gap-2 self-start rounded-full border border-gold px-5 py-2.5 text-xs font-medium tracking-[0.03em] text-gold uppercase transition-colors duration-300 group-hover:bg-gold group-hover:text-navy-deep">
+              Talk to our team
+            </span>
+          </Link>
+        </div>
+    </div>
     </section>
   );
 }
