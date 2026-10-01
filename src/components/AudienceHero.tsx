@@ -50,7 +50,7 @@ export function AudienceHero({ hero }: AudienceHeroProps) {
         <div data-scroll-fade className="relative z-10">
           <h1
             aria-label={hero.title}
-            className="max-w-[16ch] font-serif text-[2.375rem]/[1.08] font-medium text-balance text-white sm:text-3xl nav:text-4xl"
+            className="max-w-[16ch] font-serif text-[2.375rem]/[1.08] font-medium text-balance text-white sm:text-3xl nav:text-[3.25rem] xl:text-4xl"
           >
             {words.map((word, i) => (
               <Fragment key={i}>

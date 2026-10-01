@@ -36,7 +36,7 @@ export function Explainer({ explainer }: ExplainerProps) {
       const mm = gsap.matchMedia();
 
       // Phones can't point: whichever answer is in the middle of the screen leads.
-      mm.add("(width < 55rem)", () => {
+      mm.add("(width < 48rem)", () => {
         q<HTMLElement>("[data-side]").forEach((el) => {
           ScrollTrigger.create({
             trigger: el,
@@ -50,7 +50,7 @@ export function Explainer({ explainer }: ExplainerProps) {
       });
 
       // The two links from the building out to each answer draw as the section arrives.
-      mm.add("(width >= 55rem) and (prefers-reduced-motion: no-preference)", () => {
+      mm.add("(width >= 80rem) and (prefers-reduced-motion: no-preference)", () => {
         gsap.fromTo(
           q("[data-link]"),
           { scaleX: 0 },
@@ -81,15 +81,16 @@ export function Explainer({ explainer }: ExplainerProps) {
 
         <div className="container-site relative py-16 nav:py-24">
           <div data-reveal className="max-w-[44rem]">
-            <h2 className="font-serif text-[1.75rem]/[1.2] font-medium text-balance text-white sm:text-2xl">
+            <h2 className="font-serif text-[2rem]/[1.15] font-medium text-balance text-white sm:text-[2.5rem] nav:text-3xl">
               {explainer.title}
             </h2>
             <p className="mt-4 max-w-[56ch] text-ink-soft">{explainer.intro}</p>
           </div>
 
-          <div className="mt-10 grid grid-cols-[minmax(0,1fr)] items-center gap-5 nav:mt-14 nav:grid-cols-[minmax(0,1fr)_minmax(0,23rem)_minmax(0,1fr)] nav:gap-8">
-            {/* Sticky on phones, so the model is in view as each answer scrolls past. */}
-            <div className="sticky top-0 z-10 -mx-5 bg-[linear-gradient(to_bottom,var(--surface-raised)_82%,transparent)] px-5 pt-8 md:-mx-8 md:px-8 nav:static nav:order-2 nav:mx-0 nav:bg-none nav:px-0 nav:pt-0">
+          <div className="mt-10 grid grid-cols-[minmax(0,1fr)] items-center gap-5 md:grid-cols-2 md:items-stretch nav:mt-14 nav:gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,23rem)_minmax(0,1fr)] xl:items-center">
+            {/* Sticky on phones, so the model is in view as each answer scrolls past; from tablets
+                up both answers sit side by side under it (and beside it from 1280px). */}
+            <div className="sticky top-0 z-10 -mx-5 bg-[linear-gradient(to_bottom,var(--surface-raised)_82%,transparent)] px-5 pt-8 md:static md:col-span-2 md:mx-0 md:bg-none md:px-0 md:pt-0 xl:order-2 xl:col-span-1">
               <ExplainerModel focus={focus} />
             </div>
 
@@ -105,14 +106,14 @@ export function Explainer({ explainer }: ExplainerProps) {
                   onPointerEnter={() => setHovered(side.focus)}
                   onPointerLeave={() => setHovered(null)}
                   className={`group relative rounded-3xl border border-line-gold-soft bg-navy-deep/45 p-6 backdrop-blur-sm transition-colors duration-500 data-[lit]:border-gold data-[lit]:bg-navy-deep/70 sm:p-7 ${
-                    i === 0 ? "nav:order-1" : "nav:order-3"
+                    i === 0 ? "xl:order-1" : "xl:order-3"
                   }`}
                 >
                   {/* The link back to the building, on the side that faces it. */}
                   <span
                     aria-hidden="true"
                     data-link
-                    className={`absolute top-1/2 hidden h-px w-8 bg-gold/60 nav:block ${
+                    className={`absolute top-1/2 hidden h-px w-8 bg-gold/60 xl:block ${
                       i === 0 ? "-end-8 origin-left" : "-start-8 origin-right"
                     }`}
                   />

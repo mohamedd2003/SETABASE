@@ -11,7 +11,9 @@ const pages = [
 
 const cell = "flex flex-col gap-2 border-line-gold-soft p-5 sm:p-6";
 const label = "text-xs text-ink-soft";
-const link = "text-sm text-ink transition-colors hover:text-gold";
+// 40px tall on touch screens, so each link is easy to tap; desktop keeps the tight rhythm.
+const link =
+  "-my-1.5 inline-flex min-h-10 items-center self-start text-sm text-ink transition-colors hover:text-gold nav:my-0 nav:min-h-0";
 
 /**
  * The footer as the last sheet of a drawing set: a skyline of New Cairo standing on the
@@ -30,8 +32,8 @@ export function SiteFooter() {
         <FooterSkyline />
 
         {/* Title block: the cells divide with hairlines, like the corner of a drawing. */}
-        <div className="relative -mt-6 grid overflow-hidden rounded-3xl border border-line-gold-soft bg-navy-deep/75 backdrop-blur-md sm:grid-cols-2 nav:-mt-10 nav:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
-          <div className={`${cell} gap-4 sm:col-span-2 nav:col-span-1`}>
+        <div className="relative -mt-6 grid overflow-hidden rounded-3xl border border-line-gold-soft bg-navy-deep/75 backdrop-blur-md sm:grid-cols-2 xl:-mt-10 xl:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
+          <div className={`${cell} gap-4 sm:col-span-2 xl:col-span-1`}>
             <Logo size="sm" />
             <p className="max-w-[34ch] text-sm text-ink-soft">
               Property, facility, relocation and real estate &mdash; one partner in New Cairo
@@ -39,7 +41,7 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <div className={`${cell} border-t nav:border-s nav:border-t-0`}>
+          <div className={`${cell} border-t xl:border-s xl:border-t-0`}>
             <span className={label}>Office</span>
             <address className="flex flex-col text-sm text-ink not-italic">
               {site.office.lines.map((line) => (
@@ -48,7 +50,7 @@ export function SiteFooter() {
             </address>
           </div>
 
-          <div className={`${cell} border-t sm:border-s nav:border-t-0`}>
+          <div className={`${cell} border-t sm:border-s xl:border-t-0`}>
             <span className={label}>Contact</span>
             <a href={`mailto:${site.email}`} className={link}>
               {site.email}
@@ -60,7 +62,7 @@ export function SiteFooter() {
 
           <nav
             aria-label="Footer"
-            className={`${cell} border-t sm:col-span-2 nav:col-span-1 nav:border-s nav:border-t-0`}
+            className={`${cell} border-t sm:col-span-2 xl:col-span-1 xl:border-s xl:border-t-0`}
           >
             <span className={label}>Pages</span>
             {pages.map((page) => (

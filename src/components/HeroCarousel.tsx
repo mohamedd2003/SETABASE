@@ -158,7 +158,7 @@ export function HeroCarouselControls() {
           onClick={() => show(i)}
           aria-label={`Show photo ${i + 1} of ${photos.length}`}
           aria-current={i === index ? "true" : undefined}
-          className="group/dot flex h-11 w-9 items-center justify-center"
+          className="group/dot flex size-11 items-center justify-center"
         >
           <span className="relative h-[3px] w-6 overflow-hidden rounded-full bg-white/30 transition-colors group-hover/dot:bg-white/55">
             {i === index ? (

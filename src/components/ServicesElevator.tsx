@@ -166,7 +166,7 @@ export function ServicesElevator({ departments }: ServicesElevatorProps) {
                 </span>
                 <span className="text-sm text-gold">{department.eyebrow}</span>
               </div>
-              <h3 className="mt-5 font-serif text-[1.875rem]/[1.1] font-medium text-white sm:text-[2.5rem]">
+              <h3 className="mt-5 font-serif text-[1.625rem]/[1.15] font-medium text-white sm:text-[2rem]">
                 {department.title}
               </h3>
               <p className="mt-4 max-w-[46ch] text-ink-soft">{department.description}</p>

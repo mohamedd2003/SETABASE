@@ -162,7 +162,7 @@ export function Onboarding() {
                   onPointerEnter={() => setPreview(a.key)}
                   onPointerLeave={() => setPreview(null)}
                   data-lit={focus === a.key ? "" : undefined}
-                  className="rounded-full px-3 py-1.5 text-[0.8125rem] text-ink-soft transition-colors duration-300 hover:bg-gold hover:text-navy-deep data-[lit]:bg-gold/15 data-[lit]:text-gold hover:data-[lit]:bg-gold hover:data-[lit]:text-navy-deep sm:px-4 sm:text-sm"
+                  className="rounded-full px-3 py-2.5 text-[0.8125rem] text-ink-soft transition-colors duration-300 hover:bg-gold hover:text-navy-deep data-[lit]:bg-gold/15 data-[lit]:text-gold hover:data-[lit]:bg-gold hover:data-[lit]:text-navy-deep sm:px-4 sm:py-1.5 sm:text-sm"
                 >
                   {a.answer}
                 </Link>
