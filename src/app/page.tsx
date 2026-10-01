@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SplitChoice } from "@/components/SplitChoice";
+import { Onboarding } from "@/components/Onboarding";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function LandingPage() {
-  return <SplitChoice />;
+  return <Onboarding />;
 }

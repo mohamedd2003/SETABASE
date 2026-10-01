@@ -216,40 +216,12 @@
     }
   }
 
-  @keyframes landing-rule {
-    from {
-      width: 0;
-    }
-    to {
-      width: var(--landing-rule-width);
-    }
-  }
-
   .anim-build {
     animation: anim-build 1500ms cubic-bezier(0.33, 1, 0.68, 1) 280ms backwards;
   }
 
-  /* The drawing dissolves towards its top, so a tall tower never collides with the
-     copy above it on short viewports. */
-  .landing-art {
-    mask-image: linear-gradient(to top, #000 58%, transparent 100%);
-  }
-
   .anim-rise {
     animation: anim-rise 750ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
-  }
-
-  /* Dimension rule under the title: extends when the half is considered. */
-  .landing-rule {
-    --landing-rule-width: 2.5rem;
-    width: var(--landing-rule-width);
-    animation: landing-rule 750ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
-    transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .landing-half:hover .landing-rule,
-  .landing-half:focus-visible .landing-rule {
-    --landing-rule-width: 5.5rem;
   }
 
   /* Faint blueprint grid, masked so it dissolves towards the edges. */
@@ -270,31 +242,272 @@
     --blueprint-line: color-mix(in srgb, var(--gold) 9%, transparent);
   }
 
-  /* Owns flex-grow outright — a `flex-1` utility would land in a later layer and win. */
-  .landing-half {
-    flex: 1 1 0%;
-    transition: background-color 400ms ease;
+  /* ---------------------------------------------------------------------------
+     Landing site model — CSS 3D. Each block folds its four walls up from its footprint
+     and lifts its top by --h; GSAP drives the table's tilt/turn/pan and each building's
+     --rise (0 = flat site plan, 1 = built). Unitless vars, so GSAP tweens plain numbers.
+     Nothing inside .model-table may take opacity, filter or overflow — any of them
+     flattens the 3D; dimming happens on the faces instead.
+  --------------------------------------------------------------------------- */
+  .model-stage {
+    --scale: 0.56;
+    position: relative;
+    display: flex;
+    /* The 520px table is scaled down visually but not in layout; without this its width
+       would stretch the grid column past a phone's screen. */
+    min-width: 0;
+    width: 100%;
+    height: min(34svh, 17rem);
+    align-items: center;
+    justify-content: center;
+    perspective: 1800px;
+    perspective-origin: 50% 30%;
   }
 
-  /* The half being considered opens up; its neighbour steps back. Content sits in a
-     fixed-width column, so widening the half never re-wraps the text. */
-  @media (width >= 720px) {
-    .landing-half {
-      transition:
-        flex-grow 600ms cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 500ms ease,
-        background-color 400ms ease;
+  /* Small phones (360px): a touch smaller so the towers clear the header. */
+  @media (width < 24rem) {
+    .model-stage {
+      --scale: 0.5;
     }
+  }
 
-    .landing-half:hover,
-    .landing-half:focus-visible {
-      flex-grow: 1.14;
+  @media (width >= 40rem) {
+    .model-stage {
+      --scale: 0.72;
+      height: 26rem;
     }
+  }
 
-    .landing:has(.landing-half:hover) .landing-half:not(:hover),
-    .landing:has(.landing-half:focus-visible) .landing-half:not(:focus-visible) {
-      opacity: 0.82;
+  @media (width >= 55rem) {
+    .model-stage {
+      --scale: 0.9;
+      height: min(78svh, 40rem);
     }
+  }
+
+  @media (scripting: enabled) {
+    .model-stage:not([data-ready]) {
+      visibility: hidden;
+    }
+  }
+
+  .model-table {
+    --tilt: 56;
+    --turn: -34;
+    --pan: 0;
+    --tilt-o: 0;
+    --turn-o: 0;
+    position: relative;
+    width: 520px;
+    height: 380px;
+    flex-shrink: 0;
+    transform-style: preserve-3d;
+    transform: translate3d(calc(var(--pan) * var(--scale) * 1px), calc(var(--scale) * 70px), 0)
+      scale3d(var(--scale), var(--scale), var(--scale))
+      rotateX(calc((var(--tilt) + var(--tilt-o)) * 1deg))
+      rotateZ(calc((var(--turn) + var(--turn-o)) * 1deg));
+  }
+
+  .model-site,
+  .model-building {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+  }
+
+  .model-site {
+    transform: translateZ(14px);
+  }
+
+  .model-building {
+    --rise: 1;
+    pointer-events: none;
+  }
+
+  .model-box {
+    --face-top: color-mix(in srgb, var(--navy-medium) 62%, var(--navy-deep));
+    --face-front: color-mix(in srgb, var(--navy-medium) 42%, var(--navy-deep));
+    --face-side: color-mix(in srgb, var(--navy-medium) 22%, var(--navy-deep));
+    --edge: var(--line-gold);
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translateZ(calc(var(--z) * var(--rise, 1)));
+  }
+
+  .model-face {
+    position: absolute;
+    pointer-events: auto;
+    background-color: var(--face-side);
+    box-shadow: inset 0 0 0 1px var(--edge);
+    transition:
+      background-color 600ms ease,
+      box-shadow 600ms ease,
+      opacity 600ms ease;
+  }
+
+  .model-building .model-face {
+    cursor: pointer;
+  }
+
+  .model-top {
+    inset: 0;
+    background-color: var(--face-top);
+    transform: translateZ(calc(var(--h) * var(--rise, 1)));
+  }
+
+  .model-front,
+  .model-back {
+    left: 0;
+    width: 100%;
+    height: calc(var(--h) * var(--rise, 1));
+  }
+
+  .model-front {
+    bottom: 0;
+    background-color: var(--face-front);
+    transform-origin: bottom;
+    transform: rotateX(-90deg);
+  }
+
+  .model-back {
+    top: 0;
+    transform-origin: top;
+    transform: rotateX(90deg);
+  }
+
+  .model-left,
+  .model-right {
+    top: 0;
+    height: 100%;
+    width: calc(var(--h) * var(--rise, 1));
+  }
+
+  .model-left {
+    left: 0;
+    background-color: var(--face-front);
+    transform-origin: left;
+    transform: rotateY(-90deg);
+  }
+
+  .model-right {
+    right: 0;
+    transform-origin: right;
+    transform: rotateY(90deg);
+  }
+
+  /* Curtain-wall towers: floor lines and mullions on every wall. */
+  .model-glazed :is(.model-front, .model-back, .model-left, .model-right) {
+    background-image:
+      linear-gradient(to bottom, var(--line-gold-soft) 1px, transparent 1px),
+      linear-gradient(to right, var(--line-gold-soft) 1px, transparent 1px);
+    background-size:
+      100% 14px,
+      16px 100%;
+  }
+
+  .model-glass {
+    position: absolute;
+    background: color-mix(in srgb, var(--gold) 22%, transparent);
+    box-shadow: inset 0 0 0 1px var(--line-gold);
+  }
+
+  .model-glass-wide {
+    inset: 18% 8% 0 34%;
+  }
+
+  .model-glass-band {
+    inset: 22% 10% 26% 10%;
+  }
+
+  .model-slab {
+    --face-top: color-mix(in srgb, var(--white) 14%, var(--navy-deep));
+  }
+
+  .model-tree {
+    --face-top: color-mix(in srgb, #7fa58a 45%, var(--navy-deep));
+    --face-front: color-mix(in srgb, #7fa58a 32%, var(--navy-deep));
+    --face-side: color-mix(in srgb, #7fa58a 22%, var(--navy-deep));
+    --edge: transparent;
+  }
+
+  /* The base plate's top is the site plan the model unfolds from. */
+  .model-plate {
+    --face-top: color-mix(in srgb, var(--navy) 70%, var(--navy-deep));
+    --face-front: var(--navy-deep);
+    --face-side: var(--navy-deep);
+    --edge: var(--line-gold-soft);
+  }
+
+  .model-plate .model-face {
+    pointer-events: none;
+  }
+
+  .model-plate .model-top {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--gold) 10%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--gold) 10%, transparent) 1px, transparent 1px);
+    background-size: 26px 26px;
+    box-shadow:
+      inset 0 0 0 1px var(--line-gold),
+      0 60px 90px -20px rgb(3 10 22 / 0.8);
+  }
+
+  .model-plan {
+    position: absolute;
+    inset: 0;
+    transform: translateZ(0.5px);
+  }
+
+  .model-plan > span {
+    position: absolute;
+  }
+
+  .model-road {
+    top: 0;
+    bottom: 0;
+    left: 256px;
+    width: 26px;
+    background-color: color-mix(in srgb, var(--navy-deep) 80%, transparent);
+    background-image: linear-gradient(to bottom, var(--line-gold) 50%, transparent 50%);
+    background-size: 1px 14px;
+    background-position: center;
+    background-repeat: repeat-y;
+  }
+
+  .model-pool {
+    left: 60px;
+    top: 318px;
+    width: 120px;
+    height: 40px;
+    border-radius: 4px;
+    background: color-mix(in srgb, #6fb3d6 40%, var(--navy-deep));
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, #6fb3d6 60%, transparent);
+  }
+
+  /* Plot boundaries, dashed like a survey drawing. */
+  .model-plot {
+    border: 1px dashed var(--line-gold);
+    border-radius: 6px;
+  }
+
+  .model-plot-villa {
+    inset: 140px 276px 12px 12px;
+  }
+
+  .model-plot-tower {
+    inset: 36px 12px 110px 284px;
+  }
+
+  /* Chosen or considered: the building is gilded and its neighbour steps back. */
+  .model-building[data-state="lit"] .model-box:not(.model-tree) {
+    --face-top: color-mix(in srgb, var(--gold) 55%, var(--navy-deep));
+    --face-front: color-mix(in srgb, var(--gold) 34%, var(--navy-deep));
+    --face-side: color-mix(in srgb, var(--gold) 20%, var(--navy-deep));
+    --edge: var(--gold);
+  }
+
+  .model-building[data-state="dim"] .model-face {
+    opacity: 0.3;
   }
 }
 
