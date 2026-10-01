@@ -8,7 +8,6 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://setabase.com",
   description:
     "SETABASE manages properties, buildings, relocations and real estate in New Cairo — one partner for owners, tenants, HOAs and companies instead of five.",
-  departmentsLine: "Property · Facility · Relocation · Special Services",
   keywords: [
     "property management New Cairo",
     "facility management Egypt",

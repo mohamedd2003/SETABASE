@@ -654,6 +654,79 @@
   }
 
   /* ---------------------------------------------------------------------------
+     Footer — a night skyline on the ground grid, above the title block. GSAP builds
+     each block's --rise from the middle out and pans the table's --turn with the scroll.
+  --------------------------------------------------------------------------- */
+  .footer-scene {
+    background: linear-gradient(180deg, var(--navy) 0%, #0d2244 45%, #071630 100%);
+  }
+
+  /* City glow along the horizon, behind the skyline. */
+  .footer-glow {
+    background:
+      radial-gradient(55% 34% at 50% 40%, color-mix(in srgb, var(--gold) 13%, transparent), transparent 72%),
+      radial-gradient(90% 40% at 50% 46%, color-mix(in srgb, #f0a65a 7%, transparent), transparent 75%);
+  }
+
+  .footer-floor {
+    height: 62%;
+    mask-image: linear-gradient(to top, rgb(0 0 0 / 0.75) 0%, rgb(0 0 0 / 0.35) 50%, transparent 92%);
+  }
+
+  .footer-stage {
+    --scale: 0.38;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    height: 9.5rem;
+    align-items: flex-end;
+    justify-content: center;
+    perspective: 1600px;
+    perspective-origin: 50% 0%;
+  }
+
+  @media (width >= 40rem) {
+    .footer-stage {
+      --scale: 0.66;
+      height: 14rem;
+    }
+  }
+
+  @media (width >= 55rem) {
+    .footer-stage {
+      --scale: 1;
+      height: 19rem;
+    }
+  }
+
+  .footer-table {
+    --turn: -4;
+    position: relative;
+    width: 900px;
+    height: 170px;
+    flex-shrink: 0;
+    transform-style: preserve-3d;
+    /* Seen from street level: steep tilt, nearly face on. */
+    transform: translate3d(0, calc(var(--scale) * 40px), 0)
+      scale3d(var(--scale), var(--scale), var(--scale)) rotateX(68deg)
+      rotateZ(calc(var(--turn) * 1deg));
+  }
+
+  .footer-site {
+    transform: translateZ(10px);
+  }
+
+  /* Lit windows: two window tiles of co-prime sizes, so the lights fall irregularly. */
+  .footer-lit :is(.model-front, .model-back, .model-left, .model-right) {
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='23'%3E%3Crect x='6' y='6' width='5' height='5' fill='%23e6c158' fill-opacity='.55'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='31'%3E%3Crect x='3' y='4' width='5' height='5' fill='%23ffd98a' fill-opacity='.35'/%3E%3C/svg%3E");
+    background-size:
+      17px 23px,
+      29px 31px;
+  }
+
+  /* ---------------------------------------------------------------------------
      Services elevator — the same CSS 3D blocks as the landing model, stacked into one
      building. GSAP scrubs --turn and builds each floor's --rise; React marks the lit floor.
   --------------------------------------------------------------------------- */

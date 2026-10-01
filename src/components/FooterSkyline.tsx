@@ -56,7 +56,12 @@ export function FooterSkyline() {
           {
             "--turn": 6,
             ease: "none",
-            scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom bottom", scrub: 1 },
+            scrollTrigger: {
+              trigger: root.current,
+              start: "top bottom",
+              end: "bottom bottom",
+              scrub: 1,
+            },
           },
         );
       });

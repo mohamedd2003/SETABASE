@@ -21,7 +21,10 @@ export function SiteFooter() {
   return (
     <footer className="footer-scene relative overflow-hidden pt-6">
       <span aria-hidden="true" className="footer-glow pointer-events-none absolute inset-0" />
-      <span aria-hidden="true" className="landing-floor footer-floor pointer-events-none absolute" />
+      <span
+        aria-hidden="true"
+        className="landing-floor footer-floor pointer-events-none absolute"
+      />
 
       <div className="container-site relative">
         <FooterSkyline />
