@@ -58,7 +58,10 @@ export function SiteFooter() {
             </a>
           </div>
 
-          <nav aria-label="Footer" className={`${cell} border-t nav:border-s nav:border-t-0`}>
+          <nav
+            aria-label="Footer"
+            className={`${cell} border-t sm:col-span-2 nav:col-span-1 nav:border-s nav:border-t-0`}
+          >
             <span className={label}>Pages</span>
             {pages.map((page) => (
               <Link key={page.href} href={page.href} className={link}>
