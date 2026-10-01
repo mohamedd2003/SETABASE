@@ -1,3 +1,6 @@
+import heroTowerNight from "../../public/heroBackgroundImage/business/tower-night.jpg";
+import heroTowersDusk from "../../public/heroBackgroundImage/business/towers-dusk.jpg";
+import heroOfficeBlock from "../../public/heroBackgroundImage/business/office-block.jpg";
 import { explainer } from "./explainer";
 import type { AudiencePage } from "./types";
 
@@ -15,6 +18,28 @@ export const businessPage: AudiencePage = {
       "SETABASE runs the administrative and technical side of buildings, teams, workplaces and relocations in New Cairo — so owners, HOAs and companies deal with one partner instead of five.",
     cta: "Request a quote",
     art: "towers",
+    // Supplied by SETABASE; resized to 2560px wide from the originals.
+    // TODO(photography): swap in the team's own New Cairo buildings when they're shot.
+    photos: [
+      {
+        src: heroTowerNight,
+        alt: "A curved glass office tower at night, one floor lit warm against blue windows",
+        position: "50% 50%",
+        source: "client-supplied/tower-night.jpg",
+      },
+      {
+        src: heroTowersDusk,
+        alt: "Glass office buildings and a pale tower in low evening sun, with trees along the street",
+        position: "60% 50%",
+        source: "client-supplied/towers-dusk.jpg",
+      },
+      {
+        src: heroOfficeBlock,
+        alt: "A tall office block with a deep overhanging roof and vertical fins, beside curved residential towers",
+        position: "56% 50%",
+        source: "client-supplied/office-block.jpg",
+      },
+    ],
     summary: {
       eyebrow: "Five departments, one team",
       rows: [
