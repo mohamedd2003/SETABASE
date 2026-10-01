@@ -13,10 +13,15 @@ type BoxProps = {
   className?: string;
   /** Detail drawn on the street-facing side. */
   front?: ReactNode;
+  /**
+   * Where this block flies to when the model is taken apart (`--explode` / `--scatter`
+   * above 0), as an offset in px. Unset blocks stay put.
+   */
+  explode?: { x?: number; y?: number; z?: number };
 };
 
 /** A solid block: a top and four walls, folded up from its footprint in CSS 3D. */
-export function Box({ x, y, w, d, h, z = 0, className, front }: BoxProps) {
+export function Box({ x, y, w, d, h, z = 0, className, front, explode }: BoxProps) {
   const style = {
     left: x,
     top: y,
@@ -24,6 +29,11 @@ export function Box({ x, y, w, d, h, z = 0, className, front }: BoxProps) {
     height: d,
     "--h": `${h}px`,
     "--z": `${z}px`,
+    ...(explode && {
+      "--dx": `${explode.x ?? 0}px`,
+      "--dy": `${explode.y ?? 0}px`,
+      "--dz": `${explode.z ?? 0}px`,
+    }),
   } as CSSProperties;
 
   return (

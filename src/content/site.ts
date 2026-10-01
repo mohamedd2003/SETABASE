@@ -23,6 +23,8 @@ export const site = {
   office: {
     short: "New Cairo, Egypt",
     full: "Building 6, Floor 3, Unit 9 · EDNC, New Cairo, Egypt",
+    /** The same address broken for a stacked layout, e.g. the footer. */
+    lines: ["Building 6, Floor 3, Unit 9", "EDNC, New Cairo, Egypt"],
   },
   email: "hello@setabase.com", // TODO(contact): placeholder
   phone: "+20 000 000 0000", // TODO(contact): placeholder
