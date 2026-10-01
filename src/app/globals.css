@@ -1,0 +1,215 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+  SETABASE brand tokens — source of truth: src/docs/setabase-brand-guidelines
+  Navy is the page; gold is for lines and actions; the metallic gradient is a
+  foil stamp used only on short text (eyebrows, "BASE", section titles).
+*/
+:root {
+  --navy: #1f325a; /* primary page background */
+  --navy-medium: #2e5a8f; /* panels, alternate sections */
+  --navy-deep: #0a1e3a; /* darkest panels, hover states, text on light bg */
+  --gold: #e6c158; /* accents, borders, CTAs, links */
+  --gold-dark: #b9863f; /* small text / tags on light backgrounds */
+  --cream: #f6f3ec; /* light section background */
+  --pale: #eef1f6; /* cool light half of the landing split */
+  --cream-panel: #ecE7da; /* light panel tone */
+  --line: #d8d1bf; /* hairlines on light backgrounds */
+  --white: #fffdf9; /* text on navy, cards on cream */
+  --gold-gradient: linear-gradient(
+    120deg,
+    #b8901f 0%,
+    #ffebae 26%,
+    #f4c94a 50%,
+    #fff8df 70%,
+    #b8901f 100%
+  );
+
+  /* Text on navy */
+  --ink-on-navy: var(--white);
+  --ink-on-navy-soft: color-mix(in srgb, var(--white) 72%, transparent);
+  /* Text on cream */
+  --ink-on-cream: var(--navy-deep);
+  --ink-on-cream-soft: color-mix(in srgb, var(--navy-deep) 70%, transparent);
+
+  /* Hairlines on navy */
+  --line-gold-soft: color-mix(in srgb, var(--gold) 32%, transparent);
+  --line-gold: color-mix(in srgb, var(--gold) 60%, transparent);
+
+  /* shadcn semantic tokens, mapped to the brand so primitives never render grey */
+  --background: var(--navy);
+  --foreground: var(--ink-on-navy);
+  --card: var(--navy-deep);
+  --card-foreground: var(--ink-on-navy);
+  --popover: var(--navy-deep);
+  --popover-foreground: var(--ink-on-navy);
+  --primary: var(--gold);
+  --primary-foreground: var(--navy-deep);
+  --secondary: var(--navy-medium);
+  --secondary-foreground: var(--ink-on-navy);
+  --muted: var(--navy-medium);
+  --muted-foreground: var(--ink-on-navy-soft);
+  --accent: color-mix(in srgb, var(--gold) 16%, transparent);
+  --accent-foreground: var(--ink-on-navy);
+  --destructive: #f2a69c;
+  --border: var(--line-gold-soft);
+  --input: color-mix(in srgb, var(--gold) 40%, transparent);
+  --ring: var(--gold);
+  --radius: 0.125rem;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-medium: var(--navy-medium);
+  --color-navy-deep: var(--navy-deep);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-cream: var(--cream);
+  --color-pale: var(--pale);
+  --color-cream-panel: var(--cream-panel);
+  --color-line: var(--line);
+  --color-white: var(--white);
+  --color-ink: var(--ink-on-navy);
+  --color-ink-soft: var(--ink-on-navy-soft);
+  --color-ink-cream: var(--ink-on-cream);
+  --color-ink-cream-soft: var(--ink-on-cream-soft);
+  --color-line-gold: var(--line-gold);
+  --color-line-gold-soft: var(--line-gold-soft);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+
+  --font-sans: var(--font-ibm-plex-sans), "IBM Plex Sans", system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), "Newsreader", Georgia, serif;
+
+  /* Brief breakpoints: nav collapses at 880px, landing split stacks at 720px */
+  --breakpoint-nav: 880px;
+  --breakpoint-split: 720px;
+
+  /* Type scale (Elements of Typographic Style, 17px body) */
+  --text-xs: 0.8125rem; /* 13 */
+  --text-xs--line-height: 1.4;
+  --text-sm: 0.9375rem; /* 15 */
+  --text-sm--line-height: 1.5;
+  --text-base: 1.0625rem; /* 17 */
+  --text-base--line-height: 1.6;
+  --text-lg: 1.25rem; /* 20 */
+  --text-lg--line-height: 1.5;
+  --text-xl: 1.625rem; /* 26 */
+  --text-xl--line-height: 1.3;
+  --text-2xl: 2.125rem; /* 34 */
+  --text-2xl--line-height: 1.2;
+  --text-3xl: 3rem; /* 48 */
+  --text-3xl--line-height: 1.1;
+  --text-4xl: 4rem; /* 64 */
+  --text-4xl--line-height: 1.05;
+}
+
+/* Gold gradient text fill — use on short text only */
+@utility text-gold-gradient {
+  background-image: var(--gold-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Uppercase eyebrow / section label — IBM Plex Sans, tracked, gradient, never bold */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  line-height: 1.3;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background-image: var(--gold-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Eyebrow on a light background: solid dark gold for contrast */
+@utility eyebrow-on-light {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  line-height: 1.3;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--gold-dark);
+}
+
+/* Page container */
+@utility container-site {
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    font-feature-settings: "kern", "liga";
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--navy-deep);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
