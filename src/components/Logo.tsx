@@ -5,10 +5,10 @@ import { cn } from "cn";
 /*
  * Logo assets are derived from the master square (src/app/icon.jpeg) and live in /public/logo:
  *   setabase-horizontal.png  800×220  mark + "SETABASE SERVICES" side by side — header, footer
- *   setabase-stacked.png     900×620  mark above the wordmark — landing, social image
- * Both are transparent PNGs of the gold artwork, so they sit on any navy surface.
- * The gold lockup is designed for navy; on a light surface it is shown inside a navy tile
- * until the designer delivers the dedicated light version.
+ *   setabase-stacked.png     900×620  mark above the wordmark — landing (navy half), social image
+ *   setabase-stacked-light.png 900×620  same geometry, wordmark in navy-deep — landing (light half)
+ * All are transparent PNGs. The light variant is derived from the master; replace it with the
+ * designer's official light-background file when it arrives (same path, same canvas).
  */
 
 const alt = "SETABASE Services";
@@ -40,25 +40,23 @@ export function Logo({ size = "md", className }: LogoProps) {
 }
 
 type LogoStackedProps = {
-  /** On a light background the lockup is placed on a navy tile. */
+  /** Light backgrounds get the light variant: gold mark, navy wordmark. */
   onLight?: boolean;
   className?: string;
 };
 
-/** Stacked lockup (mark above wordmark) for the landing halves. */
+/** Stacked lockup (mark above wordmark) for the landing halves — transparent PNGs. */
 export function LogoStacked({ onLight = false, className }: LogoStackedProps) {
-  const image = (
-    <Image
-      src="/logo/setabase-stacked.png"
-      alt={alt}
-      width={900}
-      height={620}
-      priority
-      className="h-24 w-auto split:h-28"
-    />
-  );
-  if (!onLight) return <span className={cn("inline-flex", className)}>{image}</span>;
   return (
-    <span className={cn("inline-flex rounded-md bg-navy px-6 py-4", className)}>{image}</span>
+    <span className={cn("inline-flex", className)}>
+      <Image
+        src={onLight ? "/logo/setabase-stacked-light.png" : "/logo/setabase-stacked.png"}
+        alt={alt}
+        width={900}
+        height={620}
+        priority
+        className="h-24 w-auto split:h-28"
+      />
+    </span>
   );
 }

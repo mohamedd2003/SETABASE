@@ -11,7 +11,9 @@ export function ContactSection({ contact }: ContactSectionProps) {
     <section id="contact" className="scroll-mt-16 bg-navy-deep">
       <div className="container-site grid gap-12 py-16 nav:grid-cols-12 nav:gap-16 nav:py-24">
         <div className="nav:col-span-5">
-          <h2 className="font-serif text-2xl font-medium text-gold-gradient">{contact.title}</h2>
+          <h2 className="font-serif text-[1.75rem]/[1.2] font-medium text-gold-gradient sm:text-2xl">
+            {contact.title}
+          </h2>
 
           <dl className="mt-10 divide-y divide-line-gold-soft border-y border-line-gold-soft">
             <div className="py-4">

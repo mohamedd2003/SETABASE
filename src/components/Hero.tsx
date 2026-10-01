@@ -11,10 +11,11 @@ export function Hero({ hero }: HeroProps) {
   return (
     <section className="container-site grid gap-12 py-16 nav:grid-cols-12 nav:items-center nav:gap-10 nav:py-24">
       <div className="flex flex-col items-start gap-8 nav:col-span-7">
-        <h1 className="max-w-[18ch] font-serif text-3xl font-medium text-balance text-white nav:text-4xl">
+        {/* 38px on phones → 48px from 640px → 64px once the two-column layout kicks in */}
+        <h1 className="max-w-[18ch] font-serif text-[2.375rem]/[1.1] font-medium text-balance text-white sm:text-3xl nav:text-4xl">
           {hero.title}
         </h1>
-        <p className="max-w-[52ch] text-lg text-ink-soft">{hero.paragraph}</p>
+        <p className="max-w-[52ch] text-base text-ink-soft sm:text-lg">{hero.paragraph}</p>
         <Button variant="brand" size="pill" render={<Link href="#contact" />}>
           {hero.cta}
         </Button>

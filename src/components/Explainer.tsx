@@ -10,7 +10,9 @@ export function Explainer({ explainer }: ExplainerProps) {
     <section className="bg-cream text-ink-cream">
       <div className="container-site py-16 nav:py-20">
         <div className="max-w-[60ch]">
-          <h2 className="font-serif text-2xl font-medium text-balance">{explainer.title}</h2>
+          <h2 className="font-serif text-[1.75rem]/[1.2] font-medium text-balance sm:text-2xl">
+            {explainer.title}
+          </h2>
           <p className="mt-4 text-ink-cream-soft">{explainer.intro}</p>
         </div>
 
@@ -24,16 +26,16 @@ export function Explainer({ explainer }: ExplainerProps) {
                   : "border-t border-line pt-10 nav:border-t-0 nav:ps-12 nav:pt-0"
               }
             >
-              <h3 className="font-serif text-xl font-medium">{column.title}</h3>
+              <h3 className="font-serif text-[1.375rem]/[1.3] font-medium sm:text-xl">{column.title}</h3>
               <p className="mt-3 text-ink-cream-soft">{column.summary}</p>
-              <p className="mt-5 border-s-2 border-gold-dark ps-4 font-serif text-lg italic">
+              <p className="mt-5 border-s-2 border-gold-dark ps-4 font-serif text-base italic sm:text-lg">
                 {column.example}
               </p>
             </div>
           ))}
         </div>
 
-        <p className="mt-12 font-serif text-xl font-medium">{explainer.closing}</p>
+        <p className="mt-12 font-serif text-[1.375rem]/[1.3] font-medium sm:text-xl">{explainer.closing}</p>
       </div>
     </section>
   );

@@ -54,7 +54,7 @@ export function SplitChoice() {
             </Eyebrow>
             <h2
               className={[
-                "font-serif text-3xl font-medium transition-colors duration-200",
+                "font-serif text-[2.5rem]/[1.1] font-medium transition-colors duration-200 sm:text-3xl split:text-4xl",
                 light
                   ? "text-navy-deep"
                   : "text-white [background-image:var(--gold-gradient)] bg-clip-text group-hover:text-transparent group-focus-visible:text-transparent",

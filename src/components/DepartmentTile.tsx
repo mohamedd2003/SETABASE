@@ -18,7 +18,9 @@ export function DepartmentTile({ department }: DepartmentTileProps) {
       className="group flex flex-col gap-3 border-e border-b border-line-gold-soft bg-navy-deep p-7 transition-colors hover:bg-[color-mix(in_srgb,var(--navy-deep)_85%,var(--navy-medium))] focus-visible:outline-offset-[-2px]"
     >
       <Eyebrow>{department.eyebrow}</Eyebrow>
-      <h3 className="font-serif text-xl font-medium text-white">{department.title}</h3>
+      <h3 className="font-serif text-[1.375rem]/[1.3] font-medium text-white sm:text-xl">
+        {department.title}
+      </h3>
       <p className="text-sm text-ink-soft">{department.description}</p>
       {department.note ? (
         <p className="font-serif text-base italic text-gold">{department.note}</p>
