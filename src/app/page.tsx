@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     title: `${site.name} — Property, facility, relocation and real estate in New Cairo`,
     description: site.description,
     url: "/",
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, alt: `${site.name} Services` }],
   },
 };
 

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     title: privatePage.hero.title,
     description: privatePage.meta.description,
     url: "/private",
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, alt: "SETABASE Services" }],
   },
 };
 

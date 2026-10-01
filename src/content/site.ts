@@ -9,6 +9,17 @@ export const site = {
   description:
     "SETABASE manages properties, buildings, relocations and real estate in New Cairo — one partner for owners, tenants, HOAs and companies instead of five.",
   departmentsLine: "Property · Facility · Relocation · Special Services",
+  keywords: [
+    "property management New Cairo",
+    "facility management Egypt",
+    "relocation to Egypt",
+    "corporate relocation Cairo",
+    "real estate New Cairo",
+    "HOA management Egypt",
+    "office wellness packages Cairo",
+    "SETABASE",
+    "Palmayya",
+  ],
   office: {
     short: "New Cairo, Egypt",
     full: "Building 6, Floor 3, Unit 9 · EDNC, New Cairo, Egypt",

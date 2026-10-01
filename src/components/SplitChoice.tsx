@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Eyebrow } from "@/components/Eyebrow";
-import { Wordmark } from "@/components/Logo";
+import { LogoStacked } from "@/components/Logo";
 
 type Half = {
   eyebrow: string;
@@ -48,8 +48,8 @@ export function SplitChoice() {
                 : "bg-navy hover:bg-navy-deep focus-visible:bg-navy-deep",
             ].join(" ")}
           >
-            <Wordmark size="sm" onLight={light} />
-            <Eyebrow onLight={light} className="mt-3">
+            <LogoStacked onLight={light} />
+            <Eyebrow onLight={light} className="mt-4">
               {half.eyebrow}
             </Eyebrow>
             <h2
