@@ -727,6 +727,127 @@
   }
 
   /* ---------------------------------------------------------------------------
+     Explainer — the leak, in a cut-open building. Same blocks as the other models;
+     the rooms drop their street-facing walls and ceiling so you can see inside.
+  --------------------------------------------------------------------------- */
+  .explainer-scene {
+    background:
+      radial-gradient(40% 46% at 50% 56%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 72%),
+      linear-gradient(180deg, var(--navy-deep) 0%, #0f264c 100%);
+  }
+
+  .explainer-stage {
+    --scale: 0.62;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    height: 14rem;
+    align-items: center;
+    justify-content: center;
+    perspective: 1500px;
+    perspective-origin: 50% 25%;
+  }
+
+  @media (width >= 40rem) {
+    .explainer-stage {
+      --scale: 0.8;
+      height: 17rem;
+    }
+  }
+
+  @media (width >= 55rem) {
+    .explainer-stage {
+      --scale: 1.15;
+      height: 28rem;
+    }
+  }
+
+  .explainer-table {
+    --turn: -34;
+    position: relative;
+    width: 300px;
+    height: 230px;
+    flex-shrink: 0;
+    transform-style: preserve-3d;
+    transform: translate3d(0, calc(var(--scale) * 70px), 0)
+      scale3d(var(--scale), var(--scale), var(--scale)) rotateX(66deg)
+      rotateZ(calc(var(--turn) * 1deg));
+  }
+
+  .explainer-site {
+    transform: translateZ(8px);
+  }
+
+  /* Cut open: no street-facing walls and no ceiling, so the rooms read from outside. */
+  .explainer-room :is(.model-front, .model-left, .model-top) {
+    display: none;
+  }
+
+  /* The walls left standing are the inside faces, lit a little like rooms at night. */
+  .explainer-room {
+    --face-front: color-mix(in srgb, var(--navy-medium) 46%, var(--navy-deep));
+    --face-side: color-mix(in srgb, var(--navy-medium) 34%, var(--navy-deep));
+  }
+
+  /* Property Management: the owner's apartment and its boundary light up. */
+  [data-focus="property"] .explainer-unit {
+    --face-front: color-mix(in srgb, var(--gold) 34%, var(--navy-deep));
+    --face-side: color-mix(in srgb, var(--gold) 20%, var(--navy-deep));
+    --edge: var(--gold);
+  }
+
+  .explainer-boundary {
+    transition: border-color 500ms ease, background-color 500ms ease;
+  }
+
+  [data-focus="property"] .explainer-boundary {
+    border-color: var(--gold);
+    border-style: solid;
+    background-color: color-mix(in srgb, var(--gold) 14%, transparent);
+  }
+
+  /* Facility Management: the pipe and the leak. */
+  .explainer-pipe {
+    --face-top: color-mix(in srgb, #8fc6e6 55%, var(--navy-deep));
+    --face-front: color-mix(in srgb, #8fc6e6 40%, var(--navy-deep));
+    --face-side: color-mix(in srgb, #8fc6e6 28%, var(--navy-deep));
+    --edge: transparent;
+  }
+
+  [data-focus="facility"] .explainer-pipe {
+    --face-top: var(--gold);
+    --face-front: color-mix(in srgb, var(--gold) 80%, var(--navy-deep));
+    --face-side: color-mix(in srgb, var(--gold) 60%, var(--navy-deep));
+  }
+
+  .explainer-drop {
+    --face-top: #b6e0f7;
+    --face-front: #8fc6e6;
+    --face-side: #6fb3d6;
+    --edge: transparent;
+  }
+
+  .explainer-ripple {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    margin: -18px 0 0 -18px;
+    border-radius: 50%;
+    border: 1.5px solid color-mix(in srgb, #8fc6e6 80%, transparent);
+    opacity: 0;
+  }
+
+  [data-focus="facility"] .explainer-ripple {
+    border-color: var(--gold);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .explainer-ripple {
+      opacity: 0.6;
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
      Services elevator — the same CSS 3D blocks as the landing model, stacked into one
      building. GSAP scrubs --turn and builds each floor's --rise; React marks the lit floor.
   --------------------------------------------------------------------------- */
