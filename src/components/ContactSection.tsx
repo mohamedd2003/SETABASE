@@ -8,7 +8,7 @@ type ContactSectionProps = {
 
 export function ContactSection({ contact }: ContactSectionProps) {
   return (
-    <section id="contact" className="relative scroll-mt-16 overflow-hidden bg-navy-deep">
+    <section id="contact" className="relative scroll-mt-24 overflow-hidden bg-navy-deep">
       <span
         aria-hidden="true"
         className="blueprint-grid blueprint-grid-gold pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_70%_at_15%_30%,#000_5%,transparent_70%)]"

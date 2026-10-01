@@ -20,7 +20,7 @@ export function ServicesGrid({ services }: ServicesGridProps) {
   const navSpan = { 0: "nav:col-span-3", 1: "nav:col-span-2", 2: "nav:col-span-1" }[count % 3];
 
   return (
-    <section id="services" className="container-site scroll-mt-20 py-16 nav:py-24">
+    <section id="services" className="container-site scroll-mt-24 py-16 nav:py-24">
       <div className="mb-10 flex flex-col gap-3 nav:flex-row nav:items-baseline nav:justify-between">
         <h2
           data-reveal

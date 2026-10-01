@@ -369,6 +369,27 @@
     display: none;
   }
 
+  /* The header pill starts a touch translucent over the hero and settles solid within
+     the first 140px of scroll. */
+  @keyframes header-settle {
+    from {
+      background-color: color-mix(in srgb, var(--navy-deep) 55%, transparent);
+    }
+    to {
+      background-color: color-mix(in srgb, var(--navy-deep) 92%, transparent);
+    }
+  }
+
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .header-pill {
+        animation: header-settle auto linear both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 140px;
+      }
+    }
+  }
+
   @supports (animation-timeline: scroll()) {
     @media (prefers-reduced-motion: no-preference) {
       .scroll-progress {
