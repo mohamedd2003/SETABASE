@@ -6,8 +6,10 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Building2Icon, HouseIcon } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { Button } from "@/components/ui/button";
 import { SiteModel } from "@/components/SiteModel";
 import { landing, type AudienceKey } from "@/content/landing";
+import { site } from "@/content/site";
 
 gsap.registerPlugin(useGSAP);
 
@@ -126,30 +128,61 @@ export function Onboarding() {
   return (
     <main
       ref={root}
-      className="relative flex flex-1 flex-col overflow-hidden bg-navy-deep text-ink"
+      className="relative isolate flex flex-1 flex-col overflow-hidden bg-navy-deep text-ink"
     >
-      <span
-        aria-hidden="true"
-        className="blueprint-grid blueprint-grid-gold pointer-events-none absolute inset-0"
-      />
+      {/* Dusk over the site: a sky that warms towards the horizon, faint city lights, and
+          a blueprint ground plane running back to the horizon in perspective. */}
+      <span aria-hidden="true" className="landing-sky pointer-events-none absolute inset-0">
+        <span className="landing-lights" />
+        <span className="landing-glow" />
+        <span className="landing-floor" />
+      </span>
 
-      <header className="container-site relative z-10 flex items-center justify-between gap-4 pt-5">
-        <Logo size="sm" />
-        <nav aria-label="Skip the questions" className="flex items-center gap-1 text-sm">
-          <span className="hidden text-ink-soft sm:inline">{landing.skipLabel}</span>
-          {landing.audiences.map((a) => (
-            <Link
-              key={a.key}
-              href={a.href}
-              className="rounded-full px-3 py-2 text-ink-soft transition-colors hover:bg-white/[0.06] hover:text-white"
+      <header className="container-site relative z-20 pt-3 sm:pt-4">
+        <nav
+          aria-label="Main"
+          className="flex h-14 items-center justify-between gap-2 rounded-full border border-white/10 bg-navy-deep/45 ps-3 pe-1.5 shadow-[0_12px_40px_-16px_rgb(2_8_20/0.9),inset_0_1px_0_rgb(255_255_255/0.06)] backdrop-blur-xl sm:ps-4 sm:pe-2"
+        >
+          <Logo size="sm" className="[&_img]:h-8 sm:[&_img]:h-10" />
+
+          <div className="flex items-center gap-2">
+            {/* Returning visitors skip the questions; hovering previews the building. */}
+            <div
+              role="group"
+              aria-label={landing.skipLabel}
+              className="flex items-center rounded-full bg-white/[0.05] p-1 ring-1 ring-white/10"
             >
-              {a.key === "private" ? "Private" : "Business"}
-            </Link>
-          ))}
+              <span className="hidden px-2.5 text-xs text-ink-soft md:inline">
+                {landing.skipLabel}
+              </span>
+              {landing.audiences.map((a) => (
+                <Link
+                  key={a.key}
+                  href={a.href}
+                  onPointerEnter={() => setPreview(a.key)}
+                  onPointerLeave={() => setPreview(null)}
+                  data-lit={focus === a.key ? "" : undefined}
+                  className="rounded-full px-3 py-1.5 text-[0.8125rem] text-ink-soft transition-colors duration-300 hover:bg-gold hover:text-navy-deep data-[lit]:bg-gold/15 data-[lit]:text-gold hover:data-[lit]:bg-gold hover:data-[lit]:text-navy-deep sm:px-4 sm:text-sm"
+                >
+                  {a.answer}
+                </Link>
+              ))}
+            </div>
+            {/* TODO(app): wire to the real app URL in content/site.ts */}
+            <Button
+              variant="brand"
+              size="pill-sm"
+              nativeButton={false}
+              className="hidden sm:inline-flex"
+              render={<Link href={site.appUrl} />}
+            >
+              Get the app
+            </Button>
+          </div>
         </nav>
       </header>
 
-      <div className="container-site relative grid flex-1 grid-cols-[minmax(0,1fr)] content-center gap-2 pb-10 nav:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] nav:items-center nav:gap-8 nav:pb-16">
+      <div className="container-site relative grid flex-1 grid-cols-[minmax(0,1fr)] content-center gap-2 pb-10 nav:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] nav:items-center nav:gap-12 nav:pb-16">
         <SiteModel focus={focus} onPick={choose} onPreview={setPreview} />
 
         <section aria-labelledby="guide-title" className="relative max-w-[30rem]">

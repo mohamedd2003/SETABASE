@@ -242,6 +242,77 @@
     --blueprint-line: color-mix(in srgb, var(--gold) 9%, transparent);
   }
 
+  /* Landing backdrop: dusk over the site. Static — the model's arrival is the one moment
+     of motion on this page. */
+  .landing-sky {
+    /* The glow sits behind the model: above the guide on phones, beside it on desktop. */
+    --glow-x: 50%;
+    --glow-y: 26%;
+    background:
+      radial-gradient(120% 60% at var(--glow-x) 100%, color-mix(in srgb, var(--navy-medium) 38%, transparent), transparent 62%),
+      linear-gradient(180deg, #050f24 0%, var(--navy-deep) 36%, #0f264c 68%, #1a3768 100%);
+  }
+
+  @media (width >= 40rem) {
+    .landing-sky {
+      --glow-y: 32%;
+    }
+  }
+
+  @media (width >= 55rem) {
+    .landing-sky {
+      --glow-x: 31%;
+      --glow-y: 54%;
+    }
+  }
+
+  .landing-sky > span {
+    position: absolute;
+  }
+
+  /* Warm light low on the horizon, behind the model. */
+  .landing-glow {
+    inset: 0;
+    background:
+      radial-gradient(38% 22% at var(--glow-x) var(--glow-y), color-mix(in srgb, var(--gold) 26%, transparent), transparent 70%),
+      radial-gradient(70% 34% at var(--glow-x) calc(var(--glow-y) + 4%), color-mix(in srgb, #f0a65a 12%, transparent), transparent 72%);
+  }
+
+  /* Faint lights across the upper sky, like a city seen at dusk. */
+  .landing-lights {
+    inset: 0 0 45% 0;
+    background-image:
+      radial-gradient(circle, rgb(255 236 190 / 0.5) 0.75px, transparent 1.5px),
+      radial-gradient(circle, rgb(255 255 255 / 0.3) 0.6px, transparent 1.25px),
+      radial-gradient(circle, rgb(255 226 160 / 0.4) 0.9px, transparent 1.6px);
+    /* Co-prime tile sizes, so the three layers never line up into a visible grid. */
+    background-size:
+      157px 113px,
+      239px 173px,
+      331px 211px;
+    background-position:
+      0 0,
+      71px 43px,
+      193px 97px;
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+  }
+
+  /* The ground: a blueprint grid laid flat and running back to the horizon. */
+  .landing-floor {
+    left: -60%;
+    right: -60%;
+    bottom: 0;
+    height: 80%;
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--gold) 20%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--gold) 20%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: center bottom;
+    transform: perspective(640px) rotateX(60deg);
+    transform-origin: 50% 100%;
+    mask-image: linear-gradient(to top, #000 0%, rgb(0 0 0 / 0.6) 45%, transparent 90%);
+  }
+
   /* ---------------------------------------------------------------------------
      Landing site model — CSS 3D. Each block folds its four walls up from its footprint
      and lifts its top by --h; GSAP drives the table's tilt/turn/pan and each building's
@@ -280,7 +351,7 @@
 
   @media (width >= 55rem) {
     .model-stage {
-      --scale: 0.9;
+      --scale: 0.84;
       height: min(78svh, 40rem);
     }
   }
