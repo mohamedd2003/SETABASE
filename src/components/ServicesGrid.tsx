@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { cn } from "cn";
 import { DepartmentTile } from "@/components/DepartmentTile";
 import { Eyebrow } from "@/components/Eyebrow";
@@ -52,7 +51,7 @@ export function ServicesGrid({ services }: ServicesGridProps) {
           style={delay((count % 3) * 110)}
           className={cn(cell, smSpan, navSpan)}
         >
-          <Link
+          <a
             href="#contact"
             className="group relative flex h-full flex-col justify-between gap-8 overflow-hidden bg-[color-mix(in_srgb,var(--navy-medium)_18%,var(--navy-deep))] p-7 focus-visible:outline-offset-[-2px] nav:p-8"
           >
@@ -69,7 +68,7 @@ export function ServicesGrid({ services }: ServicesGridProps) {
             <span className="relative inline-flex items-center gap-2 self-start rounded-full border border-gold px-5 py-2.5 text-xs font-medium tracking-[0.03em] text-gold uppercase transition-colors duration-300 group-hover:bg-gold group-hover:text-navy-deep">
               Talk to our team
             </span>
-          </Link>
+          </a>
         </div>
     </div>
     </section>

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { DepartmentIcon } from "@/components/DepartmentIcon";
 import { Eyebrow } from "@/components/Eyebrow";
 import type { Department } from "@/content/types";
@@ -14,7 +13,7 @@ type DepartmentTileProps = {
  */
 export function DepartmentTile({ department }: DepartmentTileProps) {
   return (
-    <Link
+    <a
       href="#contact"
       className="tile-body group relative flex h-full flex-col gap-3 bg-navy-deep p-7 transition-colors duration-500 hover:bg-[color-mix(in_srgb,var(--navy-deep)_82%,var(--navy-medium))] focus-visible:outline-offset-[-2px] nav:p-8"
     >
@@ -43,6 +42,6 @@ export function DepartmentTile({ department }: DepartmentTileProps) {
           →
         </span>
       </span>
-    </Link>
+    </a>
   );
 }

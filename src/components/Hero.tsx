@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/Eyebrow";
 import { TowerCluster, VillaElevation } from "@/components/LandingArt";
@@ -57,7 +56,7 @@ export function Hero({ hero }: HeroProps) {
             size="pill"
             className="anim-rise"
             style={at(landed + 110)}
-            render={<Link href="#contact" />}
+            render={<a href="#contact" />}
           >
             {hero.cta}
           </Button>
@@ -79,20 +78,21 @@ export function Hero({ hero }: HeroProps) {
             <ul className="divide-y divide-line-gold-soft">
               {hero.summary.rows.map((row, i) => (
                 <li key={row.id} className="anim-rise" style={at(landed + 120 + i * 70)}>
-                  <Link
+                  <a
                     href={`#${row.id}`}
                     className="group/row flex items-baseline justify-between gap-6 py-4"
                   >
-                    <span className="flex items-center font-medium text-ink transition-colors duration-300 group-hover/row:text-gold">
-                      {/* Dimension rule — the same motif as the landing page. */}
+                    {/* Transform only — the label slides and the dimension rule (the landing
+                        page's motif) fills the space it leaves, so nothing re-wraps. */}
+                    <span className="relative font-medium text-ink transition-[color,translate] duration-300 group-hover/row:translate-x-4 group-hover/row:text-gold rtl:group-hover/row:-translate-x-4">
                       <span
                         aria-hidden="true"
-                        className="h-px w-0 bg-gold transition-[width,margin] duration-300 group-hover/row:me-3 group-hover/row:w-5"
+                        className="absolute -start-4 top-1/2 h-px w-3 origin-left scale-x-0 bg-gold transition-[scale] duration-300 group-hover/row:scale-x-100 rtl:origin-right"
                       />
                       {row.label}
                     </span>
                     <span className="text-end text-sm text-ink-soft">{row.audience}</span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

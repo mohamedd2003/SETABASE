@@ -36,16 +36,21 @@ export function MobileNav({ links, appLink }: MobileNavProps) {
           className="absolute inset-x-0 top-full border-b border-line-gold-soft bg-navy-deep"
         >
           <nav aria-label="Main" className="container-site flex flex-col gap-1 py-4">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="border-b border-line-gold-soft py-3 text-base text-ink transition-colors last:border-b-0 hover:text-gold"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const className =
+                "border-b border-line-gold-soft py-3 text-base text-ink transition-colors last:border-b-0 hover:text-gold";
+              // In-page anchors stay native so the browser updates :target and scrolls itself;
+              // next/link's pushState skips both.
+              return link.href.startsWith("#") ? (
+                <a key={link.href} href={link.href} onClick={() => setOpen(false)} className={className}>
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className={className}>
+                  {link.label}
+                </Link>
+              );
+            })}
             <Button
               variant="brand"
               size="pill"

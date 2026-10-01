@@ -25,9 +25,9 @@ export function SiteHeader({ switchLink }: SiteHeaderProps) {
 
         <nav aria-label="Main" className="hidden items-center gap-7 nav:flex">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className={linkClass}>
+            <a key={link.href} href={link.href} className={linkClass}>
               {link.label}
-            </Link>
+            </a>
           ))}
           <Link href={switchLink.href} className={linkClass}>
             {switchLink.label}
