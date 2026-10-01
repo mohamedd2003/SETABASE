@@ -325,6 +325,41 @@
     animation: anim-word 950ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
   }
 
+  /* Photo hero: the photo settles in from a slight zoom while the headline builds. */
+  @keyframes hero-photo {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  .hero-photo {
+    animation: hero-photo 2400ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  /* Scroll cue: the dot drops and fades, then repeats. With reduced motion the global
+     guard runs it once and it falls back to its resting place. */
+  @keyframes scroll-cue {
+    0% {
+      transform: none;
+      opacity: 1;
+    }
+    70% {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    100% {
+      transform: none;
+      opacity: 0;
+    }
+  }
+
+  .scroll-cue {
+    animation: scroll-cue 2000ms ease-in-out 1800ms infinite;
+  }
+
   /* Scroll reveal. Content is only hidden when a script can reveal it and the
      visitor accepts motion — with JS off or reduced motion it is simply there. */
   @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {

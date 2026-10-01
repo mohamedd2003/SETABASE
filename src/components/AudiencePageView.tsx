@@ -1,6 +1,7 @@
 import { ContactSection } from "@/components/ContactSection";
 import { Explainer } from "@/components/Explainer";
 import { Hero } from "@/components/Hero";
+import { PhotoHero } from "@/components/PhotoHero";
 import { RevealObserver } from "@/components/RevealObserver";
 import { ServicesGrid } from "@/components/ServicesGrid";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -17,7 +18,11 @@ export function AudiencePageView({ page }: AudiencePageViewProps) {
     <>
       <SiteHeader switchLink={page.switchLink} />
       <main className="flex-1">
-        <Hero hero={page.hero} />
+        {page.hero.photo ? (
+          <PhotoHero hero={{ ...page.hero, photo: page.hero.photo }} />
+        ) : (
+          <Hero hero={page.hero} />
+        )}
         <ServicesGrid services={page.services} />
         <Explainer explainer={page.explainer} />
         <ContactSection contact={page.contact} />

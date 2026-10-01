@@ -1,3 +1,4 @@
+import heroPhoto from "@/assets/hero-private.jpg";
 import { explainer } from "./explainer";
 import type { AudiencePage } from "./types";
 
@@ -15,6 +16,15 @@ export const privatePage: AudiencePage = {
       "SETABASE manages rental properties, relocations and real estate for individual owners, tenants and people moving to Egypt — one partner in New Cairo instead of five.",
     cta: "Request a quote",
     art: "villa",
+    photo: {
+      src: heroPhoto,
+      alt: "A modern two-storey house with timber cladding and lit windows at dusk",
+      // Unsplash licence: free for commercial use, no attribution required.
+      // TODO(photography): replace with SETABASE's own New Cairo property photography.
+      source: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+    },
+    secondaryCta: "Explore services",
+    strapline: "Four services, one point of contact.",
     summary: {
       eyebrow: "For individuals",
       rows: [

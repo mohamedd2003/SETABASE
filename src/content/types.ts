@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+
 export type ServiceId =
   | "property-management"
   | "facility-management"
@@ -51,6 +53,20 @@ export type AudiencePage = {
     cta: string;
     /** The drawing that stands on the summary panel — matches the landing half. */
     art: "villa" | "towers";
+    /**
+     * Optional full-bleed photo hero. When present it replaces the panel layout: the
+     * summary rows move into a strip along the bottom of the photo.
+     */
+    photo?: {
+      src: StaticImageData;
+      alt: string;
+      /** Where the photo came from, for the licence record. */
+      source: string;
+    };
+    /** Second button in the photo hero, linking to the services section. */
+    secondaryCta?: string;
+    /** Short serif line at the start of the photo hero's bottom strip. */
+    strapline?: string;
     summary: {
       eyebrow: string;
       rows: SummaryRow[];
