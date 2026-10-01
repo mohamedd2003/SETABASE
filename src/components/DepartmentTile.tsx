@@ -30,7 +30,7 @@ export function DepartmentTile({ department }: DepartmentTileProps) {
       <h3 className="font-serif text-[1.375rem]/[1.3] font-medium text-white sm:text-xl">
         {department.title}
       </h3>
-      <p className="text-sm text-ink-soft">{department.description}</p>
+      <p className="max-w-[48ch] text-sm text-ink-soft">{department.description}</p>
       {department.note ? (
         <p className="font-serif text-base italic text-gold">{department.note}</p>
       ) : null}

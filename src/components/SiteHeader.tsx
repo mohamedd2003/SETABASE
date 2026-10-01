@@ -19,7 +19,7 @@ const linkClass =
 
 export function SiteHeader({ switchLink }: SiteHeaderProps) {
   return (
-    <header className="sticky top-0 z-40 border-b border-line-gold-soft bg-navy/85 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-line-gold-soft bg-navy/95 backdrop-blur-md">
       <div className="container-site flex h-16 items-center justify-between gap-6">
         <Logo size="sm" />
 

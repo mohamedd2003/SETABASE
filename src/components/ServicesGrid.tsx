@@ -15,9 +15,10 @@ const cell = "border-e border-b border-line-gold-soft";
 
 export function ServicesGrid({ services }: ServicesGridProps) {
   const count = services.departments.length;
-  // Cells left empty on the last row of the three-column grid become one closing card.
-  const remainder = count % 3;
-  const closingSpan = remainder === 0 ? 0 : 3 - remainder;
+  // The closing card fills whatever the last row leaves empty, in both the
+  // two-column (sm) and three-column (nav) grids. Static class names for Tailwind.
+  const smSpan = count % 2 === 0 ? "sm:col-span-2" : "sm:col-span-1";
+  const navSpan = { 0: "nav:col-span-3", 1: "nav:col-span-2", 2: "nav:col-span-1" }[count % 3];
 
   return (
     <section id="services" className="container-site scroll-mt-20 py-16 nav:py-24">
@@ -33,7 +34,7 @@ export function ServicesGrid({ services }: ServicesGridProps) {
         </p>
       </div>
 
-      <div className="grid border-s border-t border-line-gold-soft nav:grid-cols-3">
+      <div className="grid border-s border-t border-line-gold-soft sm:grid-cols-2 nav:grid-cols-3">
         {services.departments.map((department, i) => (
           <div
             key={department.id}
@@ -46,11 +47,10 @@ export function ServicesGrid({ services }: ServicesGridProps) {
           </div>
         ))}
 
-        {closingSpan > 0 ? (
           <div
             data-reveal
-            style={delay(remainder * 110)}
-            className={cn(cell, closingSpan === 2 && "nav:col-span-2")}
+            style={delay((count % 3) * 110)}
+            className={cn(cell, smSpan, navSpan)}
           >
             <Link
               href="#contact"
@@ -71,7 +71,6 @@ export function ServicesGrid({ services }: ServicesGridProps) {
               </span>
             </Link>
           </div>
-        ) : null}
       </div>
     </section>
   );

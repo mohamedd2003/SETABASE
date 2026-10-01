@@ -105,8 +105,10 @@
   --font-serif: var(--font-newsreader), "Newsreader", Georgia, serif;
 
   /* Brief breakpoints: nav collapses at 880px, landing split stacks at 720px */
-  --breakpoint-nav: 880px;
-  --breakpoint-split: 720px;
+  /* In rem, like Tailwind's own breakpoints — mixing px and rem makes Tailwind sort
+     these before `sm:`, so `sm:` would silently override `nav:` and `split:`. */
+  --breakpoint-nav: 55rem; /* 880px */
+  --breakpoint-split: 45rem; /* 720px */
 
   /* Type scale (Elements of Typographic Style, 17px body) */
   --text-xs: 0.8125rem; /* 13 */
