@@ -54,7 +54,7 @@ export function ContactForm({ interests, submitLabel, helperText }: ContactFormP
 
   if (status === "sent") {
     return (
-      <div role="status" className="mt-8 border border-line-gold bg-navy/40 p-7">
+      <div role="status" className="mt-8 rounded-2xl border border-line-gold bg-navy/40 p-7">
         <p className="font-serif text-xl font-medium text-white">Request sent.</p>
         <p className="mt-2 text-ink-soft">{helperText}</p>
         <Button

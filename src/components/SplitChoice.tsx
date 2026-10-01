@@ -103,7 +103,7 @@ export function SplitChoice() {
                 aria-hidden="true"
                 style={rise(700)}
                 className={[
-                  "anim-rise landing-rule block h-px",
+                  "anim-rise landing-rule block h-px rounded-full",
                   light ? "bg-gold-dark" : "bg-gold",
                 ].join(" ")}
               />

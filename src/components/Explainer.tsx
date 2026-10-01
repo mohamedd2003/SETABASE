@@ -17,7 +17,9 @@ export function Explainer({ explainer }: ExplainerProps) {
   const [left, right] = explainer.columns;
 
   return (
-    <section className="bg-cream text-ink-cream">
+    // An inset rounded block rather than a full-bleed band, like the photo hero's rounded foot.
+    <section className="px-3 sm:px-4">
+      <div className="rounded-[2rem] bg-cream text-ink-cream nav:rounded-[2.5rem]">
       <div className="container-site py-16 nav:py-24">
         <div data-reveal className="max-w-[60ch]">
           <h2 className="font-serif text-[1.75rem]/[1.2] font-medium text-balance sm:text-2xl">
@@ -37,7 +39,7 @@ export function Explainer({ explainer }: ExplainerProps) {
               <DepartmentIcon id={icons[i]} className="mb-4 size-9 text-gold-dark" />
               <h3 className="font-serif text-[1.375rem]/[1.3] font-medium sm:text-xl">{column.title}</h3>
               <p className="mt-3 text-ink-cream-soft">{column.summary}</p>
-              <p className="mt-5 border-s-2 border-gold-dark ps-4 font-serif text-base italic sm:text-lg">
+              <p className="mt-5 rounded-2xl border border-line border-s-[3px] border-s-gold-dark bg-white/55 px-5 py-4 font-serif text-base italic sm:text-lg">
                 {column.example}
               </p>
             </div>
@@ -63,6 +65,7 @@ export function Explainer({ explainer }: ExplainerProps) {
         >
           {explainer.closing}
         </p>
+      </div>
       </div>
     </section>
   );

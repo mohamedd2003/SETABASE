@@ -8,7 +8,9 @@ type ContactSectionProps = {
 
 export function ContactSection({ contact }: ContactSectionProps) {
   return (
-    <section id="contact" className="relative scroll-mt-24 overflow-hidden bg-navy-deep">
+    // An inset rounded block, matching the explainer above it.
+    <section id="contact" className="scroll-mt-24 px-3 pt-3 sm:px-4 sm:pt-4">
+      <div className="relative overflow-hidden rounded-[2rem] bg-navy-deep nav:rounded-[2.5rem]">
       <span
         aria-hidden="true"
         className="blueprint-grid blueprint-grid-gold pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_70%_at_15%_30%,#000_5%,transparent_70%)]"
@@ -61,6 +63,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
             helperText={contact.helper}
           />
         </div>
+      </div>
       </div>
     </section>
   );

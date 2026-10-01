@@ -63,7 +63,7 @@ export function Hero({ hero }: HeroProps) {
         </div>
 
         <div
-          className="anim-rise border border-line-gold-soft bg-navy-deep nav:col-span-5"
+          className="anim-rise overflow-hidden rounded-3xl border border-line-gold-soft bg-navy-deep nav:col-span-5"
           style={at(landed - 180)}
         >
           {/* The building stands on the panel's own line. */}
