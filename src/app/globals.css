@@ -342,6 +342,48 @@
     animation: hero-photo 2400ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
   }
 
+  /* Photo carousel: photos crossfade, and the one on show drifts in very slowly so the
+     hold never feels frozen. With reduced motion the carousel starts paused. */
+  @keyframes hero-slide-drift {
+    from {
+      transform: scale(1.06);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  .hero-slide {
+    opacity: 0;
+    transition: opacity 1400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hero-slide[data-active] {
+    opacity: 1;
+  }
+
+  .hero-slide[data-active] > img {
+    animation: hero-slide-drift 8400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Fills over one hold (HOLD in HeroCarousel.tsx). */
+  @keyframes slide-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  .slide-progress {
+    animation: slide-progress 7000ms linear both;
+  }
+
+  .slide-progress[data-static] {
+    animation: none;
+  }
+
   /* Scroll cue: the dot drops and fades, then repeats. With reduced motion the global
      guard runs it once and it falls back to its resting place. */
   @keyframes scroll-cue {
@@ -363,15 +405,10 @@
     animation: scroll-cue 2000ms ease-in-out 1800ms infinite;
   }
 
-  /* Scroll reveal. Content is only hidden when a script can reveal it and the
-     visitor accepts motion — with JS off or reduced motion it is simply there. */
+  /* Scroll reveal, driven by GSAP in MotionLayer.tsx. Content is only hidden when a script
+     can reveal it and the visitor accepts motion — with JS off or reduced motion it is
+     simply there. */
   @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-    [data-reveal] {
-      transition:
-        opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-        transform 800ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
-    }
-
     [data-reveal]:not([data-revealed]) {
       opacity: 0;
       transform: translateY(20px);

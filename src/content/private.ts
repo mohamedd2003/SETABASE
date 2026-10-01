@@ -1,4 +1,6 @@
-import heroPhoto from "@/assets/hero-private.jpg";
+import heroVilla from "../../public/heroBackgroundImage/naomi-ellsworth-EMPLSuvDuhQ-unsplash.jpg";
+import heroTownhouse from "../../public/heroBackgroundImage/salman-saqib-GHlwOXqb8SU-unsplash.jpg";
+import heroPalms from "../../public/heroBackgroundImage/tim-schmidbauer-_tEBCVrEnyo-unsplash.jpg";
 import { explainer } from "./explainer";
 import type { AudiencePage } from "./types";
 
@@ -16,13 +18,28 @@ export const privatePage: AudiencePage = {
       "SETABASE manages rental properties, relocations and real estate for individual owners, tenants and people moving to Egypt — one partner in New Cairo instead of five.",
     cta: "Request a quote",
     art: "villa",
-    photo: {
-      src: heroPhoto,
-      alt: "A modern two-storey house with timber cladding and lit windows at dusk",
-      // Unsplash licence: free for commercial use, no attribution required.
-      // TODO(photography): replace with SETABASE's own New Cairo property photography.
-      source: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-    },
+    // Unsplash licence: free for commercial use, no attribution required.
+    // TODO(photography): replace with SETABASE's own New Cairo property photography.
+    photos: [
+      {
+        src: heroVilla,
+        alt: "A contemporary two-storey home with deep overhanging roofs, floor-to-ceiling glass and a landscaped front garden",
+        position: "42% 50%",
+        source: "https://unsplash.com/photos/EMPLSuvDuhQ",
+      },
+      {
+        src: heroTownhouse,
+        alt: "A two-storey villa with a cream façade, dark stone pillars and a pergola-shaded balcony",
+        position: "48% 50%",
+        source: "https://unsplash.com/photos/GHlwOXqb8SU",
+      },
+      {
+        src: heroPalms,
+        alt: "A white modernist villa with timber-screened terraces, framed by palm trees",
+        position: "66% 50%",
+        source: "https://unsplash.com/photos/_tEBCVrEnyo",
+      },
+    ],
     secondaryCta: "Explore services",
     strapline: "Four services, one point of contact.",
     summary: {

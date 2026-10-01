@@ -33,7 +33,7 @@ export function Hero({ hero }: HeroProps) {
       />
 
       <div className="container-site relative grid gap-12 py-16 nav:grid-cols-12 nav:items-center nav:gap-10 nav:py-24">
-        <div className="flex flex-col items-start gap-8 nav:col-span-7">
+        <div data-scroll-fade className="flex flex-col items-start gap-8 nav:col-span-7">
           {/* 38px on phones → 48px from 640px → 64px once the two-column layout kicks in */}
           <h1
             aria-label={hero.title}
@@ -48,7 +48,10 @@ export function Hero({ hero }: HeroProps) {
               </Fragment>
             ))}
           </h1>
-          <p className="anim-rise max-w-[52ch] text-base text-ink-soft sm:text-lg" style={at(landed)}>
+          <p
+            className="anim-rise max-w-[52ch] text-base text-ink-soft sm:text-lg"
+            style={at(landed)}
+          >
             {hero.paragraph}
           </p>
           <Button
@@ -67,7 +70,10 @@ export function Hero({ hero }: HeroProps) {
           style={at(landed - 180)}
         >
           {/* The building stands on the panel's own line. */}
-          <div aria-hidden="true" className="overflow-hidden border-b border-line-gold px-7 pt-7 text-gold">
+          <div
+            aria-hidden="true"
+            className="overflow-hidden border-b border-line-gold px-7 pt-7 text-gold"
+          >
             <span className="anim-build block opacity-60" style={at(landed)}>
               <Art className="mx-auto -mb-[6%] block h-auto w-full max-w-[15rem]" />
             </span>

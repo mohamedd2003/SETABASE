@@ -1,8 +1,8 @@
 import { ContactSection } from "@/components/ContactSection";
 import { Explainer } from "@/components/Explainer";
 import { Hero } from "@/components/Hero";
+import { MotionLayer } from "@/components/MotionLayer";
 import { PhotoHero } from "@/components/PhotoHero";
-import { RevealObserver } from "@/components/RevealObserver";
 import { ServicesGrid } from "@/components/ServicesGrid";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -15,11 +15,11 @@ type AudiencePageViewProps = {
 /** Both audience pages render from their content object through the same components. */
 export function AudiencePageView({ page }: AudiencePageViewProps) {
   return (
-    <>
+    <MotionLayer>
       <SiteHeader switchLink={page.switchLink} />
       <main className="flex-1">
-        {page.hero.photo ? (
-          <PhotoHero hero={{ ...page.hero, photo: page.hero.photo }} />
+        {page.hero.photos?.length ? (
+          <PhotoHero hero={{ ...page.hero, photos: page.hero.photos }} />
         ) : (
           <Hero hero={page.hero} />
         )}
@@ -28,7 +28,6 @@ export function AudiencePageView({ page }: AudiencePageViewProps) {
         <ContactSection contact={page.contact} />
       </main>
       <SiteFooter />
-      <RevealObserver />
-    </>
+    </MotionLayer>
   );
 }

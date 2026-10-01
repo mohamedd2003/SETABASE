@@ -5,8 +5,6 @@ type ExplainerProps = {
   explainer: ExplainerContent;
 };
 
-const delay = (ms: number) => ({ "--reveal-delay": `${ms}ms` }) as React.CSSProperties;
-
 const icons = ["property-management", "facility-management"] as const;
 
 /**
@@ -19,7 +17,7 @@ export function Explainer({ explainer }: ExplainerProps) {
   return (
     // An inset rounded block rather than a full-bleed band, like the photo hero's rounded foot.
     <section className="px-3 sm:px-4">
-      <div className="rounded-[2rem] bg-cream text-ink-cream nav:rounded-[2.5rem]">
+      <div data-scale-in className="rounded-[2rem] bg-cream text-ink-cream nav:rounded-[2.5rem]">
         <div className="container-site py-16 nav:py-24">
           <div data-reveal className="max-w-[60ch]">
             <h2 className="font-serif text-[1.75rem]/[1.2] font-medium text-balance sm:text-2xl">
@@ -33,11 +31,14 @@ export function Explainer({ explainer }: ExplainerProps) {
               <div
                 key={column.title}
                 data-reveal
-                style={delay(i === 0 ? 0 : 240)}
-                className={i === 1 ? "border-t border-line pt-10 nav:order-3 nav:border-t-0 nav:pt-0" : ""}
+                className={
+                  i === 1 ? "border-t border-line pt-10 nav:order-3 nav:border-t-0 nav:pt-0" : ""
+                }
               >
                 <DepartmentIcon id={icons[i]} className="mb-4 size-9 text-gold-dark" />
-                <h3 className="font-serif text-[1.375rem]/[1.3] font-medium sm:text-xl">{column.title}</h3>
+                <h3 className="font-serif text-[1.375rem]/[1.3] font-medium sm:text-xl">
+                  {column.title}
+                </h3>
                 <p className="mt-3 text-ink-cream-soft">{column.summary}</p>
                 <p className="mt-5 rounded-2xl border border-line border-s-[3px] border-s-gold-dark bg-white/55 px-5 py-4 font-serif text-base italic sm:text-lg">
                   {column.example}
@@ -49,13 +50,15 @@ export function Explainer({ explainer }: ExplainerProps) {
             <div
               aria-hidden="true"
               data-reveal
-              style={delay(120)}
               className="hidden flex-col items-center gap-3 nav:order-2 nav:flex"
             >
               <span className="flex size-12 items-center justify-center rounded-full border border-gold-dark/60 bg-white text-gold-dark">
                 <DepartmentIcon id="leak" className="size-6" />
               </span>
-              <span className="w-px flex-1 bg-gradient-to-b from-gold-dark/60 to-transparent" />
+              <span
+                data-draw
+                className="w-px flex-1 bg-gradient-to-b from-gold-dark/60 to-transparent"
+              />
             </div>
           </div>
 

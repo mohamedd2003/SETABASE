@@ -55,14 +55,19 @@ export type AudiencePage = {
     art: "villa" | "towers";
     /**
      * Optional full-bleed photo hero. When present it replaces the panel layout: the
-     * summary rows move into a strip along the bottom of the photo.
+     * photos crossfade in a loop and the summary rows move into a strip along the bottom.
      */
-    photo?: {
+    photos?: {
       src: StaticImageData;
       alt: string;
+      /**
+       * CSS object-position keeping the subject in frame. On a portrait phone only a
+       * narrow slice of a landscape photo shows, so the x value matters most.
+       */
+      position: string;
       /** Where the photo came from, for the licence record. */
       source: string;
-    };
+    }[];
     /** Second button in the photo hero, linking to the services section. */
     secondaryCta?: string;
     /** Short serif line at the start of the photo hero's bottom strip. */

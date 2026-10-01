@@ -10,7 +10,10 @@ export function ContactSection({ contact }: ContactSectionProps) {
   return (
     // An inset rounded block, matching the explainer above it.
     <section id="contact" className="scroll-mt-24 px-3 pt-3 sm:px-4 sm:pt-4">
-      <div className="relative overflow-hidden rounded-[2rem] bg-navy-deep nav:rounded-[2.5rem]">
+      <div
+        data-scale-in
+        className="relative overflow-hidden rounded-[2rem] bg-navy-deep nav:rounded-[2.5rem]"
+      >
         <span
           aria-hidden="true"
           className="blueprint-grid blueprint-grid-gold pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_70%_at_15%_30%,#000_5%,transparent_70%)]"
@@ -32,7 +35,10 @@ export function ContactSection({ contact }: ContactSectionProps) {
               <div className="py-4">
                 <dt className="text-sm text-ink-soft">Email</dt>
                 <dd className="mt-1">
-                  <a href={`mailto:${site.email}`} className="text-ink transition-colors hover:text-gold">
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="text-ink transition-colors hover:text-gold"
+                  >
                     {site.email}
                   </a>
                 </dd>
@@ -51,11 +57,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
             </dl>
           </div>
 
-          <div
-            data-reveal
-            style={{ "--reveal-delay": "140ms" } as React.CSSProperties}
-            className="nav:col-span-7"
-          >
+          <div data-reveal className="nav:col-span-7">
             <p className="max-w-[52ch] text-ink-soft">{contact.intro}</p>
             <ContactForm
               interests={contact.interests}

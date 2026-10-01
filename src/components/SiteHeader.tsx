@@ -23,7 +23,7 @@ const linkClass =
  */
 export function SiteHeader({ switchLink }: SiteHeaderProps) {
   return (
-    <header className="sticky top-0 z-40">
+    <header data-autohide className="sticky top-0 z-40">
       <div className="container-site pt-3">
         <nav
           aria-label="Main"
@@ -65,7 +65,10 @@ export function SiteHeader({ switchLink }: SiteHeaderProps) {
 
           {/* Reading progress, clipped to the pill's rounded edge. Scroll-driven CSS;
               hidden where unsupported or with reduced motion. */}
-          <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
+          >
             <span className="scroll-progress absolute inset-x-8 bottom-0 h-px bg-gold" />
           </span>
         </nav>
