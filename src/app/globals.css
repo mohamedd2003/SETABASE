@@ -182,7 +182,7 @@
   /* The buildings rise out of the ground. A clip wipe on the HTML wrapper, so the
      reveal never depends on SVG path-length normalisation (pathLength is not
      reliably honoured for CSS stroke-dasharray, which renders the strokes as dots). */
-  @keyframes landing-build {
+  @keyframes anim-build {
     from {
       clip-path: inset(100% 0 0 0);
     }
@@ -191,7 +191,7 @@
     }
   }
 
-  @keyframes landing-appear {
+  @keyframes anim-appear {
     from {
       opacity: 0;
     }
@@ -200,7 +200,7 @@
     }
   }
 
-  @keyframes landing-rise {
+  @keyframes anim-rise {
     from {
       opacity: 0;
       transform: translateY(14px);
@@ -220,8 +220,8 @@
     }
   }
 
-  .landing-build {
-    animation: landing-build 1500ms cubic-bezier(0.33, 1, 0.68, 1) 280ms backwards;
+  .anim-build {
+    animation: anim-build 1500ms cubic-bezier(0.33, 1, 0.68, 1) 280ms backwards;
   }
 
   /* The drawing dissolves towards its top, so a tall tower never collides with the
@@ -230,8 +230,8 @@
     mask-image: linear-gradient(to top, #000 58%, transparent 100%);
   }
 
-  .landing-rise {
-    animation: landing-rise 750ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  .anim-rise {
+    animation: anim-rise 750ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
   }
 
   /* Dimension rule under the title: extends when the half is considered. */
@@ -248,21 +248,21 @@
   }
 
   /* Faint blueprint grid, masked so it dissolves towards the edges. */
-  .landing-grid {
+  .blueprint-grid {
     background-image:
-      linear-gradient(to right, var(--landing-grid-line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--landing-grid-line) 1px, transparent 1px);
+      linear-gradient(to right, var(--blueprint-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--blueprint-line) 1px, transparent 1px);
     background-size: 56px 56px;
     mask-image: radial-gradient(ellipse 85% 65% at 50% 42%, #000 15%, transparent 80%);
-    animation: landing-appear 1200ms ease-out 150ms backwards;
+    animation: anim-appear 1200ms ease-out 150ms backwards;
   }
 
-  .landing-grid-light {
-    --landing-grid-line: color-mix(in srgb, var(--navy) 9%, transparent);
+  .blueprint-grid-navy {
+    --blueprint-line: color-mix(in srgb, var(--navy) 9%, transparent);
   }
 
-  .landing-grid-dark {
-    --landing-grid-line: color-mix(in srgb, var(--gold) 9%, transparent);
+  .blueprint-grid-gold {
+    --blueprint-line: color-mix(in srgb, var(--gold) 9%, transparent);
   }
 
   /* Owns flex-grow outright — a `flex-1` utility would land in a later layer and win. */
@@ -289,6 +289,96 @@
     .landing:has(.landing-half:hover) .landing-half:not(:hover),
     .landing:has(.landing-half:focus-visible) .landing-half:not(:focus-visible) {
       opacity: 0.82;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Audience pages (/private, /business)
+   One bold moment — the headline builds word by word — then quiet, once-only
+   reveals as sections arrive. Only opacity and transform animate.
+--------------------------------------------------------------------------- */
+@layer components {
+  /* Each headline word rises out of its own line box, like floors going up. */
+  @keyframes anim-word {
+    from {
+      transform: translateY(110%);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  .hero-word {
+    display: inline-block;
+    overflow: clip;
+    vertical-align: top;
+    /* Room for descenders (y, p, g) so the clip never cuts them. */
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+  }
+
+  .hero-word > span {
+    display: inline-block;
+    animation: anim-word 950ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  /* Scroll reveal. Content is only hidden when a script can reveal it and the
+     visitor accepts motion — with JS off or reduced motion it is simply there. */
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      transition:
+        opacity 800ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+        transform 800ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+    }
+
+    [data-reveal]:not([data-revealed]) {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+
+  /* A service card flashes gold when reached from the hero summary panel. */
+  @keyframes tile-target {
+    from {
+      box-shadow: inset 0 0 0 1px var(--gold);
+    }
+    to {
+      box-shadow: inset 0 0 0 1px transparent;
+    }
+  }
+
+  .tile:target > .tile-body {
+    animation: tile-target 1800ms ease-out;
+  }
+
+  /* Reading progress under the sticky header — scroll-driven, no JS.
+     Browsers without scroll timelines simply don't show it. */
+  @keyframes anim-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .scroll-progress {
+    display: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .scroll-progress {
+        display: block;
+        transform-origin: left center;
+        animation: anim-progress auto linear both;
+        animation-timeline: scroll(root block);
+      }
+
+      [dir="rtl"] .scroll-progress {
+        transform-origin: right center;
+      }
     }
   }
 }

@@ -6,6 +6,8 @@ export type ServiceId =
   | "real-estate";
 
 export type SummaryRow = {
+  /** The service card this row jumps to. */
+  id: ServiceId;
   label: string;
   audience: string;
 };
@@ -47,6 +49,8 @@ export type AudiencePage = {
     title: string;
     paragraph: string;
     cta: string;
+    /** The drawing that stands on the summary panel — matches the landing half. */
+    art: "villa" | "towers";
     summary: {
       eyebrow: string;
       rows: SummaryRow[];

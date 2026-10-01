@@ -59,8 +59,8 @@ export function SplitChoice() {
             <span
               aria-hidden="true"
               className={[
-                "landing-grid pointer-events-none absolute inset-0",
-                light ? "landing-grid-light" : "landing-grid-dark",
+                "blueprint-grid pointer-events-none absolute inset-0",
+                light ? "blueprint-grid-navy" : "blueprint-grid-gold",
               ].join(" ")}
             />
 
@@ -75,7 +75,7 @@ export function SplitChoice() {
                   : "text-gold opacity-[0.3] group-hover:opacity-[0.45] group-focus-visible:opacity-[0.45]",
               ].join(" ")}
             >
-              <span className="landing-build block w-[min(80%,29rem)]">
+              <span className="anim-build block w-[min(80%,29rem)]">
                 {light ? (
                   <VillaElevation className="h-auto w-full" />
                 ) : (
@@ -85,14 +85,14 @@ export function SplitChoice() {
             </span>
 
             <span className="relative z-10 flex w-full max-w-[25rem] flex-col items-center gap-5">
-              <LogoStacked onLight={light} className="landing-rise" style={rise(420)} />
-              <Eyebrow onLight={light} className="landing-rise mt-2" style={rise(520)}>
+              <LogoStacked onLight={light} className="anim-rise" style={rise(420)} />
+              <Eyebrow onLight={light} className="anim-rise mt-2" style={rise(520)}>
                 {half.eyebrow}
               </Eyebrow>
               <h2
                 style={rise(600)}
                 className={[
-                  "landing-rise font-serif text-[2.5rem]/[1.1] font-medium sm:text-3xl split:text-4xl",
+                  "anim-rise font-serif text-[2.5rem]/[1.1] font-medium sm:text-3xl split:text-4xl",
                   light ? "text-navy-deep" : "text-white",
                 ].join(" ")}
               >
@@ -103,13 +103,13 @@ export function SplitChoice() {
                 aria-hidden="true"
                 style={rise(700)}
                 className={[
-                  "landing-rise landing-rule block h-px",
+                  "anim-rise landing-rule block h-px",
                   light ? "bg-gold-dark" : "bg-gold",
                 ].join(" ")}
               />
               <p
                 style={rise(780)}
-                className={["landing-rise", light ? "text-ink-cream-soft" : "text-ink-soft"].join(" ")}
+                className={["anim-rise", light ? "text-ink-cream-soft" : "text-ink-soft"].join(" ")}
               >
                 {half.copy}
               </p>

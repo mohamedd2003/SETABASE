@@ -14,14 +14,15 @@ export const businessPage: AudiencePage = {
     paragraph:
       "SETABASE runs the administrative and technical side of buildings, teams, workplaces and relocations in New Cairo — so owners, HOAs and companies deal with one partner instead of five.",
     cta: "Request a quote",
+    art: "towers",
     summary: {
       eyebrow: "Five departments, one team",
       rows: [
-        { label: "Property Management", audience: "Communities & companies" },
-        { label: "Facility Management", audience: "Buildings & companies" },
-        { label: "Corporate Relocation", audience: "Employees moving to Egypt" },
-        { label: "Special Services", audience: "Workplace wellbeing" },
-        { label: "Real Estate", audience: "Sell, rent & invest" },
+        { id: "property-management", label: "Property Management", audience: "Communities & companies" },
+        { id: "facility-management", label: "Facility Management", audience: "Buildings & companies" },
+        { id: "relocation", label: "Corporate Relocation", audience: "Employees moving to Egypt" },
+        { id: "special-services", label: "Special Services", audience: "Workplace wellbeing" },
+        { id: "real-estate", label: "Real Estate", audience: "Sell, rent & invest" },
       ],
     },
   },

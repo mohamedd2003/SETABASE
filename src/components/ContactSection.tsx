@@ -8,9 +8,13 @@ type ContactSectionProps = {
 
 export function ContactSection({ contact }: ContactSectionProps) {
   return (
-    <section id="contact" className="scroll-mt-16 bg-navy-deep">
-      <div className="container-site grid gap-12 py-16 nav:grid-cols-12 nav:gap-16 nav:py-24">
-        <div className="nav:col-span-5">
+    <section id="contact" className="relative scroll-mt-16 overflow-hidden bg-navy-deep">
+      <span
+        aria-hidden="true"
+        className="blueprint-grid blueprint-grid-gold pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_70%_at_15%_30%,#000_5%,transparent_70%)]"
+      />
+      <div className="container-site relative grid gap-12 py-16 nav:grid-cols-12 nav:gap-16 nav:py-24">
+        <div data-reveal className="nav:col-span-5">
           <h2 className="font-serif text-[1.75rem]/[1.2] font-medium text-gold-gradient sm:text-2xl">
             {contact.title}
           </h2>
@@ -45,7 +49,11 @@ export function ContactSection({ contact }: ContactSectionProps) {
           </dl>
         </div>
 
-        <div className="nav:col-span-7">
+        <div
+          data-reveal
+          style={{ "--reveal-delay": "140ms" } as React.CSSProperties}
+          className="nav:col-span-7"
+        >
           <p className="max-w-[52ch] text-ink-soft">{contact.intro}</p>
           <ContactForm
             interests={contact.interests}

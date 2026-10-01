@@ -43,6 +43,8 @@ export function SiteHeader({ switchLink }: SiteHeaderProps) {
           appLink={{ label: "Get the app", href: site.appUrl }}
         />
       </div>
+      {/* Reading progress — scroll-driven CSS; hidden where unsupported or with reduced motion. */}
+      <span aria-hidden="true" className="scroll-progress absolute inset-x-0 -bottom-px h-px bg-gold" />
     </header>
   );
 }

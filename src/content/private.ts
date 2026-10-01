@@ -14,13 +14,14 @@ export const privatePage: AudiencePage = {
     paragraph:
       "SETABASE manages rental properties, relocations and real estate for individual owners, tenants and people moving to Egypt — one partner in New Cairo instead of five.",
     cta: "Request a quote",
+    art: "villa",
     summary: {
       eyebrow: "For individuals",
       rows: [
-        { label: "Property Management", audience: "Owners & tenants" },
-        { label: "Facility Management", audience: "Villas & multi-unit owners" },
-        { label: "Relocation", audience: "People moving to Egypt" },
-        { label: "Real Estate", audience: "Sell, rent & invest" },
+        { id: "property-management", label: "Property Management", audience: "Owners & tenants" },
+        { id: "facility-management", label: "Facility Management", audience: "Villas & multi-unit owners" },
+        { id: "relocation", label: "Relocation", audience: "People moving to Egypt" },
+        { id: "real-estate", label: "Real Estate", audience: "Sell, rent & invest" },
       ],
     },
   },
