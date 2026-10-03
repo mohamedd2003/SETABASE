@@ -979,6 +979,144 @@
       transform: translateZ(var(--z));
     }
   }
+
+  /* ---------------------------------------------------------------------------
+     Package builder — the model on the package pages is built by the visitor's choices.
+     A part not chosen yet stands as dashed scaffolding; choosing it drops it into place
+     (GSAP tweens its --explode from 1 to 0) and gilds it. Same blocks as every model.
+  --------------------------------------------------------------------------- */
+  .build-stage {
+    --scale: 0.62;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    height: 15rem;
+    align-items: center;
+    justify-content: center;
+    perspective: 1500px;
+    perspective-origin: 50% 20%;
+    background: radial-gradient(
+      48% 42% at 50% 64%,
+      color-mix(in srgb, var(--gold) 13%, transparent),
+      transparent 72%
+    );
+  }
+
+  @media (width >= 40rem) {
+    .build-stage {
+      --scale: 0.78;
+      height: 19rem;
+    }
+  }
+
+  @media (width >= 55rem) {
+    .build-stage {
+      --scale: 0.9;
+      height: 22rem;
+    }
+  }
+
+  .build-table {
+    --turn: -38;
+    position: relative;
+    flex-shrink: 0;
+    transform-style: preserve-3d;
+    transform: translate3d(0, calc(var(--scale) * var(--lift, 80px)), 0)
+      scale3d(var(--scale), var(--scale), var(--scale)) rotateX(58deg)
+      rotateZ(calc(var(--turn) * 1deg));
+  }
+
+  .build-site {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform: translateZ(10px);
+  }
+
+  /* Scaffolding: no walls yet, just their outline. */
+  .build-part:not(.is-on) .model-face {
+    background-color: color-mix(in srgb, var(--gold) 3%, transparent);
+    background-image: none;
+    box-shadow: none;
+    outline: 1px dashed color-mix(in srgb, var(--gold) 42%, transparent);
+    outline-offset: -1px;
+  }
+
+  .build-part:not(.is-on) .model-face > * {
+    opacity: 0;
+  }
+
+  /* Hovering a package outlines where it would go. */
+  .build-part.is-preview:not(.is-on) .model-face {
+    background-color: color-mix(in srgb, var(--gold) 12%, transparent);
+    outline: 1px solid var(--gold);
+  }
+
+  .build-part.is-on {
+    --face-top: color-mix(in srgb, var(--gold) 55%, var(--navy-deep));
+    --face-front: color-mix(in srgb, var(--gold) 36%, var(--navy-deep));
+    --face-side: color-mix(in srgb, var(--gold) 20%, var(--navy-deep));
+    --edge: var(--gold);
+  }
+
+  .build-part .model-face > * {
+    transition: opacity 500ms ease;
+  }
+
+  /* A label painted on the street-facing wall of each floor. */
+  .build-sign {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--navy-deep);
+    white-space: nowrap;
+  }
+
+  /* The route the household travels, drawn on the plate. */
+  .build-route {
+    position: absolute;
+    height: 2px;
+    background-image: linear-gradient(to right, var(--line-gold) 55%, transparent 55%);
+    background-size: 12px 2px;
+    transition: background-image 600ms ease;
+  }
+
+  .build-route.is-on {
+    background-image: linear-gradient(to right, var(--gold) 55%, transparent 55%);
+  }
+
+  .build-plot {
+    position: absolute;
+    border: 1px dashed var(--line-gold);
+    border-radius: 6px;
+    transition:
+      border-color 500ms ease,
+      background-color 500ms ease;
+  }
+
+  .build-plot.is-on {
+    border-style: solid;
+    border-color: var(--gold);
+    background-color: color-mix(in srgb, var(--gold) 14%, transparent);
+  }
+
+  /* Package cards: the chosen ones carry a gold edge, like their floor on the model. */
+  .package-card {
+    transition:
+      border-color 400ms ease,
+      background-color 400ms ease;
+  }
+
+  .package-card[data-on] {
+    border-color: var(--gold);
+    background-color: color-mix(in srgb, var(--gold) 7%, var(--surface-dusk));
+  }
 }
 
 /* ---------------------------------------------------------------------------

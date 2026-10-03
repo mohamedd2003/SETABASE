@@ -45,8 +45,18 @@ export const businessPage: AudiencePage = {
       rows: [
         { id: "property-management", label: "Property Management", audience: "Communities & companies" },
         { id: "facility-management", label: "Facility Management", audience: "Buildings & companies" },
-        { id: "relocation", label: "Corporate Relocation", audience: "Employees moving to Egypt" },
-        { id: "special-services", label: "Special Services", audience: "Workplace wellbeing" },
+        {
+          id: "relocation",
+          label: "Corporate Relocation",
+          audience: "Employees moving to Egypt",
+          packagesHref: "/business/relocation",
+        },
+        {
+          id: "special-services",
+          label: "Special Services",
+          audience: "Workplace wellbeing",
+          packagesHref: "/business/special-services",
+        },
         { id: "real-estate", label: "Real Estate", audience: "Sell, rent & invest" },
       ],
     },
@@ -76,6 +86,7 @@ export const businessPage: AudiencePage = {
         title: "Corporate Relocation",
         description:
           "Housing, paperwork and settling-in support for companies relocating employees to Egypt — fast turnaround, one point of contact.",
+        packagesHref: "/business/relocation",
       },
       {
         id: "special-services",
@@ -84,6 +95,7 @@ export const businessPage: AudiencePage = {
         description:
           "Subscription packages that take care of the office — supplies, wellness, and team events, priced per employee.",
         note: "Packages from 615 EGP per employee per month.",
+        packagesHref: "/business/special-services",
       },
       {
         id: "real-estate",

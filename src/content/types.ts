@@ -12,6 +12,8 @@ export type SummaryRow = {
   id: ServiceId;
   label: string;
   audience: string;
+  /** A packages page of its own; the landing guide goes straight there. */
+  packagesHref?: string;
 };
 
 export type Department = {
@@ -21,6 +23,8 @@ export type Department = {
   description: string;
   /** Optional one-line fact under the description, e.g. a starting price. */
   note?: string;
+  /** A page of its own with the department's packages, linked from the card. */
+  packagesHref?: string;
 };
 
 export type ExplainerColumn = {

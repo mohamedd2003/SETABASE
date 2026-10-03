@@ -3,15 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
 import { MobileNav } from "@/components/MobileNav";
 import { site } from "@/content/site";
-import type { AudiencePage } from "@/content/types";
 
-const navLinks = [
+const defaultLinks = [
   { label: "Services", href: "#services" },
   { label: "Contact", href: "#contact" },
 ];
 
 type SiteHeaderProps = {
-  switchLink: AudiencePage["switchLink"];
+  switchLink: { label: string; href: string };
+  /** In-page links on the start side; the audience pages' Services and Contact by default. */
+  navLinks?: { label: string; href: string }[];
 };
 
 const linkClass =
@@ -21,7 +22,7 @@ const linkClass =
  * Floating pill header with the logo in the centre. A three-column grid (1fr auto 1fr)
  * keeps the logo exactly centred whatever the widths on either side.
  */
-export function SiteHeader({ switchLink }: SiteHeaderProps) {
+export function SiteHeader({ switchLink, navLinks = defaultLinks }: SiteHeaderProps) {
   return (
     <header data-autohide className="sticky top-0 z-40">
       <div className="container-site pt-3">

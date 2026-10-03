@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SETABASE App Screens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+<style>
+/* ------------------------------------------------------------------
+   SETABASE — app screens for iPhone, Android and iPad.
+   Tokens mirror src/app/globals.css; the 3D models are the same CSS
+   blocks the website uses (Box = a top and four walls folded up).
+------------------------------------------------------------------- */
+@property --rise { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --turn { syntax: "<number>"; inherits: true; initial-value: -34; }
+@property --dz   { syntax: "<length>"; inherits: true; initial-value: 0px; }
+
+:root {
+  --navy: #1f325a; --navy-medium: #2e5a8f; --navy-deep: #0a1e3a;
+  --gold: #e6c158; --gold-dark: #b9863f; --cream: #f6f3ec; --white: #fffdf9;
+  --night: #071630; --dusk: #0f264c; --horizon: #1a3768;
+  --raised: color-mix(in srgb, var(--navy-medium) 42%, var(--navy));
+  --ember: #e8955a; --water: #5aa9e6; --water-deep: #2f6fa8; --water-light: #a9d6f5; --foliage: #5f8f6a;
+  --ink-soft: color-mix(in srgb, var(--white) 74%, transparent);
+  --ink-mute: color-mix(in srgb, var(--white) 56%, transparent);
+  --line-gold-soft: color-mix(in srgb, var(--gold) 32%, transparent);
+  --line-gold: color-mix(in srgb, var(--gold) 60%, transparent);
+  --hair: color-mix(in srgb, var(--gold) 18%, transparent);
+  --gold-gradient: linear-gradient(120deg, #b8901f 0%, #ffebae 26%, #f4c94a 50%, #fff8df 70%, #b8901f 100%);
+  --serif: "Newsreader", Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --canvas: #e7e4dc; --canvas-ink: #1b2236;
+}
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--canvas); color: var(--canvas-ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+
+/* ---------- Board chrome ---------- */
+.board-head { position: sticky; top: 0; z-index: 50; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between;
+  padding: 18px 40px; background: color-mix(in srgb, var(--canvas) 88%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid #d3cfc4; }
+.board-head h1 { font: 500 26px/1.1 var(--serif); }
+.board-head p { font-size: 13px; color: #5b6070; margin-top: 4px; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filters button { font: 500 13px var(--sans); padding: 9px 16px; border-radius: 999px; border: 1px solid #c9c3b3; background: transparent; color: var(--canvas-ink); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--navy-deep); color: var(--gold); border-color: var(--navy-deep); }
+.device-section { padding: 48px 40px 24px; }
+.device-section > header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+.device-section > header h2 { font: 500 30px/1.1 var(--serif); }
+.device-section > header span { font-size: 13px; color: #6a6f7e; }
+.row { display: flex; gap: 56px; align-items: flex-start; overflow-x: auto; padding: 4px 4px 40px; }
+.artboard { flex: none; }
+.artboard > .label { font: 500 13px var(--sans); color: #4a5062; margin-bottom: 12px; display: flex; gap: 10px; }
+.artboard > .label b { color: var(--gold-dark); font-weight: 600; }
+.hidden { display: none !important; }
+/* ?capture — every frame laid out flat and motion stopped, for importing into Figma */
+.capture .row { flex-wrap: wrap; overflow: visible; row-gap: 72px; }
+.capture .board-head { position: static; }
+.capture *, .capture *::before, .capture *::after { animation: none !important; }
+
+/* ---------- Device frame ---------- */
+.frame { position: relative; overflow: hidden; background: var(--navy); color: var(--white); font-family: var(--sans);
+  box-shadow: 0 30px 60px -30px rgb(10 30 58 / .55), 0 0 0 1px rgb(10 30 58 / .08); isolation: isolate; }
+.frame.ios { border-radius: 48px; --sb: 54px; --nav: 88px; --pad: 20px; }
+.frame.android { border-radius: 30px; --sb: 40px; --nav: 92px; --pad: 20px; }
+.frame.ipad { border-radius: 22px; --sb: 28px; --nav: 0px; --pad: 40px; }
+.frame.fixed { display: flex; flex-direction: column; }
+.frame .sb-space { height: var(--sb); flex: none; }
+
+/* status bars */
+.status { position: absolute; inset: 0 0 auto 0; height: var(--sb); z-index: 30; display: flex; align-items: center; justify-content: space-between; color: var(--white); pointer-events: none; }
+.ios .status { padding: 14px 34px 0 40px; font: 600 16px var(--sans); }
+.ios .status .island { position: absolute; left: 50%; top: 11px; width: 124px; height: 36px; margin-left: -62px; background: #000; border-radius: 20px; }
+.android .status { padding: 6px 24px 0; font: 500 14px var(--sans); }
+.android .status .punch { position: absolute; left: 50%; top: 12px; width: 13px; height: 13px; margin-left: -6.5px; border-radius: 50%; background: #000; box-shadow: 0 0 0 2px rgb(255 255 255 / .06); }
+.ipad .status { padding: 0 22px; font: 500 13px var(--sans); }
+.status .sys { display: flex; gap: 6px; align-items: center; }
+
+/* ---------- Type ---------- */
+.eyebrow { font: 500 12px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.display { font: 500 38px/1.06 var(--serif); letter-spacing: -.01em; }
+.h1 { font: 500 31px/1.12 var(--serif); letter-spacing: -.005em; }
+.h2 { font: 500 25px/1.2 var(--serif); }
+.h3 { font: 500 20px/1.3 var(--serif); }
+.serif-i { font-family: var(--serif); font-style: italic; font-weight: 400; }
+.body { font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+.small { font-size: 13px; line-height: 1.45; color: var(--ink-mute); }
+.gold { color: var(--gold); }
+.ipad .display { font-size: 48px; }
+.ipad .h1 { font-size: 40px; }
+.ipad .body { font-size: 16px; }
+
+/* ---------- Controls ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; border-radius: 999px; font: 500 14px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; text-decoration: none; }
+.btn-primary { background: var(--gold); color: var(--navy-deep); box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--gold) 70%, transparent); }
+.btn-outline { border: 1px solid var(--gold); color: var(--gold); }
+.btn-ghost { color: var(--white); }
+.btn.block { width: 100%; }
+.android .btn { border-radius: 20px; }
+.android .btn.fab { border-radius: 18px; padding: 18px 22px; }
+.icon-btn { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-gold-soft); background: color-mix(in srgb, var(--navy-deep) 55%, transparent); backdrop-filter: blur(10px); }
+.android .icon-btn { border: 0; background: transparent; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent); font: 500 13px var(--sans); color: var(--ink-soft); }
+.chip.on { background: color-mix(in srgb, var(--gold) 16%, transparent); border-color: var(--gold); color: var(--gold); }
+.android .chip { border-radius: 10px; }
+.field { display: grid; gap: 8px; }
+.field label { font: 500 13px var(--sans); color: var(--ink-soft); }
+.field .input { padding: 14px 16px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); background: color-mix(in srgb, var(--navy-deep) 60%, transparent); font-size: 15px; color: var(--white); }
+.field .input.ph { color: var(--ink-mute); }
+.field .input.focus { border: 1.5px solid var(--gold); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 12%, transparent); }
+.field .input.area { min-height: 116px; line-height: 1.5; }
+.android .field .input { border-radius: 8px 8px 0 0; border: 0; border-bottom: 1px solid var(--line-gold); background: color-mix(in srgb, var(--white) 6%, transparent); }
+.android .field .input.focus { border-bottom: 2px solid var(--gold); box-shadow: none; }
+.segmented { display: flex; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--navy-deep) 70%, transparent); border: 1px solid color-mix(in srgb, var(--gold) 25%, transparent); }
+.segmented span { flex: 1; display: flex; justify-content: center; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 999px; font: 500 13px var(--sans); color: var(--ink-soft); }
+.segmented span.on { background: var(--gold); color: var(--navy-deep); }
+.pill-switch { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: color-mix(in srgb, var(--navy-deep) 55%, transparent); border: 1px solid var(--line-gold-soft); backdrop-filter: blur(10px); font: 500 13px var(--sans); }
+
+/* ---------- Cards & rows ---------- */
+.card { border-radius: 24px; background: var(--navy-deep); border: 1px solid color-mix(in srgb, var(--gold) 30%, transparent); padding: 22px; display: grid; gap: 14px; }
+.android .card { border-radius: 20px; }
+.card.glass { background: color-mix(in srgb, var(--white) 5%, transparent); backdrop-filter: blur(12px); }
+.card .head { display: flex; align-items: center; gap: 12px; }
+.badge { width: 52px; height: 52px; flex: none; display: grid; place-items: center; border-radius: 16px; background: color-mix(in srgb, var(--gold) 10%, transparent); border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
+.badge.round { border-radius: 50%; width: 48px; height: 48px; }
+.note { padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--gold) 8%, transparent); color: var(--gold); font-size: 13px; line-height: 1.45; }
+.link { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid var(--hair); font: 500 13px var(--sans); letter-spacing: .07em; text-transform: uppercase; color: var(--gold); }
+.srow { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
+.srow:last-child { border-bottom: 0; }
+.compact .srow { padding: 9px 0; }
+.srow .num { font: 400 13px var(--serif); color: var(--gold); width: 20px; }
+.srow .t { flex: 1; min-width: 0; }
+.srow .t b { display: block; font: 500 16px var(--sans); color: var(--white); }
+.srow .t i { font-style: normal; font-size: 13px; color: var(--ink-mute); }
+.choice { display: flex; align-items: center; gap: 16px; padding: 20px 16px 20px 20px; border-radius: 24px; background: color-mix(in srgb, var(--white) 5%, transparent); border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); backdrop-filter: blur(12px); }
+.choice.on { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 10%, transparent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 10%, transparent); }
+.choice .t { flex: 1; }
+.choice .t b { display: block; font: 500 22px/1.2 var(--serif); }
+.progress { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-soft); }
+.progress i { width: 28px; height: 3px; border-radius: 2px; background: rgb(255 255 255 / .2); }
+.progress i.on { background: var(--gold); }
+
+/* ---------- Bars ---------- */
+.appbar { display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 var(--pad); position: relative; z-index: 5; }
+.appbar .logo { height: 34px; }
+.appbar .title { font: 500 16px var(--sans); }
+.android .appbar { height: 64px; padding: 0 8px 0 4px; justify-content: flex-start; gap: 4px; }
+.android .appbar .title { font: 400 22px var(--sans); flex: 1; }
+.android .appbar .logo { margin-left: 12px; margin-right: auto; }
+
+.tabbar { position: absolute; left: 0; right: 0; bottom: 0; height: var(--nav); z-index: 20; display: flex; justify-content: space-between; padding: 8px 24px 0;
+  background: color-mix(in srgb, var(--night) 88%, transparent); backdrop-filter: blur(20px); border-top: 1px solid color-mix(in srgb, var(--gold) 20%, transparent); }
+.tabbar .tab { width: 68px; display: grid; justify-items: center; gap: 5px; font: 500 11px var(--sans); color: var(--ink-mute); }
+.tabbar .tab::before { content: ""; width: 20px; height: 3px; border-radius: 2px; }
+.tabbar .tab.on { color: var(--gold); }
+.tabbar .tab.on::before { background: var(--gold); }
+.home-ind { position: absolute; bottom: 8px; left: 50%; width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; background: rgb(255 253 249 / .9); z-index: 40; }
+.navbar { position: absolute; left: 0; right: 0; bottom: 0; height: var(--nav); z-index: 20; display: flex; justify-content: space-around; padding: 12px 8px 0;
+  background: color-mix(in srgb, var(--night) 94%, transparent); }
+.navbar .tab { display: grid; justify-items: center; gap: 4px; font: 500 12px var(--sans); color: var(--ink-soft); }
+.navbar .tab .pill { width: 64px; height: 32px; border-radius: 16px; display: grid; place-items: center; }
+.navbar .tab.on .pill { background: color-mix(in srgb, var(--gold) 22%, transparent); }
+.navbar .tab.on { color: var(--gold); font-weight: 600; }
+.gesture { position: absolute; bottom: 8px; left: 50%; width: 108px; height: 4px; margin-left: -54px; border-radius: 2px; background: rgb(255 253 249 / .55); z-index: 40; }
+
+/* iPad shell */
+.ipad .shell { display: grid; grid-template-columns: 252px 1fr; min-height: 820px; }
+.sidebar { position: relative; z-index: 10; padding: calc(var(--sb) + 18px) 18px 24px; display: flex; flex-direction: column; gap: 6px;
+  background: linear-gradient(180deg, var(--night), var(--navy-deep)); border-right: 1px solid color-mix(in srgb, var(--gold) 16%, transparent); }
+.sidebar .logo { height: 36px; align-self: flex-start; margin: 0 8px 22px; }
+.sidebar .item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; font: 500 15px var(--sans); color: var(--ink-soft); }
+.sidebar .item.on { background: color-mix(in srgb, var(--gold) 14%, transparent); color: var(--gold); }
+.sidebar .sep { height: 1px; background: var(--hair); margin: 14px 8px; }
+.sidebar .group { font: 500 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); padding: 4px 14px; }
+.sidebar .grow { flex: 1; }
+.main { position: relative; min-width: 0; }
+
+/* ---------- Skies & scenes ---------- */
+.sky { background:
+  radial-gradient(120% 60% at 50% 100%, color-mix(in srgb, var(--navy-medium) 38%, transparent), transparent 62%),
+  linear-gradient(180deg, var(--night) 0%, var(--navy-deep) 36%, var(--dusk) 68%, var(--horizon) 100%); }
+.night-sky { background: linear-gradient(180deg, var(--night) 0%, var(--navy-deep) 45%, var(--dusk) 100%); }
+.lights { position: absolute; inset: 0 0 45% 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgb(255 236 190 / .55) .75px, transparent 1.5px), radial-gradient(circle, rgb(255 255 255 / .3) .6px, transparent 1.25px), radial-gradient(circle, rgb(255 226 160 / .4) .9px, transparent 1.6px);
+  background-size: 157px 113px, 239px 173px, 331px 211px; background-position: 0 0, 71px 43px, 193px 97px;
+  mask-image: linear-gradient(to bottom, #000, transparent 85%); -webkit-mask-image: linear-gradient(to bottom, #000, transparent 85%); }
+.floor { position: absolute; left: -60%; right: -60%; bottom: 0; height: 60%; pointer-events: none;
+  background-image: linear-gradient(to right, color-mix(in srgb, var(--gold) 20%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--gold) 20%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px; background-position: center bottom; transform: perspective(640px) rotateX(60deg); transform-origin: 50% 100%;
+  mask-image: linear-gradient(to top, #000, rgb(0 0 0 / .6) 45%, transparent 90%); -webkit-mask-image: linear-gradient(to top, #000, rgb(0 0 0 / .6) 45%, transparent 90%); }
+.glow { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(60px); background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 40%, transparent), color-mix(in srgb, var(--ember) 14%, transparent) 60%, transparent); }
+.grid-bg { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(to right, color-mix(in srgb, var(--gold) 7%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--gold) 7%, transparent) 1px, transparent 1px); background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 10%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 10%, transparent 75%); }
+
+/* ---------- CSS 3D model (from the website) ---------- */
+.stage { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; perspective: 1800px; perspective-origin: 50% 28%; pointer-events: none; }
+.table { position: relative; flex: none; transform-style: preserve-3d;
+  transform: translate3d(0, calc(var(--scale) * var(--lift) * 1px), 0) scale3d(var(--scale), var(--scale), var(--scale)) rotateX(calc(var(--tilt) * 1deg)) rotateZ(calc(var(--turn) * 1deg)); }
+.site { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(var(--base, 14px)); }
+.bld { position: absolute; inset: 0; transform-style: preserve-3d; }
+.model-box { --face-top: color-mix(in srgb, var(--navy-medium) 62%, var(--navy-deep)); --face-front: color-mix(in srgb, var(--navy-medium) 42%, var(--navy-deep)); --face-side: color-mix(in srgb, var(--navy-medium) 22%, var(--navy-deep)); --edge: var(--line-gold);
+  position: absolute; transform-style: preserve-3d; transform: translate3d(0, 0, calc(var(--z) * var(--rise, 1) + var(--dz, 0px))); }
+.face { position: absolute; background-color: var(--face-side); box-shadow: inset 0 0 0 1px var(--edge); }
+.f-top { inset: 0; background-color: var(--face-top); transform: translateZ(calc(var(--h) * var(--rise, 1))); }
+.f-front, .f-back { left: 0; width: 100%; height: calc(var(--h) * var(--rise, 1)); }
+.f-front { bottom: 0; background-color: var(--face-front); transform-origin: bottom; transform: rotateX(-90deg); }
+.f-back { top: 0; transform-origin: top; transform: rotateX(90deg); }
+.f-left, .f-right { top: 0; height: 100%; width: calc(var(--h) * var(--rise, 1)); }
+.f-left { left: 0; background-color: var(--face-front); transform-origin: left; transform: rotateY(-90deg); }
+.f-right { right: 0; transform-origin: right; transform: rotateY(90deg); }
+.glazed :is(.f-front, .f-back, .f-left, .f-right) { background-image: linear-gradient(to bottom, var(--line-gold-soft) 1px, transparent 1px), linear-gradient(to right, var(--line-gold-soft) 1px, transparent 1px); background-size: 100% 14px, 16px 100%; }
+.lit-windows :is(.f-front, .f-back, .f-left, .f-right) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='23'%3E%3Crect x='6' y='6' width='5' height='5' fill='%23e6c158' fill-opacity='.6'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='31'%3E%3Crect x='3' y='4' width='5' height='5' fill='%23ffd98a' fill-opacity='.38'/%3E%3C/svg%3E");
+  background-size: 17px 23px, 29px 31px; }
+.win { position: absolute; background: color-mix(in srgb, var(--gold) 24%, transparent); box-shadow: inset 0 0 0 1px var(--line-gold); }
+.win.wide { inset: 18% 8% 0 34%; } .win.band { inset: 22% 10% 26% 10%; }
+.slab { --face-top: color-mix(in srgb, var(--white) 16%, var(--navy-deep)); }
+.tree { --face-top: color-mix(in srgb, var(--foliage) 50%, var(--navy-deep)); --face-front: color-mix(in srgb, var(--foliage) 34%, var(--navy-deep)); --face-side: color-mix(in srgb, var(--foliage) 24%, var(--navy-deep)); --edge: transparent; }
+.plate { --face-top: color-mix(in srgb, var(--navy) 70%, var(--navy-deep)); --face-front: var(--navy-deep); --face-side: var(--navy-deep); --edge: var(--line-gold-soft); }
+.plate .f-top { background-image: linear-gradient(to right, color-mix(in srgb, var(--gold) 10%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--gold) 10%, transparent) 1px, transparent 1px); background-size: 26px 26px; box-shadow: inset 0 0 0 1px var(--line-gold), 0 60px 90px -20px rgb(3 10 22 / .8); }
+.plan { position: absolute; inset: 0; transform: translateZ(.5px); }
+.plan > span { position: absolute; }
+.road { top: 0; bottom: 0; left: 256px; width: 26px; background-color: color-mix(in srgb, var(--navy-deep) 80%, transparent); background-image: linear-gradient(to bottom, var(--line-gold) 50%, transparent 50%); background-size: 1px 14px; background-position: center; background-repeat: repeat-y; }
+.pool { left: 60px; top: 318px; width: 120px; height: 40px; border-radius: 4px; background: color-mix(in srgb, var(--water-deep) 55%, var(--navy-deep)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--water) 60%, transparent); }
+.plot { border: 1px dashed var(--line-gold); border-radius: 6px; }
+.lit .model-box:not(.tree), .model-box.lit { --face-top: color-mix(in srgb, var(--gold) 55%, var(--navy-deep)); --face-front: color-mix(in srgb, var(--gold) 34%, var(--navy-deep)); --face-side: color-mix(in srgb, var(--gold) 20%, var(--navy-deep)); --edge: var(--gold); }
+.dim .face { opacity: .32; }
+.floor-out { transform: translate3d(0, 34px, calc(var(--z) * var(--rise, 1))); }
+.room :is(.f-front, .f-left, .f-top) { display: none; }
+.room { --face-front: color-mix(in srgb, var(--navy-medium) 46%, var(--navy-deep)); --face-side: color-mix(in srgb, var(--navy-medium) 34%, var(--navy-deep)); }
+.room.unit { --face-front: color-mix(in srgb, var(--gold) 34%, var(--navy-deep)); --face-side: color-mix(in srgb, var(--gold) 22%, var(--navy-deep)); --edge: var(--gold); }
+.pipe { --face-top: var(--gold); --face-front: color-mix(in srgb, var(--gold) 80%, var(--navy-deep)); --face-side: color-mix(in srgb, var(--gold) 60%, var(--navy-deep)); --edge: transparent; }
+.drop { --face-top: var(--water-light); --face-front: var(--water); --face-side: var(--water-deep); --edge: transparent; }
+.ripple { position: absolute; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; border: 1.5px solid var(--water); }
+.tower-ico { position: absolute; top: 50%; left: 50%; width: 30px; height: 30px; transform: translate(-50%, -50%); opacity: .75; }
+.lit .tower-ico, .floor-out .tower-ico { opacity: 1; }
+
+/* motion — gentle, and only for people who accept it */
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise 1.4s cubic-bezier(.22,1,.36,1) backwards; animation-delay: var(--d, 0s); }
+  @keyframes rise { from { --rise: 0; } to { --rise: 1; } }
+  .sway { animation: sway 14s ease-in-out infinite alternate; }
+  @keyframes sway { from { --turn: var(--t0); } to { --turn: var(--t1); } }
+  .drop { animation: drip 2.2s cubic-bezier(.55,0,1,.45) infinite; }
+  @keyframes drip { 0% { --dz: 0px; opacity: 1; } 70% { --dz: -64px; opacity: 1; } 71%, 100% { --dz: -64px; opacity: 0; } }
+  .ripple { animation: ripple 2.2s ease-out infinite; }
+  @keyframes ripple { 0%, 68% { transform: scale(.2); opacity: 0; } 72% { opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+}
+
+/* ---------- Layout helpers ---------- */
+.pad { padding-left: var(--pad); padding-right: var(--pad); }
+.stack { display: grid; gap: var(--gap, 16px); }
+.hstack { display: flex; align-items: center; gap: var(--gap, 12px); }
+.between { justify-content: space-between; }
+.grow { flex: 1; }
+.abs { position: absolute; }
+.center { text-align: center; }
+.hero-photo { position: relative; overflow: hidden; }
+.hero-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(10 30 58 / .55) 0%, rgb(10 30 58 / .2) 28%, rgb(10 30 58 / .78) 62%, var(--navy) 100%); }
+.hero-photo > .over { position: relative; z-index: 2; }
+.slides { display: flex; gap: 6px; }
+.slides i { height: 3px; width: 14px; border-radius: 2px; background: rgb(255 255 255 / .35); }
+.slides i.on { width: 30px; background: var(--gold); }
+.hscroll { display: flex; gap: 12px; overflow: hidden; padding: 0 var(--pad); }
+.hscroll > * { flex: none; width: 300px; }
+.floor-tag { font: 500 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); }
+.rail { width: 2px; border-radius: 2px; background: var(--hair); position: relative; }
+.rail.on { background: var(--gold); }
+.check { width: 24px; height: 24px; flex: none; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--gold) 15%, transparent); }
+.list-line { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--hair); font-size: 15px; color: rgb(255 253 249 / .9); }
+.list-line:last-child { border-bottom: 0; }
+.kv { display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; color: var(--ink-soft); }
+.quote-line { border-left: 2px solid var(--gold); padding: 4px 0 4px 14px; display: grid; gap: 4px; }
+.cta-dock { position: absolute; left: 0; right: 0; bottom: 0; z-index: 20; padding: 16px var(--pad) 34px; background: color-mix(in srgb, var(--night) 90%, transparent); backdrop-filter: blur(20px); border-top: 1px solid color-mix(in srgb, var(--gold) 20%, transparent); }
+.android .cta-dock { background: none; border: 0; backdrop-filter: none; display: flex; justify-content: flex-end; padding-bottom: 28px; }
+.foundation { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.swatch { border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px #d7d2c6; }
+.swatch div:first-child { height: 72px; }
+.swatch div:last-child { padding: 10px 12px; font-size: 12px; color: #4a5062; }
+.swatch b { display: block; color: var(--canvas-ink); font-size: 13px; }
+</style>
+</head>
+<body>
+<header class="board-head">
+  <div>
+    <h1>SETABASE — App screens</h1>
+    <p>11 screens · iPhone, Android and iPad · tokens and 3D site models from the website</p>
+  </div>
+  <div class="filters" role="group" aria-label="Show devices">
+    <button aria-pressed="true" data-f="all">All devices</button>
+    <button aria-pressed="false" data-f="ios">iPhone</button>
+    <button aria-pressed="false" data-f="android">Android</button>
+    <button aria-pressed="false" data-f="ipad">iPad</button>
+    <button aria-pressed="false" data-f="foundations">Foundations</button>
+  </div>
+</header>
+<main id="board"></main>
+
+<script>
+/* ------------------------------------------------------------------ data */
+const IMG = {
+  logo: "../../public/logo/setabase-horizontal.png",
+  stacked: "../../public/logo/setabase-stacked.png",
+  villa: "../../public/heroBackgroundImage/naomi-ellsworth-EMPLSuvDuhQ-unsplash.jpg",
+  tower: "../../public/heroBackgroundImage/business/tower-night.jpg",
+};
+const SERVICES = {
+  private: [
+    { id: "property-management", title: "Property Management", aud: "Owners & tenants", eyebrow: "For owners & tenants", desc: "Tenant relations, rent collection and billing, deposits, yearly accounting and the paperwork that comes with owning or renting a home." },
+    { id: "facility-management", title: "Facility Management", aud: "Villas & multi-unit owners", eyebrow: "For villas & multi-unit owners", desc: "Security, cleaning and day-to-day upkeep for a villa or a portfolio of apartments — the hands-on side of owning property.", note: "Now in New Cairo and Hurghada, expanding to other Egyptian cities." },
+    { id: "relocation", title: "Relocation", aud: "People moving to Egypt", eyebrow: "For people moving to Egypt", desc: "Home finding, viewings, temporary accommodation and settling-in support for individuals, students, families and retirees moving to Egypt.", note: "Before the move, during, and after arrival — in three steps." },
+    { id: "real-estate", title: "Real Estate", aud: "Sell, rent & invest", eyebrow: "For buyers & sellers", desc: "Buying, selling and investing in property across Egypt — with strong opportunities in New Cairo, Cairo, Sahel, and the Red Sea.", note: "Through Palmayya, our real estate sales company." },
+  ],
+  business: [
+    { id: "property-management", title: "Property Management", aud: "Communities & companies", eyebrow: "For communities & companies", desc: "Owners' meetings, common charges, legal aspects and building-wide administration — full management for HOAs and company-owned buildings." },
+    { id: "facility-management", title: "Facility Management", aud: "Buildings & companies", eyebrow: "For buildings & companies", desc: "Security, cleaning, maintenance and the day-to-day running of a building or office, handled by our team.", note: "Now in New Cairo and Hurghada, expanding to other Egyptian cities." },
+    { id: "relocation", title: "Corporate Relocation", aud: "Employees moving to Egypt", eyebrow: "For employers", desc: "Housing, paperwork and settling-in support for companies relocating employees to Egypt — fast turnaround, one point of contact." },
+    { id: "special-services", title: "Special Services", aud: "Workplace wellbeing", eyebrow: "For workplaces", desc: "Subscription packages that take care of the office — supplies, wellness, and team events, priced per employee.", note: "Packages from 615 EGP per employee per month." },
+    { id: "real-estate", title: "Real Estate", aud: "Sell, rent & invest", eyebrow: "For investors & developers", desc: "Sourcing, developing and investing in property across Egypt — with strong opportunities in New Cairo, Cairo, Sahel, and the Red Sea.", note: "Through Palmayya, our real estate sales company." },
+  ],
+};
+
+/* ------------------------------------------------------------------ icons */
+const LUCIDE = {
+  menu: '<path d="M4 6h16M4 12h16M4 18h16"/>', more: '<circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/>',
+  chevron: '<path d="m9 18 6-6-6-6"/>', arrow: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>', back: '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>', backios: '<path d="m15 18-6-6 6-6"/>',
+  house: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  building: '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/>',
+  grid: '<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>',
+  book: '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+  message: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+  phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  pin: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>', swap: '<path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/>',
+  sparkle: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/>',
+};
+const DEPT = {
+  "property-management": '<path d="M5 15 16 6l11 9"/><path d="M8 13v13h16V13"/><circle cx="16" cy="18.5" r="2.5"/><path d="M16 21v4M16 23.5h2"/>',
+  "facility-management": '<path d="M6 27V7h12v20"/><path d="M9.5 11h5M9.5 15h5M9.5 19h5"/><circle cx="23" cy="22" r="3"/><path d="M23 16.5v2M23 25.5v2M17.5 22h2M26.5 22h2M19.1 18.1l1.4 1.4M25.5 24.5l1.4 1.4M19.1 25.9l1.4-1.4M25.5 19.5l1.4-1.4"/><path d="M3 27h14"/>',
+  relocation: '<path d="M4 17l8-7 8 7"/><path d="M6 15.5V26h12V15.5"/><path d="M24 20s-5-5.2-5-9a5 5 0 0 1 10 0c0 3.8-5 9-5 9z"/><circle cx="24" cy="11" r="1.6"/><path d="M3 27h26"/>',
+  "special-services": '<path d="m16 4 2.6 5.3 5.9.9-4.3 4.1 1 5.8L16 17.4l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/><path d="M4 26c3-2 6-2.4 9-1.4l5 1.6c1.5.4 3 .1 4.4-.9L28 22"/>',
+  "real-estate": '<path d="M8 4v24M4 28h8"/><path d="M8 8h18v10H8"/><path d="M12 13h10"/>',
+  leak: '<path d="M16 4s7 7.6 7 12.8a7 7 0 0 1-14 0C9 11.6 16 4 16 4z"/>',
+};
+const ic = (n, s = 22, c = "var(--gold)") => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${LUCIDE[n]}</svg>`;
+const dic = (n, s = 30, c = "var(--gold)") => `<svg width="${s}" height="${s}" viewBox="0 0 32 32" fill="none" stroke="${c}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${DEPT[n]}</svg>`;
+const sys = (p) => p === "android"
+  ? `<span class="sys"><svg width="16" height="14" viewBox="0 0 16 14" fill="#fffdf9"><path d="M8 13 0 3.5a12 12 0 0 1 16 0z"/></svg><svg width="14" height="14" viewBox="0 0 14 14" fill="#fffdf9"><path d="M14 0v14H0z"/></svg><svg width="9" height="15" viewBox="0 0 9 15" fill="#fffdf9"><rect x="2.5" width="4" height="2" rx=".5"/><rect y="1.5" width="9" height="13.5" rx="1.5"/></svg></span>`
+  : `<span class="sys"><svg width="18" height="12" viewBox="0 0 18 12" fill="#fffdf9"><rect y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="#fffdf9"><path d="M8 2.5a9 9 0 0 1 6.4 2.6l1.3-1.3A11 11 0 0 0 .3 3.8l1.3 1.3A9 9 0 0 1 8 2.5zm0 3.6a5.5 5.5 0 0 1 3.9 1.6l1.3-1.3a7.3 7.3 0 0 0-10.4 0l1.3 1.3A5.5 5.5 0 0 1 8 6.1zM8 12l2.3-2.3a3.2 3.2 0 0 0-4.6 0z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="22" height="12" rx="3.5" stroke="#fffdf9" stroke-opacity=".4"/><rect x="2.5" y="2.5" width="18" height="8" rx="2" fill="#fffdf9"/><path d="M24.5 4.5v4a2 2 0 0 0 0-4z" fill="#fffdf9" fill-opacity=".45"/></svg></span>`;
+
+/* ------------------------------------------------------------------ 3D models */
+const box = (x, y, w, d, h, z = 0, cls = "", front = "", style = "") =>
+  `<div class="model-box ${cls}" style="left:${x}px;top:${y}px;width:${w}px;height:${d}px;--h:${h}px;--z:${z}px;${style}"><div class="face f-top"></div><div class="face f-front">${front}</div><div class="face f-back"></div><div class="face f-left"></div><div class="face f-right"></div></div>`;
+const stage = (inner, o) =>
+  `<div class="stage" style="height:${o.height}px;${o.origin ? `perspective-origin:${o.origin};` : ""}"><div class="table ${o.sway ? "sway" : ""}" style="width:${o.w}px;height:${o.d}px;--scale:${o.scale};--tilt:${o.tilt};--turn:${o.turn};--t0:${o.turn - 8};--t1:${o.turn + 8};--lift:${o.lift ?? 60};">${inner}</div></div>`;
+
+/** The landing site model: villa (private) and two towers (business) on one plate. */
+function siteModel({ scale = .56, height = 260, focus = null, sway = true } = {}) {
+  const st = (k) => focus == null ? "" : focus === k ? "lit" : "dim";
+  return stage(`
+    ${box(0, 0, 520, 380, 14, 0, "plate")}
+    <div class="site">
+      <div class="plan"><span class="road"></span><span class="pool"></span><span class="plot" style="inset:140px 276px 12px 12px"></span><span class="plot" style="inset:36px 12px 110px 284px"></span></div>
+      <div class="bld ${st("private")}">
+        ${box(36, 178, 196, 128, 58, 0, "rise", '<span class="win wide"></span>', "--d:.1s")}
+        ${box(62, 192, 132, 92, 46, 58, "rise", '<span class="win band"></span>', "--d:.25s")}
+        ${box(50, 184, 160, 110, 6, 104, "slab rise", "", "--d:.4s")}
+        ${box(238, 262, 12, 12, 34, 0, "tree rise", "", "--d:.5s")}${box(20, 150, 14, 14, 28, 0, "tree rise", "", "--d:.55s")}
+      </div>
+      <div class="bld ${st("business")}">
+        ${box(292, 52, 180, 190, 22, 0, "rise", "", "--d:.2s")}
+        ${box(302, 64, 96, 96, 236, 22, "glazed rise", "", "--d:.35s")}
+        ${box(404, 150, 58, 82, 142, 22, "glazed rise", "", "--d:.5s")}
+        ${box(470, 262, 12, 12, 30, 0, "tree rise", "", "--d:.6s")}
+      </div>
+    </div>`, { w: 520, d: 380, scale, tilt: 56, turn: -34, lift: 70, height, sway });
+}
+/** The services as floors of one building; the lit floor slides out towards the street. */
+function towerModel({ floors = 4, lit = 0, scale = .5, height = 220, ids = [], sway = true } = {}) {
+  const F = { inset: 30, size: 160, h: 44, gap: 6, base: 10 };
+  let s = box(0, 0, 220, 220, F.base, 0, "plate");
+  for (let i = 0; i < floors; i++) {
+    const z = F.base + i * (F.h + F.gap);
+    const on = i === lit;
+    s += box(F.inset, F.inset, F.size, F.size, F.h, z, `glazed rise ${on ? "lit floor-out" : ""}`, ids[i] ? `<span class="tower-ico">${dic(ids[i], 30, on ? "var(--navy-deep)" : "var(--gold)")}</span>` : "", `--d:${.1 + i * .12}s`);
+  }
+  const roofZ = F.base + floors * (F.h + F.gap);
+  s += box(F.inset - 8, F.inset - 8, F.size + 16, F.size + 16, 6, roofZ, "slab rise", "", `--d:${.1 + floors * .12}s`);
+  return stage(s, { w: 220, d: 220, scale, tilt: 58, turn: -40, lift: 140, height, sway, origin: "50% 20%" });
+}
+/** A three-storey block cut open at the front, with a pipe leaking into the middle flat. */
+function explainerModel({ scale = .8, height = 230, focus = "property" } = {}) {
+  const S = 70, SL = 6, lv = (i) => i * (S + SL);
+  let s = box(0, 0, 300, 230, 8, 0, "plate");
+  s += `<div class="site" style="--base:8px">`;
+  for (let f = 0; f < 3; f++) {
+    s += box(40, 40, 220, 150, SL, lv(f), "slab rise");
+    for (let u = 0; u < 2; u++) {
+      const unit = focus === "property" && f === 1 && u === 0;
+      s += box(40 + u * 110, 40, 110, 150, S - SL, lv(f) + SL, `room rise ${unit ? "unit" : ""}`);
+    }
+  }
+  s += box(40, 40, 220, 150, SL, lv(3), "slab rise");
+  s += box(96, 46, 6, 6, lv(3), 0, focus === "facility" ? "pipe rise" : "rise", "", "--edge:transparent");
+  s += box(110, 108, 6, 6, 8, lv(2) - SL - 8, "drop");
+  s += `<div class="plan" style="transform:translateZ(${lv(1) + SL + .5}px)"><span class="ripple" style="left:113px;top:111px"></span></div>`;
+  s += `</div>`;
+  return stage(s, { w: 300, d: 230, scale, tilt: 64, turn: -30, lift: 80, height, sway: false, origin: "50% 25%" });
+}
+/** A night skyline on the ground grid, seen from street level. */
+function skyline({ scale = .42, height = 130, w = 900 } = {}) {
+  const B = [[20, 60, 70, 80, 120], [100, 40, 60, 90, 210], [170, 70, 80, 70, 150], [262, 30, 70, 100, 290], [344, 60, 64, 80, 180], [420, 50, 90, 90, 240], [522, 70, 60, 70, 130], [594, 36, 74, 96, 270], [680, 64, 66, 80, 170], [758, 46, 70, 90, 220], [838, 70, 50, 70, 110]];
+  let s = box(0, 0, w, 170, 10, 0, "plate");
+  s += `<div class="site" style="--base:10px">` + B.map(([x, y, bw, bd, h], i) => box(x, y, bw, bd, h, 0, `lit-windows rise ${i === 3 || i === 7 ? "glazed" : ""}`, "", `--d:${Math.abs(i - 5) * .08}s`)).join("") + `</div>`;
+  return stage(s, { w, d: 170, scale, tilt: 68, turn: -4, lift: 40, height, sway: false, origin: "50% 0%" });
+}
+
+/* ------------------------------------------------------------------ chrome */
+const status = (p) => p === "ios" ? `<div class="status"><span>9:41</span><span class="island"></span>${sys(p)}</div>`
+  : p === "android" ? `<div class="status"><span>9:41</span><span class="punch"></span>${sys(p)}</div>`
+  : `<div class="status"><span>9:41&nbsp;&nbsp;Tue 3 Oct</span>${sys(p)}</div>`;
+const TABS = [["Home", "house"], ["Services", "grid"], ["Guide", "book"], ["Contact", "message"]];
+function bottomNav(p, active) {
+  if (!active || p === "ipad") return "";
+  if (p === "ios") return `<nav class="tabbar">${TABS.map(([l, i]) => `<span class="tab ${l === active ? "on" : ""}">${ic(i, 22, l === active ? "var(--gold)" : "rgb(255 253 249 / .56)")}${l}</span>`).join("")}</nav>`;
+  return `<nav class="navbar">${TABS.map(([l, i]) => `<span class="tab ${l === active ? "on" : ""}"><span class="pill">${ic(i, 22, l === active ? "var(--gold)" : "rgb(255 253 249 / .74)")}</span>${l}</span>`).join("")}</nav>`;
+}
+function appBar(p, { type = "logo", title = "", transparent = true } = {}) {
+  if (type === "logo") return p === "android"
+    ? `<div class="appbar"><img class="logo" src="${IMG.logo}" alt="SETABASE"><span class="icon-btn">${ic("swap", 22, "var(--white)")}</span><span class="icon-btn">${ic("more", 22, "var(--white)")}</span></div>`
+    : `<div class="appbar"><img class="logo" src="${IMG.logo}" alt="SETABASE"><span class="icon-btn">${ic("menu", 20)}</span></div>`;
+  return p === "android"
+    ? `<div class="appbar"><span class="icon-btn">${ic("back", 24, "var(--white)")}</span><span class="title">${title}</span><span class="icon-btn">${ic("more", 22, "var(--white)")}</span></div>`
+    : `<div class="appbar"><span class="icon-btn">${ic("backios", 20)}</span><span class="title">${title}</span><span style="width:44px"></span></div>`;
+}
+function sidebar(active, audience = "private") {
+  const items = TABS.map(([l, i]) => `<span class="item ${l === active ? "on" : ""}">${ic(i, 20, l === active ? "var(--gold)" : "rgb(255 253 249 / .7)")}${l}</span>`).join("");
+  const svc = SERVICES[audience].map((s) => `<span class="item" style="font-size:14px;padding:9px 14px">${dic(s.id, 20, "rgb(230 193 88 / .8)")}${s.title}</span>`).join("");
+  return `<aside class="sidebar"><img class="logo" src="${IMG.logo}" alt="SETABASE">${items}<div class="sep"></div><span class="group">${audience === "private" ? "Private" : "Business"} services</span>${svc}<span class="grow"></span>
+    <div class="segmented" style="margin:0 4px 12px"><span class="${audience === "private" ? "on" : ""}">Private</span><span class="${audience === "business" ? "on" : ""}">Business</span></div>
+    <a class="btn btn-primary" style="margin:0 4px">Request a quote</a></aside>`;
+}
+
+/* ------------------------------------------------------------------ pieces */
+const eb = (t) => `<div class="eyebrow">${t}</div>`;
+const btn = (l, k = "primary", cls = "") => `<a class="btn btn-${k} ${cls}">${l}</a>`;
+const srow = (s, n) => `<div class="srow">${n ? `<span class="num">0${n}</span>` : ""}${dic(s.id, 28)}<span class="t"><b>${s.title}</b><i>${s.aud}</i></span>${ic("chevron", 18, "rgb(230 193 88 / .8)")}</div>`;
+const scard = (s, extra = "") => `<article class="card" ${extra}><div class="head"><span class="badge">${dic(s.id, 30)}</span>${eb(s.eyebrow)}</div><h3 class="h2">${s.title}</h3><p class="body">${s.desc}</p>${s.note ? `<div class="note">${s.note}</div>` : ""}<div class="link">Take me there ${ic("arrow", 20)}</div></article>`;
+const progress = (n) => `<div class="progress">Step ${n} of 2 <i class="on"></i><i class="${n > 1 ? "on" : ""}"></i></div>`;
+const field = (label, value, cls = "") => `<div class="field"><label>${label}</label><div class="input ${cls}">${value}</div></div>`;
+
+/* ------------------------------------------------------------------ screens */
+const SCREENS = [];
+const def = (id, name, render) => SCREENS.push({ id, name, render });
+
+def("splash", "Splash", (p) => {
+  if (p === "ipad") return { fixed: true, chrome: "none", cls: "sky", html: `
+    <span class="lights"></span><span class="floor"></span><span class="glow" style="left:120px;top:250px;width:520px;height:360px"></span>
+    <div class="sb-space"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;padding:0 72px;position:relative">
+      ${siteModel({ scale: .82, height: 600 })}
+      <div class="stack" style="--gap:26px">
+        <img src="${IMG.stacked}" alt="SETABASE Services" style="height:118px;justify-self:start">
+        <h1 class="display">Everything your property needs, all in one place.</h1>
+        <p class="body">Property, facility, relocation and real estate — one partner in New Cairo instead of five.</p>
+        <div class="hstack" style="--gap:12px">${btn("Get started")}${btn("Explore services", "ghost")}</div>
+      </div>
+    </div>` };
+  return { fixed: true, chrome: "none", cls: "sky", html: `
+    <span class="lights"></span><span class="floor"></span><span class="glow" style="left:20px;top:150px;width:350px;height:300px"></span>
+    <div class="sb-space"></div>
+    <div style="margin-top:30px">${siteModel({ scale: .62, height: 320 })}</div>
+    <div class="pad stack center" style="--gap:18px;justify-items:center;position:relative;flex:1;align-content:start">
+      <img src="${IMG.stacked}" alt="SETABASE Services" style="height:84px">
+      <h1 class="h1">Everything your property needs, all in one place.</h1>
+      <p class="body">Property, facility, relocation and real estate — one partner in New Cairo instead of five.</p>
+    </div>
+    <div class="pad stack" style="--gap:6px;padding-bottom:40px;position:relative;justify-items:center">
+      <div class="slides" style="margin-bottom:18px"><i class="on"></i><i></i><i></i></div>
+      ${btn("Get started", "primary", "block")}${btn("Explore services", "ghost")}
+    </div>` };
+});
+
+def("who", "Onboarding · Who are we looking after?", (p) => {
+  const cards = `
+    <div class="choice on"><span class="badge round">${ic("house", 22)}</span><span class="t"><b>Private</b><span class="small" style="color:var(--ink-soft)">I own, rent or buy a home, or I'm moving to Egypt.</span></span>${ic("chevron", 20)}</div>
+    <div class="choice"><span class="badge round">${ic("building", 22)}</span><span class="t"><b>Business</b><span class="small" style="color:var(--ink-soft)">An HOA, a developer, or an employer with staff to move or a workplace to run.</span></span>${ic("chevron", 20)}</div>`;
+  if (p === "ipad") return { fixed: true, chrome: "none", cls: "sky", html: `
+    <span class="lights"></span><span class="floor"></span><span class="glow" style="left:80px;top:230px;width:560px;height:380px"></span>
+    <div class="sb-space"></div>${appBar(p)}
+    <div style="flex:1;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;padding:0 64px 40px;gap:24px;position:relative">
+      <div>${siteModel({ scale: .98, height: 560, focus: "private" })}<p class="small center">Tap a building — the villa is Private, the towers are Business.</p></div>
+      <div class="stack" style="--gap:16px">${progress(1)}<h1 class="h1">Who are we looking after?</h1><p class="body">Pick one and we'll show you the services that fit.</p><div class="stack" style="--gap:12px;margin-top:8px">${cards}</div>${btn("Continue", "primary", "block")}</div>
+    </div>` };
+  return { fixed: true, chrome: "none", cls: "sky", html: `
+    <span class="lights"></span><span class="floor"></span><span class="glow" style="left:30px;top:80px;width:330px;height:260px"></span>
+    <div class="sb-space"></div>${appBar(p)}
+    <div>${siteModel({ scale: p === "android" ? .58 : .5, height: p === "android" ? 290 : 228, focus: "private" })}</div>
+    <div class="pad stack" style="--gap:14px;position:relative;flex:1;align-content:end;padding-bottom:40px">
+      ${progress(1)}<h1 class="h1">Who are we looking after?</h1><p class="body">Pick one and we'll show you the services that fit.</p>
+      <div class="stack" style="--gap:12px;margin-top:6px">${cards}</div>
+      ${btn("Continue", "primary", "block")}
+    </div>` };
+});
+
+def("what", "Onboarding · What do you need first?", (p) => {
+  const list = SERVICES.private.map((s, i) => srow(s, i + 1)).join("");
+  const ids = SERVICES.private.map((s) => s.id);
+  if (p === "ipad") return { fixed: true, chrome: "none", cls: "sky", html: `
+    <span class="lights"></span><span class="floor"></span>
+    <div class="sb-space"></div>${appBar("ios", { type: "back", title: "Private" })}
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 64px 40px;gap:40px;position:relative">
+      ${towerModel({ floors: 4, lit: 0, scale: 1.05, height: 540, ids })}
+      <div class="stack" style="--gap:16px">${progress(2)}<h1 class="h1">What do you need first?</h1><p class="body">Each floor is one service. Pick one to go straight to it.</p>
+      <div class="card glass" style="padding:6px 22px;gap:0">${list}</div>${btn("See all private services", "outline", "block")}</div>
+    </div>` };
+  return { fixed: true, chrome: "none", cls: "sky", html: `
+    <span class="lights"></span><span class="floor"></span>
+    <div class="sb-space"></div>${appBar(p, { type: "back", title: "Private" })}
+    <div style="margin-top:-6px">${towerModel({ floors: 4, lit: 0, scale: p === "android" ? .55 : .46, height: p === "android" ? 230 : 176, ids })}</div>
+    <div class="pad stack" style="--gap:14px;position:relative;flex:1;align-content:end;padding-bottom:40px">
+      ${progress(2)}<h1 class="h1">What do you need first?</h1><p class="body">Each floor is one service. Pick one to go straight to it.</p>
+      <div class="card glass" style="padding:4px 20px;gap:0">${list}</div>
+      ${btn("See all private services", "outline", "block")}
+    </div>` };
+});
+
+function home(p, aud) {
+  const S = SERVICES[aud];
+  const priv = aud === "private";
+  const cfg = priv
+    ? { photo: IMG.villa, title: "Everything your property needs, all in one place.", para: "SETABASE manages rental properties, relocations and real estate for individual owners, tenants and people moving to Egypt — one partner in New Cairo instead of five.", eye: "For individuals", strap: "Four services, one point of contact.", what: "Four services" }
+    : { photo: IMG.tower, title: "Everything your property and your workplace need, all in one place.", para: "SETABASE runs the administrative and technical side of buildings, teams, workplaces and relocations in New Cairo — so owners, HOAs and companies deal with one partner instead of five.", eye: "Five departments, one team", strap: "One partner instead of five.", what: "Five departments" };
+  const switcher = `<span class="pill-switch">${ic(priv ? "house" : "building", 16)} ${priv ? "Private" : "Business"} <span class="gold">· Switch</span></span>`;
+  const rows = S.map((s, i) => srow(s, i + 1)).join("");
+  const teaser = `<div class="card" style="grid-template-columns:auto 1fr auto;align-items:center;gap:6px 16px;background:linear-gradient(160deg,var(--raised),var(--navy));padding:6px 18px 6px 6px;overflow:hidden">
+      <div style="width:130px">${explainerModel({ scale: .42, height: 130 })}</div>
+      <div class="stack" style="--gap:6px">${eb("Guide")}<b class="h3">Property vs Facility — what's the difference?</b></div>${ic("chevron", 20)}</div>`;
+  const footer = `<div class="night-sky" style="position:relative;padding:8px 0 calc(var(--nav) + 24px);overflow:hidden">${skyline({ scale: p === "ipad" ? .92 : .42, height: p === "ipad" ? 260 : 160 })}<p class="small center" style="margin-top:8px">SETABASE Services · New Cairo, Egypt</p></div>`;
+  if (p === "ipad") return { chrome: "tabs", active: "Home", audience: aud, html: `
+    <section class="hero-photo" style="height:640px"><img src="${cfg.photo}" alt="">
+      <div class="over" style="height:100%;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:end;padding:0 40px 36px">
+        <div class="stack" style="--gap:20px">${switcher}<h1 class="display">${cfg.title}</h1><p class="body" style="max-width:520px">${cfg.para}</p><div class="hstack">${btn("Request a quote")}${btn("Explore services", "outline")}</div><div class="slides"><i class="on"></i><i></i><i></i></div></div>
+        <div class="card glass compact" style="gap:4px;padding:18px 22px 6px">${eb(cfg.eye)}<p class="serif-i" style="font-size:20px">${cfg.strap}</p>${rows}</div>
+      </div></section>
+    <section class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;padding-top:28px">
+      <div>${towerModel({ floors: S.length, lit: 0, scale: .8, height: 380, ids: S.map((s) => s.id) })}</div>
+      <div class="stack" style="--gap:14px">${eb("What we do")}<h2 class="h1">${cfg.what}, one building.</h2><p class="body">Every service is a floor of the same team. The lit floor is where you start — tap any floor to slide it out.</p><div class="hstack">${btn("All services", "outline")}</div></div>
+    </section>
+    <section class="pad" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-top:12px;padding-bottom:24px">${S.slice(0, 3).map((s) => scard(s)).join("")}</section>
+    <section class="pad" style="padding-bottom:28px">${teaser}</section>${footer}` };
+  return { chrome: "tabs", active: "Home", html: `
+    <section class="hero-photo" style="height:${p === "android" ? 760 : 730}px"><img src="${cfg.photo}" alt="">
+      <div class="abs" style="top:var(--sb);left:0;right:0;z-index:3">${appBar(p)}</div>
+      <div class="over pad stack" style="--gap:18px;height:100%;align-content:end;padding-bottom:28px">
+        ${switcher}<h1 class="display">${cfg.title}</h1><p class="body" style="color:rgb(255 253 249 / .84)">${cfg.para}</p>
+        <div class="hstack">${btn("Request a quote", "primary", "grow")}${btn("Services", "outline")}</div>
+        <div class="slides"><i class="on"></i><i></i><i></i></div>
+      </div></section>
+    <section class="pad" style="padding-top:26px">${eb(cfg.eye)}<p class="serif-i" style="font-size:21px;margin:6px 0 4px">${cfg.strap}</p>${rows}</section>
+    <section style="padding-top:34px;position:relative">
+      <div class="pad hstack between" style="align-items:flex-end"><div class="stack" style="--gap:6px">${eb("What we do")}<h2 class="h2">${cfg.what}, one building</h2></div><span class="gold" style="font:500 13px var(--sans);white-space:nowrap">See all</span></div>
+      ${towerModel({ floors: S.length, lit: 0, scale: .46, height: 200, ids: S.map((s) => s.id) })}
+      <div class="hscroll">${S.map((s) => scard(s)).slice(0, 2).join("")}</div>
+    </section>
+    <section class="pad" style="padding-top:28px;padding-bottom:28px">${teaser}</section>${footer}` };
+}
+def("home-private", "Home · Private", (p) => home(p, "private"));
+def("home-business", "Home · Business", (p) => home(p, "business"));
+
+function services(p, aud) {
+  const S = SERVICES[aud];
+  const seg = `<div class="segmented"><span class="${aud === "private" ? "on" : ""}">${ic("house", 16, aud === "private" ? "var(--navy-deep)" : "rgb(255 253 249 / .7)")} Private</span><span class="${aud === "business" ? "on" : ""}">${ic("building", 16, aud === "business" ? "var(--navy-deep)" : "rgb(255 253 249 / .7)")} Business</span></div>`;
+  const sub = aud === "private" ? "Four services, tailored to individual owners and residents." : "Five services, each one a full team on its own.";
+  const floorList = S.map((s, i) => `<div style="display:grid;grid-template-columns:2px 1fr;gap:16px;${i ? "opacity:.5" : ""}"><span class="rail ${i ? "" : "on"}"></span><div class="stack" style="--gap:10px"><span class="floor-tag">Floor 0${i + 1}</span>${scard(s)}</div></div>`).join("");
+  if (p === "ipad") return { chrome: "tabs", active: "Services", audience: aud, html: `
+    <div class="sb-space"></div>
+    <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:32px;padding:16px var(--pad) 40px">
+      <div style="align-self:start" class="stack">
+        <div class="stack" style="--gap:8px">${eb("What we do")}<h1 class="h1">Services</h1><p class="body">${sub}</p></div>${seg}
+        <div style="background:radial-gradient(45% 40% at 50% 62%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 72%)">${towerModel({ floors: S.length, lit: 0, scale: .95, height: 470, ids: S.map((s) => s.id) })}</div>
+      </div>
+      <div class="stack" style="--gap:22px">${floorList}</div>
+    </div>` };
+  return { chrome: "tabs", active: "Services", html: `
+    <div class="sb-space"></div>
+    <div class="pad stack" style="--gap:14px;padding-top:12px">
+      <div class="hstack between"><div class="stack" style="--gap:6px">${eb("What we do")}<h1 class="h1">Services</h1></div></div>${seg}<p class="body">${sub}</p>
+    </div>
+    <div style="background-image:radial-gradient(45% 40% at 50% 62%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 72%)">${towerModel({ floors: S.length, lit: 0, scale: .5, height: 230, ids: S.map((s) => s.id) })}</div>
+    <div class="pad stack" style="--gap:20px;padding-bottom:calc(var(--nav) + 32px)">${floorList}
+      <div class="card glass center" style="justify-items:center;gap:10px">${eb("The roof")}<p class="h3">One team, one point of contact.</p>${btn("Request a quote", "primary", "block")}</div>
+    </div>` };
+}
+def("services-private", "Services · Private", (p) => services(p, "private"));
+def("services-business", "Services · Business", (p) => services(p, "business"));
+
+def("detail", "Service detail · Property Management", (p) => {
+  const s = SERVICES.private[0];
+  const included = ["Tenant communication & contracts", "Rent collection and deposits", "Yearly accounting & account handling", "Rent increases, taxes and general payments", "Technical issues followed up — leaks, lifts, repairs", "Owners' meetings and owners' charges"];
+  const inc = `<div class="card" style="gap:0;padding:20px 22px 8px">${eb("What's included")}${included.map((t) => `<div class="list-line"><span class="check">${ic("check", 14)}</span>${t}</div>`).join("")}</div>`;
+  const rent = `<div class="card" style="background:color-mix(in srgb,var(--gold) 7%,transparent);border-color:color-mix(in srgb,var(--gold) 40%,transparent)">${eb("How your rent reaches you")}
+    <div class="kv"><span>Monthly rent</span><b style="color:var(--white);font-weight:500">24,000 EGP</b></div><div class="kv"><span>General costs & charges</span><span>− 2,000 EGP</span></div><div class="kv"><span>SETABASE fee</span><span>− 1,400 EGP</span></div>
+    <div style="height:1px;background:var(--line-gold-soft)"></div><div class="kv"><span style="color:var(--white)">Paid to the owner</span><b class="h2 gold">20,600 EGP</b></div></div>`;
+  const ids = SERVICES.private.map((x) => x.id);
+  const head = `<div class="stack" style="--gap:10px">${eb(s.eyebrow)}<h1 class="${p === "ipad" ? "display" : "h1"}">${s.title}</h1><p class="body">We manage rental properties on behalf of owners — tenant relations, rent collection and billing, deposits, yearly accounting and the paperwork that comes with owning or renting a home.</p></div>`;
+  if (p === "ipad") return { chrome: "tabs", active: "Services", html: `
+    <div class="sb-space"></div>
+    <div style="background:linear-gradient(180deg,var(--raised),var(--navy) 60%);padding:12px var(--pad) 40px">
+      <div class="hstack" style="margin-bottom:8px"><span class="icon-btn">${ic("backios", 20)}</span><span class="small">Services</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center">${head}${towerModel({ floors: 4, lit: 0, scale: .9, height: 380, ids })}</div>
+      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:20px;margin-top:20px;align-items:start">${inc}<div class="stack">${rent}${btn("Ask about Property Management", "primary", "block")}</div></div>
+    </div>` };
+  return { chrome: "none", cls: "", bg: "linear-gradient(180deg,var(--raised),var(--navy) 38%)", html: `
+    <div class="sb-space"></div>${appBar(p, { type: "back", title: p === "android" ? "Property Management" : "" })}
+    ${towerModel({ floors: 4, lit: 0, scale: .56, height: 240, ids })}
+    <div class="pad stack" style="--gap:20px;padding-bottom:140px">${head}${inc}${rent}</div>
+    <div class="cta-dock">${p === "android" ? `<a class="btn btn-primary fab">${ic("message", 20, "var(--navy-deep)")} Ask about this service</a>` : btn("Ask about Property Management", "primary", "block")}</div>
+    ${p === "ios" ? '<span class="home-ind"></span>' : '<span class="gesture"></span>'}` };
+});
+
+def("guide", "Guide · Property vs Facility", (p) => {
+  const col = (t, id, sum, ex, on) => `<article class="card" style="${on ? "border-color:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 10%,transparent)" : ""}"><div class="hstack">${dic(id, 32)}<b class="h3">${t}</b></div><p class="body">${sum}</p><div class="quote-line">${eb("In the leak")}<p class="serif-i" style="font-size:18px;line-height:1.45">${ex}</p></div></article>`;
+  const cards = col("Property Management", "property-management", "Takes care of the money and the contracts of a property — it protects the owner's value and income.", "The property manager reports the leak, informs the owner and follows the case.", true)
+    + col("Facility Management", "facility-management", "Takes care of how the building actually works — it keeps it safe, clean and running.", "The facility manager sends the plumber and checks that the repair is done properly.", false);
+  const seg = `<div class="segmented"><span class="on">Property Management</span><span>Facility Management</span></div>`;
+  const scene = (scale, h) => `<div style="position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line-gold-soft);background:radial-gradient(40% 46% at 50% 56%, color-mix(in srgb,var(--gold) 14%,transparent), transparent 72%), linear-gradient(180deg,var(--raised),var(--navy))">
+      <span class="grid-bg"></span>${explainerModel({ scale, height: h })}
+      <div class="hstack" style="position:absolute;left:16px;bottom:14px;--gap:8px"><span class="chip on" style="padding:6px 12px;font-size:12px">${dic("leak", 16)} Leak in flat 2A</span></div></div>`;
+  const head = `<div class="stack" style="--gap:8px">${eb("Guide")}<h1 class="h1">Property vs Facility Management</h1><p class="body">People often mix them up, but they answer two different needs. Take a pipe leaking in an apartment:</p></div>`;
+  if (p === "ipad") return { chrome: "tabs", active: "Guide", html: `
+    <div class="sb-space"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:16px var(--pad) 40px">
+      <div class="stack" style="--gap:18px;align-self:start">${head}${scene(1.0, 380)}${seg}</div>
+      <div class="stack" style="--gap:16px;align-self:start">${cards}<p class="serif-i gold center" style="font-size:26px">One team, one point of contact.</p></div>
+    </div>` };
+  return { chrome: "tabs", active: "Guide", html: `
+    <div class="sb-space"></div>
+    <div class="pad stack" style="--gap:16px;padding-top:12px;padding-bottom:calc(var(--nav) + 32px)">${head}${scene(.86, 260)}${seg}${cards}
+      <p class="serif-i gold center" style="font-size:24px;margin-top:6px">One team, one point of contact.</p></div>` };
+});
+
+def("request", "Request a quote", (p) => {
+  const form = `<div class="stack" style="--gap:18px">
+    ${field("Full name", "Sara Ahmed")}${field("Email", "sara@example.com", "focus")}${field("Phone (optional)", "+20 1X XXX XXXX", "ph")}
+    <div class="field"><label>I'm interested in</label><div style="display:flex;flex-wrap:wrap;gap:8px"><span class="chip on">${ic("check", 14)} Property Management</span><span class="chip">Facility Management</span><span class="chip">Relocation</span><span class="chip">Real Estate</span></div></div>
+    ${field("Message", "A 3-bedroom apartment in Fifth Settlement — I need a tenant and someone to handle rent and bills.", "area")}
+    <div class="stack" style="--gap:10px;justify-items:center">${btn("Send request", "primary", "block")}<span class="small">We'll reply within one business day.</span></div></div>`;
+  const office = `<div class="card glass" style="gap:0;padding:20px 22px 6px">${eb("Our office")}
+    ${[["pin", "Visit", "Building 6, Floor 3, Unit 9 · EDNC, New Cairo, Egypt"], ["mail", "Email", "hello@setabase.com"], ["phone", "Call", "+20 000 000 0000"]].map(([i, l, v]) => `<div class="srow"><span class="badge round" style="width:40px;height:40px">${ic(i, 18)}</span><span class="t"><i>${l}</i><b style="font-weight:400;font-size:15px">${v}</b></span></div>`).join("")}</div>`;
+  const head = `<div class="stack" style="--gap:8px">${eb("Talk to our team")}<h1 class="h1">Tell us what you need</h1><p class="body">Share a few details and we'll come back with a tailored quote — usually within one business day.</p></div>`;
+  if (p === "ipad") return { chrome: "tabs", active: "Contact", html: `
+    <div class="sb-space"></div>
+    <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:32px;padding:16px var(--pad) 40px">
+      <div class="stack" style="--gap:24px">${head}${form}</div>
+      <div class="stack" style="--gap:16px;align-self:start"><div class="night-sky" style="border-radius:28px;overflow:hidden;border:1px solid var(--line-gold-soft);padding:20px 0 10px;position:relative"><span class="glow" style="left:60px;top:40px;width:300px;height:160px;opacity:.6"></span>${skyline({ scale: .5, height: 170 })}<p class="small center">New Cairo, after hours — we still answer.</p></div>${office}</div>
+    </div>` };
+  return { chrome: "tabs", active: "Contact", bg: "linear-gradient(180deg,var(--navy-deep),var(--night))", html: `
+    <div class="sb-space"></div>
+    <div class="pad stack" style="--gap:24px;padding-top:12px">${head}${form}</div>
+    <div class="pad" style="padding-top:28px">${office}</div>
+    <div style="padding:40px 0 calc(var(--nav) + 12px)">${skyline({ scale: .42, height: 150 })}</div>` };
+});
+
+def("sent", "Request sent", (p) => {
+  const inner = `<span class="badge round" style="width:96px;height:96px;border:1.5px solid var(--gold);background:color-mix(in srgb,var(--gold) 14%,transparent)">${ic("check", 44)}</span>
+    ${eb("Request sent")}<h1 class="h1">Thank you, Sara.</h1>
+    <p class="body">We've got your request for Property Management. Our team will come back with a tailored quote within one business day.</p>
+    <div class="card glass" style="gap:0;padding:4px 20px;width:100%;text-align:left">${[["Service", "Property Management"], ["Reply by", "Email · sara@example.com"], ["Reference", "SB-2026-0412"]].map(([k, v]) => `<div class="srow"><span class="t"><i>${k}</i></span><b style="font:500 14px var(--sans)">${v}</b></div>`).join("")}</div>`;
+  if (p === "ipad") return { fixed: true, chrome: "none", cls: "night-sky", html: `
+    <span class="lights"></span><span class="glow" style="left:340px;top:60px;width:500px;height:320px"></span>
+    <div class="sb-space"></div>
+    <div class="stack center" style="--gap:14px;justify-items:center;width:520px;margin:20px auto 0;position:relative;z-index:2">${inner}<div class="hstack" style="margin-top:8px">${btn("Back to home")}${btn("Explore services", "outline")}</div></div>
+    <div style="position:absolute;left:0;right:0;bottom:-10px;opacity:.75">${skyline({ scale: .95, height: 170, w: 900 })}</div>` };
+  return { fixed: true, chrome: "none", cls: "night-sky", html: `
+    <span class="lights"></span><span class="glow" style="left:30px;top:120px;width:330px;height:260px"></span>
+    <div class="sb-space"></div>
+    <div class="pad stack center" style="--gap:14px;justify-items:center;position:relative;margin-top:28px;z-index:2">${inner}</div>
+    <div style="margin-top:auto;padding-top:60px">${skyline({ scale: .44, height: 120 })}</div>
+    <div class="pad stack" style="--gap:6px;justify-items:center;padding-bottom:40px;position:relative">${btn("Back to home", "primary", "block")}${btn("Explore services", "ghost")}</div>` };
+});
+
+/* ------------------------------------------------------------------ render */
+const DEVICES = [
+  { key: "ios", title: "iPhone", sub: "iPhone 15 Pro · 393 × 852 · iOS tab bar, Dynamic Island", w: 393, h: 852 },
+  { key: "android", title: "Android", sub: "Pixel 8 · 412 × 915 · Material 3 navigation bar, edge-to-edge", w: 412, h: 915 },
+  { key: "ipad", title: "iPad", sub: "iPad Air 11″ landscape · 1180 × 820 · sidebar navigation", w: 1180, h: 820 },
+];
+function frame(dev, scr) {
+  const r = scr.render(dev.key);
+  const bg = r.bg ? `background:${r.bg};` : "";
+  const size = r.fixed ? `width:${dev.w}px;height:${dev.h}px;` : `width:${dev.w}px;min-height:${dev.h}px;`;
+  let inner;
+  if (dev.key === "ipad" && r.chrome === "tabs") inner = `<div class="shell">${sidebar(r.active, r.audience || "private")}<div class="main">${r.html}</div></div>`;
+  else inner = r.html + bottomNav(dev.key, r.chrome === "tabs" ? r.active : null) + (r.chrome === "tabs" ? (dev.key === "ios" ? '<span class="home-ind"></span>' : dev.key === "android" ? '<span class="gesture"></span>' : "") : (r.fixed && dev.key !== "ipad" ? (dev.key === "ios" ? '<span class="home-ind"></span>' : '<span class="gesture"></span>') : ""));
+  return `<div class="frame ${dev.key} ${r.fixed ? "fixed" : ""} ${r.cls || ""}" style="${size}${bg}">${status(dev.key)}${inner}</div>`;
+}
+const board = document.getElementById("board");
+let html = "";
+DEVICES.forEach((dev) => {
+  html += `<section class="device-section" data-device="${dev.key}"><header><h2>${dev.title}</h2><span>${dev.sub}</span></header><div class="row">`;
+  SCREENS.forEach((s, i) => { html += `<div class="artboard"><div class="label"><b>${String(i + 1).padStart(2, "0")}</b>${s.name}</div>${frame(dev, s)}</div>`; });
+  html += `</div></section>`;
+});
+html += `<section class="device-section" data-device="foundations"><header><h2>Foundations</h2><span>From the brand guidelines — navy is the page, gold is for lines and actions</span></header>
+  <div class="foundation">${[["Navy", "#1F325A", "Primary background"], ["Medium Navy", "#2E5A8F", "Panels, raised surfaces"], ["Dark Navy", "#0A1E3A", "Cards, text on light"], ["Night", "#071630", "Navigation, deepest sky"], ["Gold", "#E6C158", "Accents, borders, CTAs"], ["Gold Dark", "#B9863F", "Small text on light"], ["Cream", "#F6F3EC", "Light sections"], ["White", "#FFFDF9", "Text on navy"]].map(([n, h, u]) => `<div class="swatch"><div style="background:${h}"></div><div><b>${n} · ${h}</b>${u}</div></div>`).join("")}
+  <div class="swatch"><div style="background:var(--gold-gradient)"></div><div><b>Metallic gold gradient</b>Eyebrows, short headings, wordmark</div></div></div>
+  <div class="frame" style="margin-top:28px;border-radius:24px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+    <div class="stack" style="--gap:12px">${eb("Type")}<p class="display">Newsreader 500 — Display</p><p class="h1">Newsreader 500 — H1</p><p class="h2">Newsreader 500 — H2</p><p class="serif-i" style="font-size:20px">Newsreader Italic — straplines</p><p class="body">IBM Plex Sans 400 — body copy, 15/1.55</p><p class="small">IBM Plex Sans 400 — captions, 13</p></div>
+    <div class="stack" style="--gap:14px;align-content:start">${eb("Controls")}<div class="hstack" style="flex-wrap:wrap">${btn("Request a quote")}${btn("Explore", "outline")}${btn("Skip", "ghost")}</div><div class="hstack" style="flex-wrap:wrap"><span class="chip on">${ic("check", 14)} Special Services</span><span class="chip">Relocation</span></div>${field("Email", "sara@example.com", "focus")}${srow(SERVICES.private[0], 1)}</div>
+  </div></section>`;
+board.innerHTML = html;
+
+document.querySelectorAll(".filters button").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".filters button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  document.querySelectorAll(".device-section").forEach((s) => s.classList.toggle("hidden", b.dataset.f !== "all" && s.dataset.device !== b.dataset.f));
+}));
+const q = new URLSearchParams(location.search);
+/* ?model=… — one 3D model alone on a transparent page, for exporting PNGs into Figma */
+const MODELS = {
+  "site": () => siteModel({ scale: 1, height: 620, sway: false }),
+  "site-private": () => siteModel({ scale: 1, height: 620, focus: "private", sway: false }),
+  "tower-private": () => towerModel({ floors: 4, lit: 0, scale: 1.1, height: 640, ids: SERVICES.private.map((s) => s.id), sway: false }),
+  "tower-business": () => towerModel({ floors: 5, lit: 0, scale: 1, height: 660, ids: SERVICES.business.map((s) => s.id), sway: false }),
+  "explainer": () => explainerModel({ scale: 1.3, height: 640 }),
+  "skyline": () => skyline({ scale: 1, height: 640 }),
+};
+if (q.get("model")) {
+  document.documentElement.classList.add("capture");
+  document.querySelector(".board-head").remove();
+  document.body.style.background = "transparent";
+  board.innerHTML = `<div style="padding:0">${MODELS[q.get("model")]()}</div>`;
+}
+if (q.has("capture")) document.documentElement.classList.add("capture");
+if (q.get("device")) document.querySelector(`.filters [data-f="${q.get("device")}"]`)?.click();
+</script>
+</body>
+</html>

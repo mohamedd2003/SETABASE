@@ -215,7 +215,7 @@ export function Onboarding() {
                 {audience.services.map((service) => (
                   <li key={service.id} data-step-item>
                     <Link
-                      href={`${audience.href}#${service.id}`}
+                      href={service.packagesHref ?? `${audience.href}#${service.id}`}
                       className="group flex h-full flex-col rounded-2xl border border-line-gold-soft bg-navy/40 px-4 py-3 transition-colors duration-300 hover:border-gold hover:bg-navy/70"
                     >
                       <span className="text-sm font-medium text-white transition-colors group-hover:text-gold">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -175,12 +176,22 @@ export function ServicesElevator({ departments }: ServicesElevatorProps) {
                   {department.note}
                 </p>
               ) : null}
-              <a
-                href="#contact"
-                className="mt-7 inline-flex items-center rounded-full border border-gold px-5 py-2.5 text-sm font-medium text-gold transition-colors duration-300 hover:bg-gold hover:text-navy-deep"
-              >
-                Ask about {department.title}
-              </a>
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                {department.packagesHref ? (
+                  <Link
+                    href={department.packagesHref}
+                    className="inline-flex items-center rounded-full bg-gold px-5 py-2.5 text-sm font-medium text-navy-deep transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--gold)_85%,white)]"
+                  >
+                    See the packages
+                  </Link>
+                ) : null}
+                <a
+                  href="#contact"
+                  className="inline-flex items-center rounded-full border border-gold px-5 py-2.5 text-sm font-medium text-gold transition-colors duration-300 hover:bg-gold hover:text-navy-deep"
+                >
+                  Ask about {department.title}
+                </a>
+              </div>
             </article>
           </li>
         ))}
