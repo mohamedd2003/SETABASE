@@ -216,7 +216,7 @@ export function RelocationView({ packages }: { packages: RelocationPackage[] }) 
       <Dialog open={editing !== null} onOpenChange={(open) => !open && setEditing(null)}>
         <DialogContent className="max-h-[92svh] overflow-y-auto bg-card sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="pe-8 font-serif text-2xl font-medium">
+            <DialogTitle className="pe-8 font-serif text-xl font-medium sm:text-2xl">
               {editing?.mode === "edit" ? `Edit ${editing.pkg.title}` : "Add a package"}
             </DialogTitle>
             <DialogDescription>

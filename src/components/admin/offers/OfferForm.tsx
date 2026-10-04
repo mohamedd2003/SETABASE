@@ -129,7 +129,7 @@ export function OfferForm({ offer, onSaved, onCancel }: OfferFormProps) {
   // button and the other fields wrap underneath, so none of them gets squeezed.
   const itemGrid =
     category === "flexible"
-      ? "md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_6rem_minmax(9rem,1fr)_auto]"
+      ? "md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_6rem_minmax(10rem,1fr)_auto]"
       : category === "event"
         ? "md:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_6rem_auto]"
         : "md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_auto]";
@@ -137,7 +137,7 @@ export function OfferForm({ offer, onSaved, onCancel }: OfferFormProps) {
     category === "flexible"
       ? "grid-cols-2 sm:grid-cols-3"
       : category === "event"
-        ? "grid-cols-[minmax(0,1fr)_7rem]"
+        ? "grid-cols-[minmax(0,1fr)_6rem]"
         : "grid-cols-1";
 
   return (

@@ -194,7 +194,7 @@ export function TeamView({ members, currentId, builtInEmail, currentEmail }: Tea
       <Dialog open={editing !== null} onOpenChange={(open) => !open && setEditing(null)}>
         <DialogContent className="max-h-[92svh] overflow-y-auto bg-card sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle className="pe-8 font-serif text-2xl font-medium wrap-anywhere">
+            <DialogTitle className="pe-8 font-serif text-xl font-medium sm:text-2xl wrap-anywhere">
               {editing?.mode === "edit" ? `Edit ${editing.member.name || editing.member.email}` : "Add a team member"}
             </DialogTitle>
             <DialogDescription>

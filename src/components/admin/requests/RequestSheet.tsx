@@ -150,7 +150,7 @@ function RequestDetails({
           <ServiceBadge service={request.service} />
           <StatusBadge status={request.status} />
         </div>
-        <SheetTitle className="mt-2 font-serif text-2xl font-medium wrap-anywhere text-foreground">
+        <SheetTitle className="mt-2 font-serif text-xl font-medium wrap-anywhere text-foreground sm:text-2xl">
           {request.contact.name}
         </SheetTitle>
         <SheetDescription className="text-muted-foreground">
@@ -166,15 +166,17 @@ function RequestDetails({
             Contact
           </h3>
           <dl className="mt-2 grid gap-2 text-sm">
-            <div className="flex items-baseline justify-between gap-3">
-              <dt className="shrink-0 text-muted-foreground">Email</dt>
-              <dd className="min-w-0 text-end">
+            {/* A long address drops to its own line under the label, and breaks only if it
+                still doesn't fit there. */}
+            <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+              <dt className="text-muted-foreground">Email</dt>
+              <dd className="ms-auto min-w-0 max-w-full text-end">
                 <a
                   href={`mailto:${request.contact.email}`}
                   className="inline-flex max-w-full items-baseline gap-1.5 text-foreground underline-offset-4 hover:underline"
                 >
                   <MailIcon className="size-3.5 shrink-0 translate-y-0.5" aria-hidden="true" />
-                  <span className="min-w-0 wrap-anywhere">{request.contact.email}</span>
+                  <span className="min-w-0 text-start wrap-anywhere">{request.contact.email}</span>
                 </a>
               </dd>
             </div>
@@ -270,7 +272,7 @@ function RequestDetails({
                 <span className="text-sm text-foreground">
                   Estimated per month
                 </span>
-                <span className="font-serif text-xl text-foreground">
+                <span className="shrink-0 font-serif text-xl whitespace-nowrap text-foreground">
                   {formatEgp(request.estimate.monthly)}
                 </span>
               </div>
