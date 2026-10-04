@@ -20,7 +20,7 @@ export function Chip({ on, onToggle, disabled, children, detail }: ChipProps) {
       aria-pressed={on}
       disabled={disabled}
       onClick={onToggle}
-      className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-start text-sm transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-50 ${
+      className={`inline-flex min-h-11 items-center gap-2 rounded-[1.375rem] border px-4 py-2 text-start text-sm transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-50 ${
         on
           ? "border-gold bg-gold text-navy-deep"
           : "border-line-gold-soft text-ink hover:border-gold"
@@ -141,7 +141,7 @@ export function Tabs({ tabs, active, onChange }: { tabs: Tab[]; active: string; 
         ref={list}
         role="tablist"
         onKeyDown={onKeyDown}
-        className="flex gap-1 overflow-x-auto rounded-full border border-line-gold-soft bg-navy-deep/60 p-1"
+        className="flex gap-0.5 overflow-x-auto rounded-full border border-line-gold-soft bg-navy-deep/60 p-1 [scrollbar-width:none] sm:gap-1"
       >
         {tabs.map((tab) => {
           const selected = tab.id === active;
@@ -156,7 +156,7 @@ export function Tabs({ tabs, active, onChange }: { tabs: Tab[]; active: string; 
               aria-controls={`${id}-${tab.id}-panel`}
               tabIndex={selected ? 0 : -1}
               onClick={() => onChange(tab.id)}
-              className={`flex min-h-10 flex-1 shrink-0 items-center justify-center gap-2 rounded-full px-4 text-sm whitespace-nowrap transition-colors duration-300 ${
+              className={`flex min-h-10 flex-1 shrink-0 items-center justify-center gap-1.5 rounded-full px-2.5 text-[0.8125rem] whitespace-nowrap sm:gap-2 sm:px-4 sm:text-sm transition-colors duration-300 ${
                 selected ? "bg-gold text-navy-deep" : "text-ink-soft hover:text-white"
               }`}
             >

@@ -45,6 +45,8 @@ const partClass = (key: string, on: string[], preview: string | null, extra = ""
 type ModelProps = {
   /** Keys of the parts the visitor has chosen. */
   on: string[];
+  /** Office model only: one floor per fixed package, bottom to top. */
+  floors?: Floor[];
   /** A part being considered (hovered) — outlined, not built. */
   preview?: string | null;
 };
@@ -54,22 +56,19 @@ type ModelProps = {
 const PLATE = 240;
 const FLOOR = { x: 44, size: 152, h: 34, gap: 4, base: 22 };
 
-/** Bottom to top: the four fixed packages, then the flexible floor, then the roof terrace. */
-export const officeFloors = [
-  { key: "essential-delivery", sign: "Essential delivery" },
-  { key: "premium-delivery", sign: "Premium delivery" },
-  { key: "essential-services", sign: "Essential services" },
-  { key: "premium-services", sign: "Premium services" },
-  { key: "flexible", sign: "Flexible pack" },
-] as const;
+type Floor = { key: string; sign: string };
+
+/** Above the fixed packages: the flexible floor, then the roof terrace for events. */
+const FLEX_FLOOR: Floor = { key: "flexible", sign: "Flexible pack" };
 
 /**
  * Special Services: an office building whose floors are the packages. The lobby always
  * stands; each package is a floor, and events are the roof terrace.
  */
-export function OfficeBuildModel({ on, preview = null }: ModelProps) {
+export function OfficeBuildModel({ on, preview = null, floors = [] }: ModelProps) {
   const root = useRef<HTMLDivElement>(null);
   useDropIn(root, on);
+  const officeFloors = [...floors, FLEX_FLOOR];
   const roofZ = FLOOR.base + officeFloors.length * (FLOOR.h + FLOOR.gap);
 
   return (

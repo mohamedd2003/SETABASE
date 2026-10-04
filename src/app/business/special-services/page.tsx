@@ -4,6 +4,7 @@ import { PackageHero } from "@/components/packages/PackageHero";
 import { SpecialServicesPlanner } from "@/components/packages/SpecialServicesPlanner";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { getSpecialServicesCatalog } from "@/lib/catalog-data";
 
 const description =
   "Office supplies, wellness and team events for companies in Egypt, as monthly packages priced per employee. Choose yours and get a quote within a business day.";
@@ -20,7 +21,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SpecialServicesPage() {
+/** Packages come from the database; the admin's changes purge this page on save. */
+export const revalidate = 300;
+
+export default async function SpecialServicesPage() {
+  const catalog = await getSpecialServicesCatalog();
+  const cheapest = Math.min(...catalog.fixedPackages.map((p) => p.perEmployee).filter((n) => n > 0));
   return (
     <MotionLayer>
       <SiteHeader
@@ -37,13 +43,13 @@ export default function SpecialServicesPage() {
           title="An office that looks after the people in it."
           paragraph="Supplies restocked, fruit on the table, a coach on Tuesdays and an iftar in Ramadan — chosen as monthly packages and run by one team."
           facts={[
-            "From 615 EGP per employee a month",
+            `From ${Number.isFinite(cheapest) ? cheapest.toLocaleString("en-EG") : "615"} EGP per employee a month`,
             "Start with a one-month trial",
             "10% off when you take two or more packages",
           ]}
           cta="Choose your packages"
         />
-        <SpecialServicesPlanner />
+        <SpecialServicesPlanner catalog={catalog} />
       </main>
       <SiteFooter />
     </MotionLayer>

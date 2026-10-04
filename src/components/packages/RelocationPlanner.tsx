@@ -13,14 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  relocationDestinations,
-  relocationExclusions,
-  relocationOptions,
-  relocationStages,
-  type RelocationOptionId,
-  type RelocationStageId,
-} from "@/content/relocation";
+import { relocationDestinations, relocationExclusions } from "@/content/relocation";
+import type { RelocationCatalog } from "@/lib/catalog";
 import { relocationRequestSchema, type RequesterInput } from "@/lib/package-request-schema";
 
 const toggle = <T,>(list: T[], value: T) =>
@@ -35,10 +29,11 @@ type DetailErrors = Partial<Record<"employees" | "movingFrom" | "destination" | 
  * Pick the stages of the move and any extras, watch the new home come together on the
  * model, then send the request with the details of the move.
  */
-export function RelocationPlanner() {
+export function RelocationPlanner({ catalog }: { catalog: RelocationCatalog }) {
+  const { stages: relocationStages, options: relocationOptions } = catalog;
   const id = useId();
-  const [stages, setStages] = useState<RelocationStageId[]>([]);
-  const [options, setOptions] = useState<RelocationOptionId[]>([]);
+  const [stages, setStages] = useState<string[]>([]);
+  const [options, setOptions] = useState<string[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
   const [employees, setEmployees] = useState(1);
   const [movingFrom, setMovingFrom] = useState("");
@@ -47,9 +42,10 @@ export function RelocationPlanner() {
   const [errors, setErrors] = useState<DetailErrors>({});
 
   const count = stages.length + options.length;
-  const built = [...stages, ...(options.length ? ["options"] : [])];
   // In the order of the move, whatever order they were clicked in.
   const orderedStages = relocationStages.filter((s) => stages.includes(s.id));
+  // The model builds by stage, whatever the package is called.
+  const built = [...orderedStages.map((s) => s.key), ...(options.length ? ["options"] : [])];
 
   function clearError(key: keyof DetailErrors) {
     setErrors((current) => ({ ...current, [key]: undefined }));
@@ -131,7 +127,9 @@ export function RelocationPlanner() {
           </aside>
 
           <div>
-            <h2 className={sectionTitle}>The move, in three stages</h2>
+            <h2 className={sectionTitle}>
+              The move, in {relocationStages.length === 3 ? "three stages" : "stages"}
+            </h2>
             <p className="mt-3 max-w-[56ch] text-ink-soft">
               Take the whole journey, or only the stages you need. One person at SETABASE runs it
               from the first viewing to the last box.
@@ -145,7 +143,7 @@ export function RelocationPlanner() {
                       setStages((current) => toggle(current, stage.id));
                       clearError("selection");
                     }}
-                    onPreview={(on) => setPreview(on ? stage.id : null)}
+                    onPreview={(on) => setPreview(on ? stage.key : null)}
                     kicker={`${i + 1}. ${stage.when}`}
                     title={stage.title}
                     summary={stage.summary}

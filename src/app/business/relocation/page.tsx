@@ -4,6 +4,7 @@ import { PackageHero } from "@/components/packages/PackageHero";
 import { RelocationPlanner } from "@/components/packages/RelocationPlanner";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { getRelocationCatalog } from "@/lib/catalog-data";
 
 const description =
   "Corporate relocation to Egypt: housing, the move itself and settling in, handled by one team. Choose the stages you need and get a quote.";
@@ -20,7 +21,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RelocationPage() {
+/** Packages come from the database; the admin's changes purge this page on save. */
+export const revalidate = 300;
+
+export default async function RelocationPage() {
+  const catalog = await getRelocationCatalog();
   return (
     <MotionLayer>
       <SiteHeader
@@ -43,7 +48,7 @@ export default function RelocationPage() {
           ]}
           cta="Choose your stages"
         />
-        <RelocationPlanner />
+        <RelocationPlanner catalog={catalog} />
       </main>
       <SiteFooter />
     </MotionLayer>

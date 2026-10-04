@@ -43,14 +43,15 @@ export function RequestForm({ submitLabel, helperText, buildRequest, onSent, chi
 
     setStatus({ state: "submitting" });
     try {
-      const response = await fetch("/api/package-request", {
+      const response = await fetch("/api/requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
       if (!response.ok) throw new Error(`Request failed with ${response.status}`);
-      const result = (await response.json()) as { id?: string };
-      setStatus({ state: "sent", reference: result.id?.slice(0, 8).toUpperCase() ?? "" });
+      const result = (await response.json()) as { data?: { id?: string | null } };
+      // The tail of the id is the part that differs between requests made close together.
+      setStatus({ state: "sent", reference: result.data?.id?.slice(-8).toUpperCase() ?? "" });
       form.reset();
       onSent?.();
     } catch {

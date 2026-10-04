@@ -14,16 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  FLEX_MIN_ITEMS,
-  contractLengths,
-  eventGroups,
-  eventIdeas,
-  fixedPackages,
-  flexItems,
-  specialServicesTerms,
-  type FixedPackageId,
-} from "@/content/special-services";
+import { contractLengths, specialServicesTerms } from "@/content/special-services";
+import type { SpecialServicesCatalog } from "@/lib/catalog";
 import { specialServicesRequestSchema, type RequesterInput } from "@/lib/package-request-schema";
 import {
   estimateSpecialServices,
@@ -43,10 +35,11 @@ const sectionTitle =
  * the request. One component so the picker, the model, the estimate and the form share
  * the selection.
  */
-export function SpecialServicesPlanner() {
+export function SpecialServicesPlanner({ catalog }: { catalog: SpecialServicesCatalog }) {
+  const { fixedPackages, flexItems, eventGroups, flexMinItems } = catalog;
   const id = useId();
   const [employees, setEmployees] = useState(20);
-  const [packages, setPackages] = useState<FixedPackageId[]>([]);
+  const [packages, setPackages] = useState<string[]>([]);
   const [flex, setFlex] = useState<string[]>([]);
   const [events, setEvents] = useState<string[]>([]);
   const [contract, setContract] = useState<string | null>(null);
@@ -55,9 +48,9 @@ export function SpecialServicesPlanner() {
   const [selectionError, setSelectionError] = useState<string | null>(null);
 
   const team = Math.max(1, employees || 1);
-  const included = includedItems(packages);
+  const included = includedItems(catalog, packages);
   const chosenFlex = flex.filter((item) => !included.has(item));
-  const estimate = estimateSpecialServices({ employees: team, packages, flexItems: chosenFlex });
+  const estimate = estimateSpecialServices({ employees: team, packages, flexItems: chosenFlex }, catalog);
   const count = packages.length + chosenFlex.length + events.length;
 
   // What the model shows: one floor per package, the flexible floor, the roof for events.
@@ -67,7 +60,7 @@ export function SpecialServicesPlanner() {
     ...(events.length ? ["events"] : []),
   ];
 
-  function choosePackage(pkg: FixedPackageId) {
+  function choosePackage(pkg: string) {
     setPackages((current) => toggle(current, pkg));
     setSelectionError(null);
   }
@@ -86,7 +79,7 @@ export function SpecialServicesPlanner() {
     }
     if (estimate.flexShortBy > 0) {
       setSelectionError(
-        `The Flexible Pack on its own needs ${FLEX_MIN_ITEMS} items — add ${estimate.flexShortBy} more, or choose a package.`,
+        `The Flexible Pack on its own needs ${flexMinItems} items — add ${estimate.flexShortBy} more, or choose a package.`,
       );
       return null;
     }
@@ -113,7 +106,11 @@ export function SpecialServicesPlanner() {
         <div className="grid grid-cols-[minmax(0,1fr)] gap-10 nav:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] nav:gap-12">
           {/* The building and the estimate, kept in view while the packages scroll by. */}
           <aside className="nav:sticky nav:top-24 nav:self-start">
-            <OfficeBuildModel on={built} preview={preview} />
+            <OfficeBuildModel
+              on={built}
+              preview={preview}
+              floors={fixedPackages.map((p) => ({ key: p.id, sign: p.title }))}
+            />
             <div className="relative mt-8 rounded-3xl border border-line-gold-soft bg-[color-mix(in_srgb,var(--navy-medium)_14%,var(--navy-deep))] p-6">
               <Field id={`${id}-employees`} label="Employees at the office">
                 <Input
@@ -162,26 +159,23 @@ export function SpecialServicesPlanner() {
                               on={packages.includes(pkg.id)}
                               onToggle={() => choosePackage(pkg.id)}
                               onPreview={(on) => setPreview(on ? pkg.id : null)}
-                              kicker={`${pkg.kind}, ${pkg.tier.toLowerCase()}`}
+                              kicker={pkg.kicker}
                               title={pkg.title}
                               summary={pkg.summary}
                               footer={
-                                <span className="font-serif text-xl text-white">
+                                <span className="block font-serif text-xl/tight text-white">
                                   {formatEgp(pkg.perEmployee)}
-                                  <span className="font-sans text-xs text-ink-soft"> per employee a month</span>
+                                  <span className="mt-0.5 block font-sans text-xs text-ink-soft">per employee a month</span>
                                 </span>
                               }
                               included={
                                 <ul className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
-                                  {pkg.items.map((itemId) => {
-                                    const item = flexItems.find((f) => f.id === itemId)!;
-                                    return (
-                                      <li key={itemId} className="flex justify-between gap-3">
-                                        <span className="text-ink">{item.label}</span>
-                                        <span className="shrink-0 text-ink-soft">{item.frequency}</span>
-                                      </li>
-                                    );
-                                  })}
+                                  {pkg.items.map((item) => (
+                                    <li key={item.name} className="flex justify-between gap-3">
+                                      <span className="text-ink">{item.name}</span>
+                                      <span className="shrink-0 text-ink-soft">{item.frequency}</span>
+                                    </li>
+                                  ))}
                                 </ul>
                               }
                             />
@@ -200,14 +194,14 @@ export function SpecialServicesPlanner() {
                         onPointerLeave={() => setPreview(null)}
                       >
                         <p className="max-w-[56ch] text-sm text-ink-soft">
-                          Add single items on top of a package, or pick {FLEX_MIN_ITEMS} or more to
+                          Add single items on top of a package, or pick {flexMinItems} or more to
                           take them on their own. Prices per month for {team}{" "}
                           {team === 1 ? "employee" : "employees"}.
                         </p>
                         <ul className="mt-5 flex flex-wrap gap-2">
                           {flexItems.map((item) => {
                             const owner = fixedPackages.find(
-                              (p) => packages.includes(p.id) && p.items.includes(item.id),
+                              (p) => packages.includes(p.id) && p.items.some((i) => i.flexId === item.id),
                             );
                             return (
                               <li key={item.id}>
@@ -325,12 +319,12 @@ export function SpecialServicesPlanner() {
                     </a>
                   </p>
                 ) : (
-                  <SelectionList packages={packages} flex={chosenFlex} events={events} team={team} />
+                  <SelectionList catalog={catalog} packages={packages} flex={chosenFlex} events={events} team={team} />
                 )}
                 {count > 0 ? (
                   <div className="mt-4 flex flex-wrap items-baseline justify-between gap-2 border-t border-line-gold-soft pt-4">
                     <span className="text-sm text-ink-soft">Estimated per month</span>
-                    <span className="font-serif text-xl text-white">
+                    <span className="font-serif text-xl whitespace-nowrap text-white">
                       {estimate.monthly > 0 ? formatEgp(estimate.monthly) : "On request"}
                     </span>
                   </div>
@@ -420,7 +414,7 @@ function Estimate({ estimate, count, events }: EstimateProps) {
       {estimate.monthly > 0 ? (
         <p className="mt-4 flex items-baseline justify-between gap-3 border-t border-line-gold-soft pt-4">
           <span className="text-sm text-ink-soft">Estimated per month</span>
-          <span className="font-serif text-2xl text-white">{formatEgp(estimate.monthly)}</span>
+          <span className="font-serif text-xl whitespace-nowrap text-white sm:text-2xl">{formatEgp(estimate.monthly)}</span>
         </p>
       ) : null}
       {estimate.perHire > 0 ? (
@@ -443,19 +437,22 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-3">
       <dt className="text-ink-soft">{label}</dt>
-      <dd className="text-end text-ink">{value}</dd>
+      <dd className="text-end whitespace-nowrap text-ink">{value}</dd>
     </div>
   );
 }
 
 type SelectionListProps = {
-  packages: FixedPackageId[];
+  catalog: SpecialServicesCatalog;
+  packages: string[];
   flex: string[];
   events: string[];
   team: number;
 };
 
-function SelectionList({ packages, flex, events, team }: SelectionListProps) {
+function SelectionList({ catalog, packages, flex, events, team }: SelectionListProps) {
+  const { fixedPackages } = catalog;
+  const eventIdeas = catalog.eventGroups.flatMap((group) => group.ideas);
   return (
     <ul className="mt-3 grid gap-2 text-sm">
       {fixedPackages

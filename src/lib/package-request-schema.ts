@@ -1,13 +1,12 @@
 import { z } from "zod";
-import { contractLengths, eventIdeas, fixedPackages, flexItems } from "@/content/special-services";
-import { relocationDestinations, relocationOptions } from "@/content/relocation";
+import { contractLengths } from "@/content/special-services";
+import { relocationDestinations } from "@/content/relocation";
 
-const ids = <T extends { id: string }>(list: readonly T[]) =>
-  list.map((entry) => entry.id) as [T["id"], ...T["id"][]];
+const idList = z.array(z.string().trim().min(1).max(80)).max(60);
 
 /** Who's asking — the same on both package pages. */
 export const requesterSchema = z.object({
-  name: z.string().trim().min(2, "Enter your full name."),
+  name: z.string().trim().min(2, "Enter your full name.").max(120),
   company: z.string().trim().min(2, "Enter your company's name.").max(120, "Keep the company name under 120 characters."),
   email: z.email("Enter a valid email address."),
   phone: z
@@ -24,6 +23,10 @@ export const requesterSchema = z.object({
 
 export type RequesterInput = z.infer<typeof requesterSchema>;
 
+/**
+ * Package ids are plain strings here; the API checks them against the live catalog, so a
+ * package the admin removed can't be requested.
+ */
 export const specialServicesRequestSchema = z.object({
   service: z.literal("special-services"),
   employees: z
@@ -31,17 +34,17 @@ export const specialServicesRequestSchema = z.object({
     .int("Use a whole number.")
     .min(1, "At least one employee.")
     .max(100000, "That's more employees than we can quote online — call us."),
-  packages: z.array(z.enum(ids(fixedPackages))),
-  flexItems: z.array(z.enum(ids(flexItems))),
-  eventIdeas: z.array(z.enum(ids(eventIdeas))),
+  packages: idList,
+  flexItems: idList,
+  eventIdeas: idList,
   contractLength: z.enum(contractLengths.map((c) => c.value) as [string, ...string[]]).optional(),
   requester: requesterSchema,
 });
 
 export const relocationRequestSchema = z.object({
   service: z.literal("relocation"),
-  stages: z.array(z.enum(["before-moving", "moving", "final-step"])),
-  options: z.array(z.enum(ids(relocationOptions))),
+  stages: idList,
+  options: idList,
   employees: z
     .number({ error: "Enter how many people are relocating." })
     .int("Use a whole number.")

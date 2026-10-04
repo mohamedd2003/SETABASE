@@ -1,16 +1,20 @@
-import {
-  BUNDLE_DISCOUNT,
-  FLEX_MIN_ITEMS,
-  fixedPackages,
-  flexItems,
-  volumeDiscounts,
-  type FixedPackageId,
-  type FlexItem,
-} from "@/content/special-services";
+import type { FlexItem, SpecialServicesCatalog } from "@/lib/catalog";
+
+/** Two or more packages together take this off. */
+export const BUNDLE_DISCOUNT = 0.1;
+
+export const volumeDiscounts = [
+  { from: 500, rate: 0.2 },
+  { from: 200, rate: 0.15 },
+  { from: 100, rate: 0.125 },
+  { from: 50, rate: 0.1 },
+] as const;
 
 export type SpecialServicesSelection = {
   employees: number;
-  packages: FixedPackageId[];
+  /** Fixed package ids (slugs). */
+  packages: string[];
+  /** Flexible Pack item ids. */
   flexItems: string[];
 };
 
@@ -46,24 +50,31 @@ export function flexItemMonthly(item: FlexItem, employees: number) {
   }
 }
 
-/** Items already inside a chosen package can't be added again on top. */
-export function includedItems(packages: FixedPackageId[]) {
-  return new Set(fixedPackages.filter((p) => packages.includes(p.id)).flatMap((p) => p.items));
+/** Flexible items already inside the chosen packages — they can't be added again on top. */
+export function includedItems(catalog: SpecialServicesCatalog, packages: string[]) {
+  return new Set(
+    catalog.fixedPackages
+      .filter((p) => packages.includes(p.id))
+      .flatMap((p) => p.items.map((item) => item.flexId).filter((id): id is string => !!id)),
+  );
 }
 
 /**
- * The live estimate shown beside the picker and recomputed by the API, so the request
- * that reaches the dashboard carries a price the client can't edit.
+ * The live estimate shown beside the picker, recomputed by the API so the request that
+ * reaches the dashboard carries a price the client can't edit.
  * Discounts stack: the bundle discount first, then the volume discount on what remains.
  */
-export function estimateSpecialServices(selection: SpecialServicesSelection): SpecialServicesEstimate {
+export function estimateSpecialServices(
+  selection: SpecialServicesSelection,
+  catalog: SpecialServicesCatalog,
+): SpecialServicesEstimate {
   const employees = Math.max(1, Math.floor(selection.employees) || 1);
-  const included = includedItems(selection.packages);
-  const chosenFlex = flexItems.filter(
+  const included = includedItems(catalog, selection.packages);
+  const chosenFlex = catalog.flexItems.filter(
     (item) => selection.flexItems.includes(item.id) && !included.has(item.id),
   );
 
-  const packageTotal = fixedPackages
+  const packageTotal = catalog.fixedPackages
     .filter((p) => selection.packages.includes(p.id))
     .reduce((sum, p) => sum + p.perEmployee * employees, 0);
   const flexTotal = chosenFlex.reduce((sum, item) => sum + flexItemMonthly(item, employees), 0);
@@ -72,11 +83,11 @@ export function estimateSpecialServices(selection: SpecialServicesSelection): Sp
     .reduce((sum, item) => sum + item.price, 0);
 
   // On its own, the Flexible Pack counts as a package once it reaches the minimum.
-  const flexStandalone = selection.packages.length === 0 && chosenFlex.length >= FLEX_MIN_ITEMS;
+  const flexStandalone = selection.packages.length === 0 && chosenFlex.length >= catalog.flexMinItems;
   const packageCount = selection.packages.length + (flexStandalone ? 1 : 0);
   const flexShortBy =
     selection.packages.length === 0 && chosenFlex.length > 0
-      ? Math.max(0, FLEX_MIN_ITEMS - chosenFlex.length)
+      ? Math.max(0, catalog.flexMinItems - chosenFlex.length)
       : 0;
 
   const subtotal = packageTotal + flexTotal;

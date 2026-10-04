@@ -75,6 +75,68 @@
   --ring: var(--gold);
   /* Soft corners everywhere: fields and small controls at 12px, cards and panels larger. */
   --radius: 0.75rem;
+
+  /* Sidebar defaults (the dashboard redefines them below). */
+  --sidebar: var(--navy-deep);
+  --sidebar-foreground: color-mix(in srgb, var(--white) 82%, transparent);
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--navy-deep);
+  --sidebar-accent: color-mix(in srgb, var(--gold) 14%, transparent);
+  --sidebar-accent-foreground: var(--gold);
+  --sidebar-border: color-mix(in srgb, var(--gold) 22%, transparent);
+  --sidebar-ring: var(--gold);
+}
+
+/*
+  Admin dashboard — a light theme. The public site is navy; the dashboard is cream with
+  white cards, so it reads as a tool rather than a page. Set on the root whenever an admin
+  page is on screen, so dialogs and menus (which portal to <body>) get the same tokens.
+*/
+:root:has([data-admin]) {
+  color-scheme: light;
+  --background: var(--cream);
+  --foreground: var(--navy-deep);
+  --card: var(--white);
+  --card-foreground: var(--navy-deep);
+  --popover: var(--white);
+  --popover-foreground: var(--navy-deep);
+  --primary: var(--navy-deep);
+  --primary-foreground: var(--white);
+  --secondary: var(--cream-panel);
+  --secondary-foreground: var(--navy-deep);
+  --muted: var(--cream-panel);
+  --muted-foreground: color-mix(in srgb, var(--navy-deep) 62%, transparent);
+  --accent: color-mix(in srgb, var(--gold) 18%, var(--white));
+  --accent-foreground: var(--navy-deep);
+  --destructive: #b3261e;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--gold-dark);
+}
+
+/* Primitives shared with the public site carry navy-page classes; on cream they go white.
+   Scoped to the root, not [data-admin], so dialogs and sheets (portalled to <body>) match. */
+:root:has([data-admin])
+  :is([data-slot="input"], [data-slot="textarea"], [data-slot="select-trigger"], [data-slot="select-content"]) {
+  background-color: var(--card);
+}
+
+:root:has([data-admin]) [data-slot="label"] {
+  color: var(--foreground);
+}
+
+/* Active sidebar item: gold text with a gold rule down its start edge. */
+[data-admin] [data-slot="sidebar-menu-button"][data-active] {
+  position: relative;
+  color: var(--sidebar-primary);
+  box-shadow: inset 3px 0 0 var(--sidebar-primary);
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+/* Login brand side: navy, darkening toward the floor. */
+.admin-brand {
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
 }
 
 @theme inline {
@@ -113,6 +175,16 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Dashboard sidebar (shadcn sidebar tokens) */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 
   --radius-sm: 0.5rem; /* 8px — menu items, tags */
   --radius-md: var(--radius); /* 12px — inputs, select, textarea */
