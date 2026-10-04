@@ -1,5 +1,6 @@
 import type { Lean } from "@/lib/catalog-data";
 import { connectDb } from "@/lib/db";
+import { cleanEnv } from "@/lib/env";
 import type { TeamMemberRecord } from "@/lib/team-types";
 import { TeamMemberModel, type TeamMemberDoc } from "@/models/TeamMember";
 
@@ -27,5 +28,5 @@ export async function listTeamMembers(): Promise<TeamMemberRecord[]> {
 
 /** The built-in account's email, normalised the way stored emails are. */
 export function envAdminEmail() {
-  return process.env.ADMIN_EMAIL?.trim().toLowerCase() || null;
+  return cleanEnv(process.env.ADMIN_EMAIL)?.toLowerCase() || null;
 }

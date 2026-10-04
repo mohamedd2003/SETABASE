@@ -18,6 +18,7 @@ import { Wordmark } from "@/components/admin/Wordmark";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -183,24 +184,29 @@ export function AdminSidebar({ email, name, newRequests }: AdminSidebarProps) {
                 sideOffset={6}
                 className="min-w-56"
               >
-                <DropdownMenuLabel className="grid gap-0.5 font-normal">
-                  <span className="truncate text-sm font-medium text-foreground">{name ?? "Signed in"}</span>
-                  <span className="truncate text-xs text-muted-foreground">{email}</span>
-                </DropdownMenuLabel>
+                {/* A menu label is a group label here — it must live inside a group. */}
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel className="grid gap-0.5 font-normal">
+                    <span className="truncate text-sm font-medium text-foreground">{name ?? "Signed in"}</span>
+                    <span className="truncate text-xs text-muted-foreground">{email}</span>
+                  </DropdownMenuLabel>
+                </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => {
-                    closeOnMobile();
-                    router.push("/admin/team");
-                  }}
-                >
-                  <UsersIcon aria-hidden="true" />
-                  Team
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={signOut} disabled={signingOut}>
-                  <LogOutIcon aria-hidden="true" />
-                  {signingOut ? "Signing out…" : "Log out"}
-                </DropdownMenuItem>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      closeOnMobile();
+                      router.push("/admin/team");
+                    }}
+                  >
+                    <UsersIcon aria-hidden="true" />
+                    Team
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={signOut} disabled={signingOut}>
+                    <LogOutIcon aria-hidden="true" />
+                    {signingOut ? "Signing out…" : "Log out"}
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>

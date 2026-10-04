@@ -2,14 +2,18 @@ import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { clientIp, fail, invalid, ok, rateLimit, readJson, tooMany } from "@/lib/api";
 import { loginSchema } from "@/lib/admin-schemas";
-import { sessionCookie, signSession, type AdminSession } from "@/lib/auth";
+import { authSecretProblem, sessionCookie, signSession, type AdminSession } from "@/lib/auth";
 import type { Lean } from "@/lib/catalog-data";
 import { connectDb, hasDb } from "@/lib/db";
+import { cleanEnv } from "@/lib/env";
 import { envAdminEmail } from "@/lib/team-data";
 import { TeamMemberModel, type TeamMemberDoc } from "@/models/TeamMember";
 
 /** `$2a$`, `$2b$` or `$2y$`, a two-digit cost, then 53 characters of salt and digest. */
 const BCRYPT_HASH = /^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$/;
+
+const SETTINGS_HINT =
+  "Add it to the server's environment variables (on Vercel: Settings → Environment Variables), then redeploy.";
 
 /**
  * The built-in account from the environment (ADMIN_EMAIL + ADMIN_PASSWORD_HASH). It always
@@ -19,7 +23,7 @@ const BCRYPT_HASH = /^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$/;
  */
 function builtInAccount(): { email: string; hash: string } | null {
   const email = envAdminEmail();
-  const hash = process.env.ADMIN_PASSWORD_HASH?.replace(/\\\$/g, "$");
+  const hash = cleanEnv(process.env.ADMIN_PASSWORD_HASH)?.replace(/\\\$/g, "$");
   if (!email || !hash) return null;
   if (!BCRYPT_HASH.test(hash)) {
     console.error(
@@ -39,6 +43,27 @@ export async function POST(request: Request) {
   const limit = rateLimit(`login:${clientIp(request)}`, 5, 15 * 60_000);
   if (!limit.allowed) return tooMany(limit.retryAfter);
 
+  // Without a signing secret no session can be issued, so say so up front — not as a crash
+  // after the password check. Nobody can sign in while this is true, so naming the missing
+  // setting gives nothing away.
+  const secretProblem = authSecretProblem();
+  if (secretProblem) {
+    console.error(`[auth] ${secretProblem}. ${SETTINGS_HINT}`);
+    return fail(
+      `Sign-in isn't set up on this server: ${secretProblem}. Add it in the hosting settings and redeploy.`,
+      503,
+    );
+  }
+
+  try {
+    return await signIn(request);
+  } catch (error) {
+    console.error("[auth] sign-in failed unexpectedly:", error);
+    return fail("Something went wrong on our side. Try again in a moment.", 500);
+  }
+}
+
+async function signIn(request: Request) {
   const body = await readJson(request);
   if (body === undefined) return fail("Expected a JSON body.", 400);
 
@@ -50,8 +75,10 @@ export async function POST(request: Request) {
 
   const builtIn = builtInAccount();
   if (!builtIn && !hasDb()) {
-    console.error("[auth] No way to sign in: set ADMIN_EMAIL and ADMIN_PASSWORD_HASH, or MONGODB_URI with a team member.");
-    return fail("Sign-in isn't configured on this server.", 503);
+    console.error(
+      `[auth] No way to sign in: set ADMIN_EMAIL and ADMIN_PASSWORD_HASH, or MONGODB_URI with a team member. ${SETTINGS_HINT}`,
+    );
+    return fail("Sign-in isn't set up on this server: no account is configured.", 503);
   }
 
   let session: AdminSession | null = null;

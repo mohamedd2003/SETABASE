@@ -30,7 +30,7 @@ requests are only logged to the console and the dashboard can't load.
 | `ADMIN_PASSWORD_HASH`  | bcrypt hash of the admin password — see below (`$` written as `\$` in `.env.local`). |
 | `NEXT_PUBLIC_SITE_URL` | Public URL, for canonical links and the sitemap.                                |
 
-On Vercel, add each one under **Settings → Environment Variables**. Never commit `.env.local`.
+On Vercel, see [Deploying to Vercel](#deploying-to-vercel). Never commit `.env.local`.
 
 ### The admin password
 
@@ -43,7 +43,18 @@ prints an `ADMIN_PASSWORD_HASH=` line and a fresh `AUTH_SECRET=` line ready to p
 inside `.env` files and would otherwise strip most of the hash. For Vercel the script also
 prints the plain values, which is what its environment settings expect.
 
-If sign-in says it isn't configured, the server log says which of the two is wrong.
+If sign-in says it isn't set up, the message names the missing setting.
+
+### Deploying to Vercel
+
+1. In MongoDB Atlas → **Network Access**, allow `0.0.0.0/0` — Vercel's servers don't have
+   fixed addresses.
+2. In Vercel → the project → **Settings → Environment Variables**, add all four for
+   Production: `MONGODB_URI`, `AUTH_SECRET`, `ADMIN_EMAIL` and `ADMIN_PASSWORD_HASH` (the
+   plain hash that `npm run admin:hash` prints under "On Vercel"). `AUTH_SECRET` is
+   required — without it nobody can sign in.
+3. **Redeploy** (Deployments → ⋯ → Redeploy). Vercel only applies new or changed variables
+   to deployments made after the change.
 
 ### The packages
 

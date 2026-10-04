@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { cleanEnv } from "@/lib/env";
 
 /**
  * One MongoDB connection per server process. Next's dev server reloads modules, so the
@@ -16,10 +17,10 @@ const cache: Cache = globalThis.__setabaseMongoose ?? { uri: null, conn: null, p
 globalThis.__setabaseMongoose = cache;
 
 /** True when a database is configured — the public site falls back to its built-in catalog without one. */
-export const hasDb = () => Boolean(process.env.MONGODB_URI);
+export const hasDb = () => Boolean(cleanEnv(process.env.MONGODB_URI));
 
 export async function connectDb() {
-  const uri = process.env.MONGODB_URI;
+  const uri = cleanEnv(process.env.MONGODB_URI);
   if (!uri) throw new Error("MONGODB_URI is not set.");
 
   if (cache.uri !== uri) {

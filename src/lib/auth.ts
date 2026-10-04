@@ -1,4 +1,5 @@
 import { SignJWT, jwtVerify } from "jose";
+import { cleanEnv } from "@/lib/env";
 
 /**
  * The admin session: a signed JWT in an httpOnly cookie. Runs in both the Node runtime
@@ -20,12 +21,22 @@ export type AdminSession = {
   version?: number;
 };
 
-function secret() {
-  const value = process.env.AUTH_SECRET;
-  if (!value || value.length < 32) {
-    throw new Error("AUTH_SECRET must be set and at least 32 characters long.");
+const MIN_SECRET_LENGTH = 32;
+
+/** Why sessions can't be signed or checked on this server, or null when AUTH_SECRET is usable. */
+export function authSecretProblem(): string | null {
+  const value = cleanEnv(process.env.AUTH_SECRET);
+  if (!value) return "AUTH_SECRET is not set";
+  if (value.length < MIN_SECRET_LENGTH) {
+    return `AUTH_SECRET is too short (${value.length} characters; it needs at least ${MIN_SECRET_LENGTH})`;
   }
-  return new TextEncoder().encode(value);
+  return null;
+}
+
+function secret() {
+  const problem = authSecretProblem();
+  if (problem) throw new Error(`${problem}.`);
+  return new TextEncoder().encode(cleanEnv(process.env.AUTH_SECRET));
 }
 
 export async function signSession(session: AdminSession) {
