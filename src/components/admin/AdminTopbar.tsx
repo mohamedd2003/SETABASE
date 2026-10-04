@@ -13,10 +13,13 @@ export function AdminTopbar() {
 
   return (
     <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-border bg-background/90 px-4 backdrop-blur-sm sm:px-6">
-      <SidebarTrigger className="-ms-1.5 text-foreground" />
-      <span aria-hidden="true" className="h-5 w-px bg-border" />
+      <SidebarTrigger className="-ms-1.5 text-foreground pointer-coarse:-ms-2.5 pointer-coarse:size-10" />
+      <span aria-hidden="true" className="h-5 w-px shrink-0 bg-border" />
       <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-1.5 text-sm">
-        <Link href="/admin/requests" className="text-muted-foreground transition-colors hover:text-foreground">
+        <Link
+          href="/admin/requests"
+          className="shrink-0 py-2.5 text-muted-foreground transition-colors hover:text-foreground"
+        >
           Dashboard
         </Link>
         {current ? (

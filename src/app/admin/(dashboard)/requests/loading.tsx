@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function RequestsLoading() {
   return (
-    <div className="grid gap-6" aria-busy="true" aria-label="Loading requests">
+    <div className="grid grid-cols-1 gap-6" aria-busy="true" aria-label="Loading requests">
       <PageHeader title="Requests" description="Package requests from the website, newest first." />
       <StatsSkeleton />
       <Skeleton className="h-8 w-80 max-w-full" />

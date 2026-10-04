@@ -85,7 +85,7 @@ export function RelocationView({ packages }: { packages: RelocationPackage[] }) 
   }
 
   return (
-    <div className="grid gap-6">
+    <div className="grid grid-cols-1 gap-6">
       <PageHeader
         title="Corporate Relocation"
         description="The stages and extras on the Corporate Relocation page. Changes go live when saved."
@@ -97,12 +97,16 @@ export function RelocationView({ packages }: { packages: RelocationPackage[] }) 
       </PageHeader>
 
       <Tabs value={stage} onValueChange={(value) => setStage(value as StageFilter)}>
-        <TabsList variant="line" className="w-full justify-start overflow-x-auto border-b border-border">
-          <TabsTrigger value="all" className="flex-none px-3">
+        <TabsList
+          variant="line"
+          // Five stages don't fit on a phone: the strip scrolls, and its end fades so that shows.
+          className="w-full justify-start overflow-x-auto border-b border-border [scrollbar-width:none] @max-xl:pe-8 @max-xl:mask-r-from-[calc(100%-2rem)]"
+        >
+          <TabsTrigger value="all" className="flex-none px-2.5 @md:px-3">
             All
           </TabsTrigger>
           {relocationStages.map((key) => (
-            <TabsTrigger key={key} value={key} className="flex-none px-3">
+            <TabsTrigger key={key} value={key} className="flex-none px-2.5 @md:px-3">
               {relocationStageLabels[key]}
             </TabsTrigger>
           ))}
@@ -125,15 +129,17 @@ export function RelocationView({ packages }: { packages: RelocationPackage[] }) 
         </EmptyState>
       ) : (
         <div className="overflow-hidden rounded-2xl border border-border bg-card">
+          {/* Narrow, stage and price sit under the title so the switch and the menu stay in
+              view; they get columns of their own once there is room. */}
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">
                 <TableHead>Package</TableHead>
-                <TableHead>Stage</TableHead>
-                <TableHead className="hidden md:table-cell">When</TableHead>
-                <TableHead className="hidden lg:table-cell">Features</TableHead>
-                <TableHead className="hidden md:table-cell">Price</TableHead>
-                <TableHead className="hidden sm:table-cell">Order</TableHead>
+                <TableHead className="hidden @3xl:table-cell">Stage</TableHead>
+                <TableHead className="hidden @4xl:table-cell">When</TableHead>
+                <TableHead className="hidden @5xl:table-cell">Features</TableHead>
+                <TableHead className="hidden @3xl:table-cell">Price</TableHead>
+                <TableHead className="hidden @4xl:table-cell">Order</TableHead>
                 <TableHead>Active</TableHead>
                 <TableHead className="w-12 text-end">
                   <span className="sr-only">Actions</span>
@@ -143,25 +149,29 @@ export function RelocationView({ packages }: { packages: RelocationPackage[] }) 
             <TableBody>
               {visible.map((pkg) => (
                 <TableRow key={pkg.id} className={busy === pkg.id ? "opacity-60" : undefined}>
-                  <TableCell>
-                    <p className="font-medium text-foreground">{pkg.title}</p>
-                    <p className="text-xs text-muted-foreground">{pkg.slug}</p>
+                  <TableCell className="py-3 whitespace-normal">
+                    <p className="font-medium wrap-anywhere text-foreground">{pkg.title}</p>
+                    <p className="text-xs wrap-anywhere text-muted-foreground">{pkg.slug}</p>
+                    <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 @3xl:hidden">
+                      <StageBadge stage={pkg.stage} />
+                      <span className="text-xs text-foreground tabular-nums">
+                        <PackagePrice pkg={pkg} />
+                      </span>
+                    </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden @3xl:table-cell">
                     <StageBadge stage={pkg.stage} />
                   </TableCell>
-                  <TableCell className="hidden text-muted-foreground md:table-cell">{pkg.when ?? "—"}</TableCell>
-                  <TableCell className="hidden text-muted-foreground tabular-nums lg:table-cell">
+                  <TableCell className="hidden min-w-40 whitespace-normal text-muted-foreground @4xl:table-cell">
+                    {pkg.when ?? "—"}
+                  </TableCell>
+                  <TableCell className="hidden text-muted-foreground tabular-nums @5xl:table-cell">
                     {pkg.features.length}
                   </TableCell>
-                  <TableCell className="hidden text-foreground tabular-nums md:table-cell">
-                    {pkg.priceOnRequest || pkg.price === undefined ? (
-                      <span className="text-muted-foreground">On request</span>
-                    ) : (
-                      formatEgp(pkg.price)
-                    )}
+                  <TableCell className="hidden text-foreground tabular-nums @3xl:table-cell">
+                    <PackagePrice pkg={pkg} />
                   </TableCell>
-                  <TableCell className="hidden text-muted-foreground tabular-nums sm:table-cell">{pkg.sortOrder}</TableCell>
+                  <TableCell className="hidden text-muted-foreground tabular-nums @4xl:table-cell">{pkg.sortOrder}</TableCell>
                   <TableCell>
                     <Switch
                       checked={pkg.isActive}
@@ -172,7 +182,16 @@ export function RelocationView({ packages }: { packages: RelocationPackage[] }) 
                   </TableCell>
                   <TableCell className="text-end">
                     <DropdownMenu>
-                      <DropdownMenuTrigger render={<Button variant="ghost" size="icon" aria-label={`Actions for ${pkg.title}`} />}>
+                      <DropdownMenuTrigger
+                        render={
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="pointer-coarse:size-10"
+                            aria-label={`Actions for ${pkg.title}`}
+                          />
+                        }
+                      >
                         <MoreHorizontalIcon aria-hidden="true" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
@@ -197,7 +216,7 @@ export function RelocationView({ packages }: { packages: RelocationPackage[] }) 
       <Dialog open={editing !== null} onOpenChange={(open) => !open && setEditing(null)}>
         <DialogContent className="max-h-[92svh] overflow-y-auto bg-card sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="font-serif text-2xl font-medium">
+            <DialogTitle className="pe-8 font-serif text-2xl font-medium">
               {editing?.mode === "edit" ? `Edit ${editing.pkg.title}` : "Add a package"}
             </DialogTitle>
             <DialogDescription>
@@ -239,4 +258,11 @@ export function RelocationView({ packages }: { packages: RelocationPackage[] }) 
       </AlertDialog>
     </div>
   );
+}
+
+function PackagePrice({ pkg }: { pkg: RelocationPackage }) {
+  if (pkg.priceOnRequest || pkg.price === undefined) {
+    return <span className="text-muted-foreground">On request</span>;
+  }
+  return <>{formatEgp(pkg.price)}</>;
 }

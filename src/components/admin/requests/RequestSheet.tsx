@@ -70,7 +70,7 @@ export function RequestSheet({
     <Sheet open={request !== null} onOpenChange={(open) => !open && onClose()}>
       <SheetContent
         side="right"
-        className="flex w-full flex-col gap-0 overflow-y-auto bg-card p-0 sm:max-w-lg"
+        className="flex flex-col gap-0 overflow-y-auto bg-card p-0 data-[side=right]:w-full data-[side=right]:sm:max-w-lg"
       >
         {request ? (
           <RequestDetails
@@ -145,12 +145,12 @@ function RequestDetails({
 
   return (
     <>
-      <SheetHeader className="border-b border-border px-6 py-5">
+      <SheetHeader className="border-b border-border px-5 py-5 pe-12 sm:px-6 sm:pe-12">
         <div className="flex flex-wrap items-center gap-2">
           <ServiceBadge service={request.service} />
           <StatusBadge status={request.status} />
         </div>
-        <SheetTitle className="mt-2 font-serif text-2xl font-medium text-foreground">
+        <SheetTitle className="mt-2 font-serif text-2xl font-medium wrap-anywhere text-foreground">
           {request.contact.name}
         </SheetTitle>
         <SheetDescription className="text-muted-foreground">
@@ -159,34 +159,34 @@ function RequestDetails({
         </SheetDescription>
       </SheetHeader>
 
-      <div className="grid gap-6 px-6 py-5">
+      <div className="grid gap-6 px-5 py-5 sm:px-6">
         {/* Contact */}
         <section>
           <h3 className="text-xs font-medium tracking-[0.03em] text-muted-foreground uppercase">
             Contact
           </h3>
           <dl className="mt-2 grid gap-2 text-sm">
-            <div className="flex items-center justify-between gap-3">
-              <dt className="text-muted-foreground">Email</dt>
-              <dd>
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="shrink-0 text-muted-foreground">Email</dt>
+              <dd className="min-w-0 text-end">
                 <a
                   href={`mailto:${request.contact.email}`}
-                  className="inline-flex items-center gap-1.5 text-foreground underline-offset-4 hover:underline"
+                  className="inline-flex max-w-full items-baseline gap-1.5 text-foreground underline-offset-4 hover:underline"
                 >
-                  <MailIcon className="size-3.5" aria-hidden="true" />
-                  {request.contact.email}
+                  <MailIcon className="size-3.5 shrink-0 translate-y-0.5" aria-hidden="true" />
+                  <span className="min-w-0 wrap-anywhere">{request.contact.email}</span>
                 </a>
               </dd>
             </div>
             {request.contact.phone ? (
-              <div className="flex items-center justify-between gap-3">
-                <dt className="text-muted-foreground">Phone</dt>
-                <dd>
+              <div className="flex items-baseline justify-between gap-3">
+                <dt className="shrink-0 text-muted-foreground">Phone</dt>
+                <dd className="min-w-0 text-end">
                   <a
                     href={`tel:${request.contact.phone.replace(/\s/g, "")}`}
-                    className="inline-flex items-center gap-1.5 text-foreground underline-offset-4 hover:underline"
+                    className="inline-flex items-baseline gap-1.5 whitespace-nowrap text-foreground underline-offset-4 hover:underline"
                   >
-                    <PhoneIcon className="size-3.5" aria-hidden="true" />
+                    <PhoneIcon className="size-3.5 shrink-0 translate-y-0.5" aria-hidden="true" />
                     {request.contact.phone}
                   </a>
                 </dd>
@@ -194,7 +194,7 @@ function RequestDetails({
             ) : null}
           </dl>
           {request.contact.message ? (
-            <blockquote className="mt-3 rounded-xl bg-muted/70 px-4 py-3 text-sm text-foreground">
+            <blockquote className="mt-3 rounded-xl bg-muted/70 px-4 py-3 text-sm wrap-break-word text-foreground">
               {request.contact.message}
             </blockquote>
           ) : null}
@@ -325,7 +325,7 @@ function RequestDetails({
         </section>
       </div>
 
-      <SheetFooter className="mt-auto flex-row items-center justify-between gap-3 border-t border-border px-6 py-4">
+      <SheetFooter className="mt-auto flex-row items-center justify-between gap-3 border-t border-border px-5 py-4 sm:px-6">
         <AlertDialog>
           <AlertDialogTrigger
             render={
@@ -369,8 +369,8 @@ function RequestDetails({
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
-      <dt className="text-muted-foreground">{label}</dt>
-      <dd className="text-end text-foreground">{value}</dd>
+      <dt className="shrink-0 text-muted-foreground">{label}</dt>
+      <dd className="min-w-0 text-end wrap-break-word text-foreground">{value}</dd>
     </div>
   );
 }

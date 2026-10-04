@@ -13,7 +13,7 @@ export function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div className="flex flex-col gap-4 @xl:flex-row @xl:items-end @xl:justify-between">
       <div>
         <h1 className="font-serif text-2xl font-medium text-foreground">{title}</h1>
         {description ? <p className="mt-1 text-sm text-muted-foreground">{description}</p> : null}
@@ -49,9 +49,10 @@ export function ErrorState({ title = "Couldn't load this page", message }: { tit
     <div role="alert" className="rounded-2xl border border-destructive/30 bg-destructive/5 p-6">
       <div className="flex items-start gap-3">
         <AlertTriangleIcon className="mt-0.5 size-5 shrink-0 text-destructive" aria-hidden="true" />
-        <div>
+        <div className="min-w-0">
           <p className="font-medium text-foreground">{title}</p>
-          <p className="mt-1 text-sm text-muted-foreground">{message}</p>
+          {/* Driver errors carry long host names with no spaces; let them break anywhere. */}
+          <p className="mt-1 text-sm wrap-anywhere text-muted-foreground">{message}</p>
           <p className="mt-3 text-sm text-muted-foreground">
             Check that <code className="rounded bg-muted px-1 py-0.5 text-xs">MONGODB_URI</code> is set and the
             database is reachable, then reload.
@@ -88,7 +89,7 @@ export function TableSkeleton({ rows = 6, columns = 5 }: { rows?: number; column
 
 export function StatsSkeleton({ count = 4 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 @3xl:grid-cols-4">
       {Array.from({ length: count }).map((_, i) => (
         <div key={i} className="rounded-2xl border border-border bg-card p-4">
           <Skeleton className="h-3 w-20" />

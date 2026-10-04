@@ -37,7 +37,9 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
           <AdminSidebar email={session.email} name={session.name} newRequests={newRequests} />
           <SidebarInset className="min-w-0 bg-background">
             <AdminTopbar />
-            <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">{children}</main>
+            {/* A size container: pages lay out by the room left beside the sidebar
+                (`@3xl:` and friends), not by the width of the whole window. */}
+            <main className="@container flex-1 px-4 py-6 sm:px-6 lg:px-8">{children}</main>
           </SidebarInset>
         </SidebarProvider>
       </TooltipProvider>

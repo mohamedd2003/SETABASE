@@ -26,10 +26,11 @@ type RequestsViewProps = {
   query: RequestsQuery;
 };
 
+/** `short` is what fits beside the others on a phone. */
 const tabs = [
-  { value: "all", label: "All" },
-  { value: "special-services", label: "Special Services" },
-  { value: "relocation", label: "Corporate Relocation" },
+  { value: "all", label: "All", short: "All" },
+  { value: "special-services", label: "Special Services", short: "Special Services" },
+  { value: "relocation", label: "Corporate Relocation", short: "Relocation" },
 ] as const;
 
 const statusOptions = [
@@ -79,10 +80,10 @@ export function RequestsView({ data, query }: RequestsViewProps) {
   const filtered = Boolean(query.status || query.search);
 
   return (
-    <div className="grid gap-6">
+    <div className="grid grid-cols-1 gap-6">
       <PageHeader title="Requests" description="Package requests from the website, newest first." />
 
-      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 @3xl:grid-cols-4">
         {stats.map((stat) => (
           <div key={stat.label} className="rounded-2xl border border-border bg-card p-4">
             <p className="text-xs text-muted-foreground">{stat.label}</p>
@@ -92,16 +93,20 @@ export function RequestsView({ data, query }: RequestsViewProps) {
       </div>
 
       <Tabs value={query.service ?? "all"} onValueChange={(value) => update({ service: String(value) })}>
-        <TabsList variant="line" className="w-full justify-start overflow-x-auto border-b border-border">
+        <TabsList
+          variant="line"
+          className="w-full justify-start overflow-x-auto border-b border-border [scrollbar-width:none]"
+        >
           {tabs.map((tab) => (
-            <TabsTrigger key={tab.value} value={tab.value} className="flex-none px-3">
-              {tab.label}
+            <TabsTrigger key={tab.value} value={tab.value} className="flex-none px-2.5 @md:px-3">
+              <span className="@md:hidden">{tab.short}</span>
+              <span className="hidden @md:inline">{tab.label}</span>
             </TabsTrigger>
           ))}
         </TabsList>
       </Tabs>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 @xl:flex-row @xl:items-center">
         <div className="relative flex-1">
           <SearchIcon aria-hidden="true" className="pointer-events-none absolute start-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -118,7 +123,7 @@ export function RequestsView({ data, query }: RequestsViewProps) {
           value={query.status ?? "all"}
           onValueChange={(value) => update({ status: String(value) })}
         >
-          <SelectTrigger aria-label="Filter by status" className="sm:w-48">
+          <SelectTrigger aria-label="Filter by status" className="w-full @xl:w-48">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -155,17 +160,22 @@ export function RequestsView({ data, query }: RequestsViewProps) {
           />
         ) : (
           <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            {/* Narrow, each request is one cell (name, company, date, type) beside its status;
+                columns of their own appear as the room beside the sidebar grows. */}
             <Table>
               <TableHeader>
                 <TableRow className="hover:bg-transparent">
-                  <TableHead className="w-28">Date</TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Company</TableHead>
-                  <TableHead className="hidden lg:table-cell">Email</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead className="hidden md:table-cell">Package</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="w-24 text-end">
+                  <TableHead className="hidden w-28 @3xl:table-cell">Date</TableHead>
+                  <TableHead>
+                    <span className="@3xl:hidden">Request</span>
+                    <span className="hidden @3xl:inline">Name</span>
+                  </TableHead>
+                  <TableHead className="hidden @3xl:table-cell">Company</TableHead>
+                  <TableHead className="hidden @7xl:table-cell">Email</TableHead>
+                  <TableHead className="hidden @3xl:table-cell">Type</TableHead>
+                  <TableHead className="hidden @5xl:table-cell">Package</TableHead>
+                  <TableHead className="hidden @sm:table-cell">Status</TableHead>
+                  <TableHead className="w-10 text-end @3xl:w-20">
                     <span className="sr-only">Actions</span>
                   </TableHead>
                 </TableRow>
@@ -184,33 +194,51 @@ export function RequestsView({ data, query }: RequestsViewProps) {
                     }}
                     className="cursor-pointer outline-none focus-visible:bg-accent/60"
                   >
-                    <TableCell className="whitespace-nowrap text-muted-foreground">
+                    <TableCell className="hidden text-muted-foreground @3xl:table-cell">
                       {formatDate(request.createdAt)}
                     </TableCell>
-                    <TableCell className="font-medium text-foreground">{request.contact.name}</TableCell>
-                    <TableCell className="text-muted-foreground">{request.contact.company ?? "—"}</TableCell>
-                    <TableCell className="hidden text-muted-foreground lg:table-cell">
-                      {request.contact.email}
+                    <TableCell className="py-3 whitespace-normal">
+                      <p className="font-medium wrap-anywhere text-foreground">{request.contact.name}</p>
+                      <p className="mt-0.5 text-xs wrap-anywhere text-muted-foreground @3xl:hidden">
+                        {request.contact.company ? `${request.contact.company} · ` : ""}
+                        {formatDate(request.createdAt)}
+                      </p>
+                      <div className="mt-1.5 flex flex-wrap gap-1.5 @3xl:hidden">
+                        <ServiceBadge service={request.service} />
+                        {/* On a phone there's no Status column; the status rides along here. */}
+                        <StatusBadge status={request.status} className="@sm:hidden" />
+                      </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden min-w-32 whitespace-normal text-muted-foreground @3xl:table-cell">
+                      {request.contact.company ?? "—"}
+                    </TableCell>
+                    <TableCell className="hidden max-w-60 text-muted-foreground @7xl:table-cell">
+                      <span className="block truncate" title={request.contact.email}>
+                        {request.contact.email}
+                      </span>
+                    </TableCell>
+                    <TableCell className="hidden @3xl:table-cell">
                       <ServiceBadge service={request.service} />
                     </TableCell>
-                    <TableCell className="hidden max-w-56 md:table-cell">
+                    <TableCell className="hidden max-w-56 @5xl:table-cell">
                       <PackageSummary request={request} />
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden @sm:table-cell">
                       <StatusBadge status={request.status} />
                     </TableCell>
-                    <TableCell className="text-end">
+                    <TableCell className="text-end @max-3xl:ps-0">
                       <Button
                         variant="ghost"
                         size="sm"
+                        aria-label={`View the request from ${request.contact.name}`}
+                        className="@max-3xl:size-10 @max-3xl:px-0"
                         onClick={(e) => {
                           e.stopPropagation();
                           setOpen(request);
                         }}
                       >
-                        View
+                        <span className="hidden @3xl:inline">View</span>
+                        <ChevronRightIcon aria-hidden="true" className="@3xl:hidden" />
                       </Button>
                     </TableCell>
                   </TableRow>

@@ -125,12 +125,20 @@ export function OfferForm({ offer, onSaved, onCancel }: OfferFormProps) {
   }
 
   const showPrices = !priceOnRequest && category !== "flexible";
+  // An item is one line from md up. Below that the name shares a line with the remove
+  // button and the other fields wrap underneath, so none of them gets squeezed.
   const itemGrid =
     category === "flexible"
-      ? "sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_6rem_minmax(0,1fr)_auto]"
+      ? "md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_6rem_minmax(9rem,1fr)_auto]"
       : category === "event"
-        ? "sm:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_6rem_auto]"
-        : "sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_auto]";
+        ? "md:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_6rem_auto]"
+        : "md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_auto]";
+  const fieldsGrid =
+    category === "flexible"
+      ? "grid-cols-2 sm:grid-cols-3"
+      : category === "event"
+        ? "grid-cols-[minmax(0,1fr)_7rem]"
+        : "grid-cols-1";
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="grid gap-5">
@@ -212,75 +220,80 @@ export function OfferForm({ offer, onSaved, onCancel }: OfferFormProps) {
           {items.fields.map((field, index) => {
             const rowErrors = errors.items?.[index];
             return (
-              <li key={field.id} className={`grid gap-2 rounded-xl border border-border p-3 ${itemGrid}`}>
+              <li
+                key={field.id}
+                className={`grid grid-cols-[minmax(0,1fr)_auto] gap-2 rounded-xl border border-border p-3 ${itemGrid}`}
+              >
                 <Input
                   aria-label="Item name"
                   placeholder={category === "event" ? "Idea" : "Item"}
                   aria-invalid={!!rowErrors?.name}
                   {...register(`items.${index}.name` as const)}
                 />
-                {category === "event" ? (
-                  <Input
-                    aria-label="Group"
-                    placeholder="Group, e.g. Team building"
-                    list={`${id}-groups`}
-                    {...register(`items.${index}.group` as const)}
-                  />
-                ) : (
-                  <Input
-                    aria-label="Frequency"
-                    placeholder="Weekly"
-                    list={`${id}-frequencies`}
-                    {...register(`items.${index}.frequency` as const)}
-                  />
-                )}
-                {category === "flexible" || category === "event" ? (
-                  <Input
-                    type="number"
-                    min={0}
-                    inputMode="numeric"
-                    aria-label="Client price, EGP"
-                    placeholder="EGP"
-                    aria-invalid={!!rowErrors?.price}
-                    {...register(`items.${index}.price` as const, { setValueAs: asOptionalNumber })}
-                  />
-                ) : null}
-                {category === "flexible" ? (
-                  <Controller
-                    control={control}
-                    name={`items.${index}.unit` as const}
-                    render={({ field: unitField }) => (
-                      <Select
-                        items={unitItems}
-                        value={unitField.value ?? null}
-                        onValueChange={(value) => unitField.onChange(value ?? undefined)}
-                      >
-                        <SelectTrigger aria-label="Unit">
-                          <SelectValue placeholder="Unit" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {unitItems.map((item) => (
-                            <SelectItem key={item.value} value={item.value}>
-                              {item.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  />
-                ) : null}
+                <div className={`col-span-2 grid gap-2 md:contents ${fieldsGrid}`}>
+                  {category === "event" ? (
+                    <Input
+                      aria-label="Group"
+                      placeholder="Group, e.g. Team building"
+                      list={`${id}-groups`}
+                      {...register(`items.${index}.group` as const)}
+                    />
+                  ) : (
+                    <Input
+                      aria-label="Frequency"
+                      placeholder="Weekly"
+                      list={`${id}-frequencies`}
+                      {...register(`items.${index}.frequency` as const)}
+                    />
+                  )}
+                  {category === "flexible" || category === "event" ? (
+                    <Input
+                      type="number"
+                      min={0}
+                      inputMode="numeric"
+                      aria-label="Client price, EGP"
+                      placeholder="EGP"
+                      aria-invalid={!!rowErrors?.price}
+                      {...register(`items.${index}.price` as const, { setValueAs: asOptionalNumber })}
+                    />
+                  ) : null}
+                  {category === "flexible" ? (
+                    <Controller
+                      control={control}
+                      name={`items.${index}.unit` as const}
+                      render={({ field: unitField }) => (
+                        <Select
+                          items={unitItems}
+                          value={unitField.value ?? null}
+                          onValueChange={(value) => unitField.onChange(value ?? undefined)}
+                        >
+                          <SelectTrigger aria-label="Unit" className="col-span-2 sm:col-span-1">
+                            <SelectValue placeholder="Unit" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {unitItems.map((item) => (
+                              <SelectItem key={item.value} value={item.value}>
+                                {item.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                  ) : null}
+                </div>
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="h-11 w-11 self-center justify-self-end text-muted-foreground hover:text-destructive sm:h-auto"
+                  className="col-start-2 row-start-1 size-11 justify-self-end text-muted-foreground hover:text-destructive md:col-start-auto md:row-start-auto"
                   onClick={() => items.remove(index)}
                   aria-label="Remove item"
                 >
                   <Trash2Icon aria-hidden="true" />
                 </Button>
                 {rowErrors?.name ? (
-                  <p className="text-xs text-destructive sm:col-span-full">{rowErrors.name.message}</p>
+                  <p className="col-span-full text-xs text-destructive">{rowErrors.name.message}</p>
                 ) : null}
               </li>
             );

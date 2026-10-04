@@ -75,7 +75,7 @@ export function OffersView({ offers }: { offers: SpecialOffer[] }) {
   }
 
   return (
-    <div className="grid gap-6">
+    <div className="grid grid-cols-1 gap-6">
       <PageHeader
         title="Special Offers"
         description="The packages on the Special Services page. Changes go live when saved."
@@ -98,15 +98,17 @@ export function OffersView({ offers }: { offers: SpecialOffer[] }) {
         </EmptyState>
       ) : (
         <div className="overflow-hidden rounded-2xl border border-border bg-card">
+          {/* Narrow, category and price sit under the title so the switch and the menu stay
+              in view; they get columns of their own once there is room. */}
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">
                 <TableHead>Offer</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead className="hidden md:table-cell">Client price</TableHead>
-                <TableHead className="hidden md:table-cell">Per employee</TableHead>
-                <TableHead className="hidden lg:table-cell">Items</TableHead>
-                <TableHead className="hidden sm:table-cell">Order</TableHead>
+                <TableHead className="hidden @3xl:table-cell">Category</TableHead>
+                <TableHead className="hidden @3xl:table-cell">Client price</TableHead>
+                <TableHead className="hidden @4xl:table-cell">Per employee</TableHead>
+                <TableHead className="hidden @5xl:table-cell">Items</TableHead>
+                <TableHead className="hidden @4xl:table-cell">Order</TableHead>
                 <TableHead>Active</TableHead>
                 <TableHead className="w-12 text-end">
                   <span className="sr-only">Actions</span>
@@ -116,33 +118,33 @@ export function OffersView({ offers }: { offers: SpecialOffer[] }) {
             <TableBody>
               {offers.map((offer) => (
                 <TableRow key={offer.id} className={busy === offer.id ? "opacity-60" : undefined}>
-                  <TableCell>
-                    <p className="font-medium text-foreground">{offer.title}</p>
-                    <p className="text-xs text-muted-foreground">{offer.slug}</p>
+                  <TableCell className="py-3 whitespace-normal">
+                    <p className="font-medium wrap-anywhere text-foreground">{offer.title}</p>
+                    <p className="text-xs wrap-anywhere text-muted-foreground">{offer.slug}</p>
+                    <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 @3xl:hidden">
+                      <CategoryBadge category={offer.category} />
+                      <span className="text-xs text-foreground tabular-nums">
+                        <ClientPrice offer={offer} />
+                      </span>
+                    </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden @3xl:table-cell">
                     <CategoryBadge category={offer.category} />
                   </TableCell>
-                  <TableCell className="hidden text-foreground tabular-nums md:table-cell">
-                    {offer.priceOnRequest ? (
-                      <span className="text-muted-foreground">On request</span>
-                    ) : offer.clientPrice !== undefined ? (
-                      `${formatEgp(offer.clientPrice)}/mo`
-                    ) : (
-                      <span className="text-muted-foreground">À la carte</span>
-                    )}
+                  <TableCell className="hidden text-foreground tabular-nums @3xl:table-cell">
+                    <ClientPrice offer={offer} />
                   </TableCell>
-                  <TableCell className="hidden text-foreground tabular-nums md:table-cell">
+                  <TableCell className="hidden text-foreground tabular-nums @4xl:table-cell">
                     {offer.pricePerEmployee !== undefined && !offer.priceOnRequest ? (
                       formatEgp(offer.pricePerEmployee)
                     ) : (
                       <span className="text-muted-foreground">—</span>
                     )}
                   </TableCell>
-                  <TableCell className="hidden text-muted-foreground tabular-nums lg:table-cell">
+                  <TableCell className="hidden text-muted-foreground tabular-nums @5xl:table-cell">
                     {offer.items.length}
                   </TableCell>
-                  <TableCell className="hidden text-muted-foreground tabular-nums sm:table-cell">
+                  <TableCell className="hidden text-muted-foreground tabular-nums @4xl:table-cell">
                     {offer.sortOrder}
                   </TableCell>
                   <TableCell>
@@ -156,7 +158,14 @@ export function OffersView({ offers }: { offers: SpecialOffer[] }) {
                   <TableCell className="text-end">
                     <DropdownMenu>
                       <DropdownMenuTrigger
-                        render={<Button variant="ghost" size="icon" aria-label={`Actions for ${offer.title}`} />}
+                        render={
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="pointer-coarse:size-10"
+                            aria-label={`Actions for ${offer.title}`}
+                          />
+                        }
                       >
                         <MoreHorizontalIcon aria-hidden="true" />
                       </DropdownMenuTrigger>
@@ -182,7 +191,7 @@ export function OffersView({ offers }: { offers: SpecialOffer[] }) {
       <Dialog open={editing !== null} onOpenChange={(open) => !open && setEditing(null)}>
         <DialogContent className="max-h-[92svh] overflow-y-auto bg-card sm:max-w-3xl">
           <DialogHeader>
-            <DialogTitle className="font-serif text-2xl font-medium">
+            <DialogTitle className="pe-8 font-serif text-2xl font-medium">
               {editing?.mode === "edit" ? `Edit ${editing.offer.title}` : "Add an offer"}
             </DialogTitle>
             <DialogDescription>
@@ -224,4 +233,11 @@ export function OffersView({ offers }: { offers: SpecialOffer[] }) {
       </AlertDialog>
     </div>
   );
+}
+
+/** What the client pays a month for 20 employees, or why there's no single figure. */
+function ClientPrice({ offer }: { offer: SpecialOffer }) {
+  if (offer.priceOnRequest) return <span className="text-muted-foreground">On request</span>;
+  if (offer.clientPrice === undefined) return <span className="text-muted-foreground">À la carte</span>;
+  return <>{formatEgp(offer.clientPrice)}/mo</>;
 }
