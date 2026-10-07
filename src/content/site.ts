@@ -37,6 +37,8 @@ export const site = {
   /** Where the services run today. One sentence, used wherever the locations are named. */
   locations:
     "Currently serving the New Cairo region and Hurghada (Red Sea region), with expansion into other Egyptian cities.",
+  /** Who built the site, credited under the footer. */
+  credit: { label: "Powered by IO LAB", href: "https://www.iolabegy.com/" },
   /** Beside every contact button: the first step costs nothing and commits to nothing. */
   reassurance: "Your first enquiry is free of charge and without obligation.",
   /** How pricing works for the services without a price list. */

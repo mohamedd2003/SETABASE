@@ -139,17 +139,25 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {/* The sheet's own line: who drew it, where, and when. */}
-          <div className="col-span-full flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-t border-line-gold-soft px-5 py-3.5 text-xs text-ink-soft sm:px-6">
-            <span>
-              &copy; {new Date().getFullYear()} {site.name}
-            </span>
-            <span>Drawn in New Cairo</span>
+          {/* The sheet's own line: where it was drawn. The copyright sits under the block. */}
+          <div className="col-span-full border-t border-line-gold-soft px-5 py-3.5 text-xs text-ink-soft sm:px-6">
+            Drawn in New Cairo
           </div>
         </div>
       </div>
 
-      <div className="h-8 nav:h-12" />
+      <div className="container-site relative flex flex-col items-center gap-1 pt-6 pb-8 text-center text-xs text-ink-soft nav:pt-8 nav:pb-10">
+        <p>&copy; {new Date().getFullYear()} All Rights Reserved.</p>
+        <a
+          href={site.credit.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-10 items-center text-ink underline underline-offset-4 transition-colors hover:text-gold nav:min-h-0"
+        >
+          {site.credit.label}
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      </div>
     </footer>
   );
 }
