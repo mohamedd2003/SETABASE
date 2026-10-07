@@ -107,6 +107,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       dir="ltr"
+      // Tells Next.js the page scrolls smoothly, so it can jump instantly on navigation
+      // instead of gliding from the previous page's position.
+      data-scroll-behavior="smooth"
       className={`${ibmPlexSans.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">

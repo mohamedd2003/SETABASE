@@ -6,7 +6,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { DepartmentIcon } from "@/components/DepartmentIcon";
+import { ServiceDetail } from "@/components/ServiceDetail";
 import { Box } from "@/components/SiteModel";
+import { site } from "@/content/site";
 import type { Department } from "@/content/types";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -176,6 +178,7 @@ export function ServicesElevator({ departments }: ServicesElevatorProps) {
                   {department.note}
                 </p>
               ) : null}
+              {department.detail ? <ServiceDetail detail={department.detail} /> : null}
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 {department.packagesHref ? (
                   <Link
@@ -192,6 +195,7 @@ export function ServicesElevator({ departments }: ServicesElevatorProps) {
                   Ask about {department.title}
                 </a>
               </div>
+              <p className="mt-3 text-xs text-ink-soft">{site.reassurance}</p>
             </article>
           </li>
         ))}
@@ -219,6 +223,7 @@ export function ServicesElevator({ departments }: ServicesElevatorProps) {
               >
                 Talk to our team
               </a>
+              <p className="mt-3 text-xs text-ink-soft">{site.reassurance}</p>
             </div>
           </div>
         </li>

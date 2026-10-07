@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Building2Icon, HouseIcon } from "lucide-react";
@@ -23,25 +24,20 @@ const TILT = 56;
 
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/** Load-sequence delay, in ms, for the CSS `anim-rise` entrance. */
+const at = (ms: number) => ({ animationDelay: `${ms}ms` });
+
 /**
- * Landing page: a site model of both audiences on one base, and a two-step guide beside
- * it — who we're looking after, then what they need first. On arrival the model unfolds
- * from a flat site plan into 3D while the buildings rise; choosing an audience turns the
- * model to face its building.
+ * Landing page: a site model of both audiences on one base, and the one question beside
+ * it — which best describes you? On arrival the model unfolds from a flat site plan into
+ * 3D while the buildings rise; considering an answer turns the model to face its building,
+ * and choosing one (or clicking its building) goes straight to that audience's page.
  */
 export function Onboarding() {
   const root = useRef<HTMLElement>(null);
-  const heading = useRef<HTMLHeadingElement>(null);
   const settled = useRef(false);
-
-  const [chosen, setChosen] = useState<AudienceKey | null>(null);
+  const router = useRouter();
   const [preview, setPreview] = useState<AudienceKey | null>(null);
-  // The arrival entrance plays once; coming back to step one uses the step transition.
-  const [arrived, setArrived] = useState(false);
-  const enter = (ms: number) =>
-    arrived ? {} : { className: "anim-rise", style: { animationDelay: `${ms}ms` } };
-  const focus = preview ?? chosen;
-  const audience = landing.audiences.find((a) => a.key === chosen);
 
   // Arrival: plan → model. The stage stays hidden by CSS until its start state is set.
   useGSAP(
@@ -86,11 +82,11 @@ export function Onboarding() {
     { scope: root },
   );
 
-  // Turn the model to whatever is chosen or being considered.
+  // Turn the model to whichever answer is being considered.
   useGSAP(
     () => {
       if (!settled.current) return;
-      const view = VIEWS[focus ?? "none"];
+      const view = VIEWS[preview ?? "none"];
       gsap.to(".model-table", {
         "--turn": view.turn,
         "--pan": view.pan,
@@ -99,30 +95,13 @@ export function Onboarding() {
         overwrite: "auto",
       });
     },
-    { scope: root, dependencies: [focus] },
+    { scope: root, dependencies: [preview] },
   );
 
-  // Each step's content rises in; focus follows to its heading.
-  useGSAP(
-    () => {
-      // Nothing to transition until a choice has been made (the arrival covers the first
-      // view). Explicit end values: the CSS entrance may still hold items at opacity 0.
-      if (!arrived) return;
-      heading.current?.focus({ preventScroll: true });
-      if (reduced()) return;
-      gsap.fromTo(
-        "[data-step-item]",
-        { y: 18, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: 0.05, clearProps: "all" },
-      );
-    },
-    { scope: root, dependencies: [chosen] },
-  );
-
-  const choose = (key: AudienceKey | null) => {
-    setPreview(null);
-    setArrived(true);
-    setChosen(key);
+  // Clicking a building goes where its answer goes.
+  const pick = (key: AudienceKey) => {
+    const audience = landing.audiences.find((a) => a.key === key);
+    if (audience) router.push(audience.href);
   };
 
   return (
@@ -146,28 +125,6 @@ export function Onboarding() {
           <Logo size="sm" className="py-1.5 sm:py-0 [&_img]:h-8 sm:[&_img]:h-10" />
 
           <div className="flex items-center gap-2">
-            {/* Returning visitors skip the questions; hovering previews the building. */}
-            <div
-              role="group"
-              aria-label={landing.skipLabel}
-              className="flex items-center rounded-full bg-white/[0.05] p-1 ring-1 ring-white/10"
-            >
-              <span className="hidden px-2.5 text-xs text-ink-soft md:inline">
-                {landing.skipLabel}
-              </span>
-              {landing.audiences.map((a) => (
-                <Link
-                  key={a.key}
-                  href={a.href}
-                  onPointerEnter={() => setPreview(a.key)}
-                  onPointerLeave={() => setPreview(null)}
-                  data-lit={focus === a.key ? "" : undefined}
-                  className="rounded-full px-3 py-2.5 text-[0.8125rem] text-ink-soft transition-colors duration-300 hover:bg-gold hover:text-navy-deep data-[lit]:bg-gold/15 data-[lit]:text-gold hover:data-[lit]:bg-gold hover:data-[lit]:text-navy-deep sm:px-4 sm:py-1.5 sm:text-sm"
-                >
-                  {a.answer}
-                </Link>
-              ))}
-            </div>
             {/* TODO(app): wire to the real app URL in content/site.ts */}
             <Button
               variant="brand"
@@ -183,125 +140,52 @@ export function Onboarding() {
       </header>
 
       <div className="container-site relative grid flex-1 grid-cols-[minmax(0,1fr)] content-center gap-2 pb-10 nav:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] nav:items-center nav:gap-12 nav:pb-16">
-        <SiteModel focus={focus} onPick={choose} onPreview={setPreview} />
+        <SiteModel focus={preview} onPick={pick} onPreview={setPreview} />
 
         <section aria-labelledby="guide-title" className="relative max-w-[30rem]">
-          <div data-step-item className="anim-rise flex items-center gap-3" style={at(900)}>
-            <span className="text-sm text-ink-soft">Step {chosen ? 2 : 1} of 2</span>
-            <span aria-hidden="true" className="flex gap-1.5">
-              <span className="h-[3px] w-6 rounded-full bg-gold" />
-              <span
-                className={`h-[3px] w-6 rounded-full transition-colors duration-500 ${chosen ? "bg-gold" : "bg-white/20"}`}
-              />
-            </span>
-          </div>
+          <h1
+            id="guide-title"
+            style={at(1000)}
+            className="anim-rise font-serif text-[1.75rem]/[1.15] font-medium text-balance text-white sm:text-[2.25rem] nav:text-4xl"
+          >
+            {landing.title}
+          </h1>
+          <p style={at(1100)} className="anim-rise mt-2.5 text-sm text-ink-soft sm:text-base">
+            {landing.intro}
+          </p>
 
-          {audience ? (
-            <>
-              <h1
-                id="guide-title"
-                ref={heading}
-                tabIndex={-1}
-                data-step-item
-                className="mt-3 font-serif text-[1.75rem]/[1.15] font-medium text-white outline-none sm:text-3xl"
-              >
-                {landing.steps.what.title}
-              </h1>
-              <p data-step-item className="mt-2.5 text-sm text-ink-soft sm:text-base">
-                {audience.servicesIntro}
-              </p>
-
-              <ul className="mt-7 grid gap-2 sm:grid-cols-2">
-                {audience.services.map((service) => (
-                  <li key={service.id} data-step-item>
-                    <Link
-                      href={service.packagesHref ?? `${audience.href}#${service.id}`}
-                      className="group flex h-full flex-col rounded-2xl border border-line-gold-soft bg-navy/40 px-4 py-3 transition-colors duration-300 hover:border-gold hover:bg-navy/70"
-                    >
-                      <span className="text-sm font-medium text-white transition-colors group-hover:text-gold">
-                        {service.label}
+          <ul className="mt-6 grid gap-2.5 sm:mt-7 sm:gap-3">
+            {landing.audiences.map((a, i) => {
+              const Icon = a.key === "private" ? HouseIcon : Building2Icon;
+              return (
+                <li key={a.key} style={at(1200 + i * 90)} className="anim-rise">
+                  <Link
+                    href={a.href}
+                    onPointerEnter={() => setPreview(a.key)}
+                    onPointerLeave={() => setPreview(null)}
+                    onFocus={() => setPreview(a.key)}
+                    onBlur={() => setPreview(null)}
+                    data-lit={preview === a.key ? "" : undefined}
+                    className="group flex items-center gap-3.5 rounded-2xl border border-line-gold-soft bg-navy/40 p-3.5 text-start transition-colors duration-300 hover:border-gold data-[lit]:border-gold data-[lit]:bg-navy/70 sm:gap-4 sm:p-4"
+                  >
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-line-gold-soft text-gold transition-colors group-data-[lit]:bg-gold group-data-[lit]:text-navy-deep sm:size-11">
+                      <Icon className="size-5" aria-hidden="true" />
+                    </span>
+                    <span className="flex flex-col">
+                      <span className="font-serif text-lg/[1.2] font-medium text-white sm:text-xl">
+                        {a.answer}
                       </span>
-                      <span className="mt-0.5 text-xs text-ink-soft">{service.audience}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              <div data-step-item className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-                <Link
-                  href={audience.href}
-                  className="rounded-full bg-gold px-6 py-3 text-sm font-medium text-navy-deep transition-colors hover:bg-[color-mix(in_srgb,var(--gold)_85%,white)]"
-                >
-                  {audience.allServices}
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => choose(null)}
-                  className="rounded-full px-2 py-3 text-sm text-ink-soft transition-colors hover:text-white"
-                >
-                  {landing.back}
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <h1
-                id="guide-title"
-                ref={heading}
-                tabIndex={-1}
-                data-step-item
-                style={enter(1000).style}
-                className={`${enter(1000).className ?? ""} mt-3 font-serif text-[1.75rem]/[1.15] font-medium text-balance text-white outline-none sm:text-[2.25rem] nav:text-4xl`}
-              >
-                {landing.steps.who.title}
-              </h1>
-              <p
-                data-step-item
-                style={enter(1100).style}
-                className={`${enter(1100).className ?? ""} mt-2.5 text-sm text-ink-soft sm:text-base`}
-              >
-                {landing.steps.who.intro}
-              </p>
-
-              <div className="mt-6 grid gap-2.5 sm:mt-7 sm:gap-3">
-                {landing.audiences.map((a, i) => {
-                  const Icon = a.key === "private" ? HouseIcon : Building2Icon;
-                  return (
-                    <button
-                      key={a.key}
-                      type="button"
-                      data-step-item
-                      onClick={() => choose(a.key)}
-                      onPointerEnter={() => setPreview(a.key)}
-                      onPointerLeave={() => setPreview(null)}
-                      onFocus={() => setPreview(a.key)}
-                      onBlur={() => setPreview(null)}
-                      data-lit={focus === a.key ? "" : undefined}
-                      style={enter(1200 + i * 90).style}
-                      className={`${enter(1200 + i * 90).className ?? ""} group flex items-center gap-3.5 rounded-2xl border border-line-gold-soft bg-navy/40 p-3.5 text-start sm:gap-4 sm:p-4 transition-colors duration-300 hover:border-gold data-[lit]:border-gold data-[lit]:bg-navy/70`}
-                    >
-                      <span className="flex size-10 shrink-0 items-center sm:size-11 justify-center rounded-xl border border-line-gold-soft text-gold transition-colors group-data-[lit]:bg-gold group-data-[lit]:text-navy-deep">
-                        <Icon className="size-5" aria-hidden="true" />
+                      <span className="mt-0.5 text-xs/[1.45] text-ink-soft sm:mt-1 sm:text-sm">
+                        {a.detail}
                       </span>
-                      <span className="flex flex-col">
-                        <span className="font-serif text-lg/[1.2] font-medium text-white sm:text-xl">
-                          {a.answer}
-                        </span>
-                        <span className="mt-0.5 text-xs/[1.45] text-ink-soft sm:mt-1 sm:text-sm">{a.detail}</span>
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </>
-          )}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </section>
       </div>
     </main>
   );
-}
-
-/** Load-sequence delay, in ms, for the CSS `anim-rise` entrance. */
-function at(ms: number) {
-  return { animationDelay: `${ms}ms` };
 }

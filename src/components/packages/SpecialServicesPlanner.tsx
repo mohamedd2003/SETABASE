@@ -14,7 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { contractLengths, specialServicesTerms } from "@/content/special-services";
+import { site } from "@/content/site";
+import { contractLengths, specialServicesSteps, specialServicesTerms } from "@/content/special-services";
 import type { SpecialServicesCatalog } from "@/lib/catalog";
 import { specialServicesRequestSchema, type RequesterInput } from "@/lib/package-request-schema";
 import {
@@ -102,7 +103,7 @@ export function SpecialServicesPlanner({ catalog }: { catalog: SpecialServicesCa
 
   return (
     <>
-      <section id="packages" className="container-site scroll-mt-24 py-16 nav:py-24">
+      <section className="container-site py-16 nav:py-24">
         <div className="grid grid-cols-[minmax(0,1fr)] gap-10 nav:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] nav:gap-12">
           {/* The building and the estimate, kept in view while the packages scroll by. */}
           <aside className="nav:sticky nav:top-24 nav:self-start">
@@ -135,7 +136,7 @@ export function SpecialServicesPlanner({ catalog }: { catalog: SpecialServicesCa
             </div>
           </aside>
 
-          <div>
+          <div id="packages" className="scroll-mt-24">
             <h2 className={sectionTitle}>Choose your packages</h2>
             <p className="mt-3 max-w-[56ch] text-ink-soft">
               Pick a ready package, build your own from single items, or add events. Two or more
@@ -306,7 +307,7 @@ export function SpecialServicesPlanner({ catalog }: { catalog: SpecialServicesCa
               </h2>
               <p className="mt-4 max-w-[46ch] text-ink-soft">
                 We&rsquo;ll confirm the price for your office and set up your one-month trial —
-                usually within one business day.
+                usually within one business day. {site.reassurance}
               </p>
 
               <div className="mt-8 rounded-2xl border border-line-gold-soft p-5">
@@ -330,6 +331,19 @@ export function SpecialServicesPlanner({ catalog }: { catalog: SpecialServicesCa
                   </div>
                 ) : null}
               </div>
+
+              <h3 className="mt-8 text-sm text-gold">What happens next</h3>
+              <ol className="mt-3 grid gap-4">
+                {specialServicesSteps.map((step, i) => (
+                  <li key={step.title} className="flex gap-4">
+                    <span className="font-serif text-xl/[1.2] text-gold">{i + 1}</span>
+                    <span>
+                      <span className="block text-sm font-medium text-white">{step.title}</span>
+                      <span className="mt-0.5 block text-xs/[1.5] text-ink-soft">{step.text}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
 
             <div className="nav:col-span-7">

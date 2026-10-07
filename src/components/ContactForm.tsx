@@ -172,7 +172,9 @@ export function ContactForm({ interests, submitLabel, helperText }: ContactFormP
             .
           </p>
         ) : (
-          <p className="text-sm text-ink-soft">{helperText}</p>
+          <p className="text-sm text-ink-soft">
+            {helperText} {site.reassurance}
+          </p>
         )}
       </div>
     </form>

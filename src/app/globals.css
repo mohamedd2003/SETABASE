@@ -581,6 +581,77 @@
     --edge: transparent;
   }
 
+  /* A pitched roof: two slopes meeting at a ridge along the block's width, closed by a
+     gable at each end. --slant and --pitch come from the Roof component. The whole roof
+     flattens with --rise like every other block. */
+  .model-roof {
+    --face-top: color-mix(in srgb, var(--navy-medium) 52%, var(--navy-deep));
+    --face-side: color-mix(in srgb, var(--navy-medium) 30%, var(--navy-deep));
+  }
+
+  .model-roof-pitch {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    /* Never exactly 0: a singular matrix would stop the roof rendering at all. */
+    transform: scaleZ(max(var(--rise, 1), 0.001));
+  }
+
+  .model-roof-front,
+  .model-roof-back {
+    left: 0;
+    width: 100%;
+    height: var(--slant);
+    background-color: var(--face-top);
+  }
+
+  .model-roof-front {
+    bottom: 0;
+    transform-origin: bottom;
+    transform: rotateX(calc(-1 * var(--pitch)));
+  }
+
+  .model-roof-back {
+    top: 0;
+    transform-origin: top;
+    transform: rotateX(var(--pitch));
+  }
+
+  .model-roof-left,
+  .model-roof-right {
+    top: 0;
+    height: 100%;
+    width: var(--h);
+    background-color: var(--face-side);
+  }
+
+  .model-roof-left {
+    left: 0;
+    transform-origin: left;
+    transform: rotateY(-90deg);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+
+  .model-roof-right {
+    right: 0;
+    transform-origin: right;
+    transform: rotateY(90deg);
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  }
+
+  /* A front door, on the wall of a home. */
+  .model-door {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 9%;
+    height: 56%;
+    transform: translateX(-50%);
+    border-radius: 2px 2px 0 0;
+    background: color-mix(in srgb, var(--gold) 60%, var(--navy-deep));
+    box-shadow: inset 0 0 0 1px var(--line-gold);
+  }
+
   /* The base plate's top is the site plan the model unfolds from. */
   .model-plate {
     --face-top: color-mix(in srgb, var(--navy) 70%, var(--navy-deep));
@@ -810,6 +881,87 @@
 
   .footer-site {
     transform: translateZ(10px);
+  }
+
+  /* The location plan. Google's light map is turned to night and washed navy, like a
+     blueprint, so it reads as part of the sheet. No hover reveal: the pointer over a
+     cross-origin map doesn't reliably reach this page, and touch has no hover at all.
+     A gold mark pulses over the office and four corner ticks frame the viewport. */
+  .footer-map {
+    isolation: isolate;
+  }
+
+  .footer-map iframe {
+    filter: invert(0.9) hue-rotate(180deg) saturate(0.5) brightness(0.92);
+  }
+
+  .footer-map::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--navy-medium);
+    mix-blend-mode: color;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  /* The office: a gold point where the pin's tip stands, and a ring rising out of it. */
+  @keyframes footer-map-pulse {
+    from {
+      transform: translate(-50%, -50%) scale(0.2);
+      opacity: 0.9;
+    }
+    to {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+    }
+  }
+
+  .footer-map-mark {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow:
+      0 0 0 2px var(--navy-deep),
+      0 0 14px 2px color-mix(in srgb, var(--gold) 60%, transparent);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .footer-map-mark::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    opacity: 0;
+    animation: footer-map-pulse 2800ms cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+
+  /* Corner ticks on the viewport's frame, like the crop marks on a drawing. */
+  .footer-map-corners {
+    --tick: color-mix(in srgb, var(--gold) 85%, transparent);
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(var(--tick), var(--tick)) top left / 18px 2px no-repeat,
+      linear-gradient(var(--tick), var(--tick)) top left / 2px 18px no-repeat,
+      linear-gradient(var(--tick), var(--tick)) top right / 18px 2px no-repeat,
+      linear-gradient(var(--tick), var(--tick)) top right / 2px 18px no-repeat,
+      linear-gradient(var(--tick), var(--tick)) bottom left / 18px 2px no-repeat,
+      linear-gradient(var(--tick), var(--tick)) bottom left / 2px 18px no-repeat,
+      linear-gradient(var(--tick), var(--tick)) bottom right / 18px 2px no-repeat,
+      linear-gradient(var(--tick), var(--tick)) bottom right / 2px 18px no-repeat;
   }
 
   /* Lit windows: two window tiles of co-prime sizes, so the lights fall irregularly. */

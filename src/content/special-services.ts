@@ -195,6 +195,13 @@ export const volumeDiscounts = [
 /** Two or more packages together take this off. */
 export const BUNDLE_DISCOUNT = 0.1;
 
+/** What happens after the request is sent, in order. */
+export const specialServicesSteps = [
+  { title: "Send your selection", text: "Packages, items or events, with the size of your team." },
+  { title: "We confirm the price", text: "Usually within one business day, with your one-month trial set up." },
+  { title: "One team runs it", text: "Deliveries, coaches and events on schedule, with one point of contact." },
+];
+
 export const specialServicesTerms = [
   "Start with a one-month trial, then a six-month minimum.",
   "Contracts run 6 months, or 1, 2, 3 or 5 years.",

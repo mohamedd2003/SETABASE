@@ -20,6 +20,13 @@ type BoxProps = {
   explode?: { x?: number; y?: number; z?: number };
 };
 
+const explodeVars = (explode: BoxProps["explode"]) =>
+  explode && {
+    "--dx": `${explode.x ?? 0}px`,
+    "--dy": `${explode.y ?? 0}px`,
+    "--dz": `${explode.z ?? 0}px`,
+  };
+
 /** A solid block: a top and four walls, folded up from its footprint in CSS 3D. */
 export function Box({ x, y, w, d, h, z = 0, className, front, explode }: BoxProps) {
   const style = {
@@ -29,11 +36,7 @@ export function Box({ x, y, w, d, h, z = 0, className, front, explode }: BoxProp
     height: d,
     "--h": `${h}px`,
     "--z": `${z}px`,
-    ...(explode && {
-      "--dx": `${explode.x ?? 0}px`,
-      "--dy": `${explode.y ?? 0}px`,
-      "--dz": `${explode.z ?? 0}px`,
-    }),
+    ...explodeVars(explode),
   } as CSSProperties;
 
   return (
@@ -44,6 +47,56 @@ export function Box({ x, y, w, d, h, z = 0, className, front, explode }: BoxProp
       <div className="model-face model-left" />
       <div className="model-face model-right" />
     </div>
+  );
+}
+
+type RoofProps = Omit<BoxProps, "h" | "front"> & {
+  /** Height of the ridge above the eaves. The ridge runs along the width. */
+  peak: number;
+};
+
+/**
+ * A pitched roof over a footprint: two slopes up to a ridge along the width, closed by a
+ * gable at each end. Sits at `z`, the top of the walls below it, and flattens with the
+ * model's `--rise` like every block.
+ */
+export function Roof({ x, y, w, d, peak, z = 0, className, explode }: RoofProps) {
+  const half = d / 2;
+  // Rounded: the server and the browser disagree in the last digits of trig results,
+  // and any difference in the style string is a hydration mismatch.
+  const round = (n: number) => Math.round(n * 1000) / 1000;
+  const style = {
+    left: x,
+    top: y,
+    width: w,
+    height: d,
+    "--h": `${peak}px`,
+    "--z": `${z}px`,
+    "--slant": `${round(Math.hypot(half, peak))}px`,
+    "--pitch": `${round((Math.atan2(peak, half) * 180) / Math.PI)}deg`,
+    ...explodeVars(explode),
+  } as CSSProperties;
+
+  return (
+    <div className={["model-box model-roof", className].filter(Boolean).join(" ")} style={style}>
+      <div className="model-roof-pitch">
+        <div className="model-face model-roof-back" />
+        <div className="model-face model-roof-left" />
+        <div className="model-face model-roof-right" />
+        <div className="model-face model-roof-front" />
+      </div>
+    </div>
+  );
+}
+
+/** A front door with a window either side: the detail that makes a block read as a home. */
+export function HouseFront() {
+  return (
+    <>
+      <span className="model-glass" style={{ inset: "28% 64% 32% 16%" }} />
+      <span className="model-door" />
+      <span className="model-glass" style={{ inset: "28% 16% 32% 64%" }} />
+    </>
   );
 }
 
@@ -76,7 +129,7 @@ type SiteModelProps = {
 };
 
 /**
- * An architect's site model of the two audiences on one base: a villa for private clients
+ * An architect's site model of the two audiences on one base: a house for private clients
  * and an office cluster for business. Purely visual — the guide beside it carries the same
  * choices for keyboard and screen-reader users, so the model is hidden from them.
  */
@@ -96,25 +149,20 @@ export function SiteModel({ focus, onPick, onPreview }: SiteModelProps) {
           </div>
 
           <Building audience="private" focus={focus} onPick={onPick} onPreview={onPreview}>
-            {/* Ground floor, a setback upper floor, and a thin roof slab that overhangs both. */}
+            {/* A home at first glance: walls with a front door and windows under a pitched
+                roof with a chimney, and a lower garage wing under a roof of its own. */}
+            <Box x={40} y={180} w={140} d={100} h={52} front={<HouseFront />} />
+            <Roof x={34} y={174} w={152} d={112} peak={36} z={52} />
+            <Box x={156} y={216} w={12} d={12} h={40} z={52} className="model-slab" />
             <Box
-              x={36}
-              y={178}
-              w={196}
-              d={128}
-              h={58}
-              front={<span className="model-glass model-glass-wide" />}
-            />
-            <Box
-              x={62}
-              y={192}
-              w={132}
-              d={92}
-              h={46}
-              z={58}
+              x={180}
+              y={206}
+              w={52}
+              d={72}
+              h={30}
               front={<span className="model-glass model-glass-band" />}
             />
-            <Box x={50} y={184} w={160} d={110} h={6} z={104} className="model-slab" />
+            <Roof x={176} y={201} w={60} d={82} peak={16} z={30} />
             <Box x={238} y={262} w={12} d={12} h={34} className="model-tree" />
             <Box x={20} y={150} w={14} d={14} h={28} className="model-tree" />
           </Building>

@@ -4,6 +4,7 @@ import { PackageHero } from "@/components/packages/PackageHero";
 import { RelocationPlanner } from "@/components/packages/RelocationPlanner";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { relocationOpening } from "@/content/relocation";
 import { getRelocationCatalog } from "@/lib/catalog-data";
 
 const description =
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/business/relocation" },
   openGraph: {
-    title: "Corporate Relocation packages — SETABASE",
+    title: relocationOpening.title,
     description,
     url: "/business/relocation",
     images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, alt: "SETABASE Services" }],
@@ -39,14 +40,10 @@ export default async function RelocationPage() {
         <PackageHero
           service="relocation"
           audience="Corporate Relocation, for employers"
-          title="Your new hire lands in Egypt with a home to go to."
-          paragraph="We find the district and the house, move the household door to door, and get the bank, phone and utilities running — so your employee starts work, not paperwork."
-          facts={[
-            "One point of contact for the whole move",
-            "Three moving offers to compare",
-            "Rent short term, long term, or buy",
-          ]}
-          cta="Choose your stages"
+          title={relocationOpening.title}
+          paragraph={relocationOpening.paragraph}
+          facts={relocationOpening.facts}
+          cta="See how it works"
         />
         <RelocationPlanner catalog={catalog} />
       </main>

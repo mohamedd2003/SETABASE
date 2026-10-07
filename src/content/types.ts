@@ -12,8 +12,36 @@ export type SummaryRow = {
   id: ServiceId;
   label: string;
   audience: string;
-  /** A packages page of its own; the landing guide goes straight there. */
-  packagesHref?: string;
+};
+
+export type ServiceGroup = {
+  title: string;
+  /** The one-line message of this group, e.g. who it is for. */
+  lead?: string;
+  items: string[];
+};
+
+export type ServiceStep = {
+  title: string;
+  text: string;
+};
+
+/**
+ * The depth under a department's description: what the service is, what's included,
+ * how it works, what it costs and what happens after contact. Every part is optional,
+ * so a department shows only what it has.
+ */
+export type ServiceDetail = {
+  /** What the service means and what we take off the visitor's shoulders, before any list. */
+  intro?: string;
+  /** What's included. Two groups sit side by side. */
+  groups?: ServiceGroup[];
+  /** How it works, in order. */
+  steps?: ServiceStep[];
+  /** How pricing is determined. */
+  pricing?: string;
+  /** The closing line before the buttons. */
+  closing?: string;
 };
 
 export type Department = {
@@ -25,6 +53,8 @@ export type Department = {
   note?: string;
   /** A page of its own with the department's packages, linked from the card. */
   packagesHref?: string;
+  /** The deeper layer under the description. */
+  detail?: ServiceDetail;
 };
 
 export type ExplainerColumn = {

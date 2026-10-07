@@ -149,9 +149,12 @@ export function MotionLayer({ children }: { children: ReactNode }) {
     { scope },
   );
 
-  // `contents` keeps the page's flex layout as if this wrapper weren't there.
+  // A real box, not `display: contents`: Next.js measures the page's first element to
+  // decide whether to scroll to the top after a navigation, and an element without a box
+  // measures as "already in view" — so the previous page's scroll position carried over.
+  // It fills the body's column, so `main` can still grow.
   return (
-    <div ref={scope} className="contents">
+    <div ref={scope} className="flex min-h-full flex-1 flex-col">
       {children}
     </div>
   );

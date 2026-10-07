@@ -165,7 +165,9 @@ export function RequestForm({ submitLabel, helperText, buildRequest, onSent, chi
             .
           </p>
         ) : (
-          <p className="text-sm text-ink-soft">{helperText}</p>
+          <p className="text-sm text-ink-soft">
+            {helperText} {site.reassurance}
+          </p>
         )}
       </div>
     </form>

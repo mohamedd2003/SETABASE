@@ -13,7 +13,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { relocationDestinations, relocationExclusions } from "@/content/relocation";
+import {
+  relocationConversation,
+  relocationDestinations,
+  relocationExclusions,
+  relocationNext,
+} from "@/content/relocation";
+import { site } from "@/content/site";
 import type { RelocationCatalog } from "@/lib/catalog";
 import { relocationRequestSchema, type RequesterInput } from "@/lib/package-request-schema";
 
@@ -88,7 +94,7 @@ export function RelocationPlanner({ catalog }: { catalog: RelocationCatalog }) {
 
   return (
     <>
-      <section id="packages" className="container-site scroll-mt-24 py-16 nav:py-24">
+      <section className="container-site py-16 nav:py-24">
         <div className="grid grid-cols-[minmax(0,1fr)] gap-10 nav:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] nav:gap-12">
           <aside className="nav:sticky nav:top-24 nav:self-start">
             <RelocationBuildModel on={built} preview={preview} />
@@ -126,15 +132,39 @@ export function RelocationPlanner({ catalog }: { catalog: RelocationCatalog }) {
             </div>
           </aside>
 
-          <div>
-            <h2 className={sectionTitle}>
-              The move, in {relocationStages.length === 3 ? "three stages" : "stages"}
-            </h2>
+          <div id="packages" className="scroll-mt-24">
+            <h2 className={sectionTitle}>The move, step by step</h2>
             <p className="mt-3 max-w-[56ch] text-ink-soft">
-              Take the whole journey, or only the stages you need. One person at SETABASE runs it
-              from the first viewing to the last box.
+              It begins with a conversation. After that, take the whole journey or only the stages
+              you need — one person at SETABASE runs it from the first viewing to the last box.
             </p>
             <ol className="mt-8 grid gap-3">
+              {/* The first step is not a package: nothing to add, nothing to pay for. */}
+              <li>
+                <article className="rounded-3xl border border-gold/60 bg-[var(--surface-dusk)] p-5 sm:p-6">
+                  <p className="text-sm text-gold">1. {relocationConversation.when}</p>
+                  <h3 className="mt-1 font-serif text-[1.5rem]/[1.15] font-medium text-white">
+                    {relocationConversation.title}
+                  </h3>
+                  <p className="mt-1.5 max-w-[52ch] text-sm text-ink-soft">
+                    {relocationConversation.summary}
+                  </p>
+                  <p className="mt-5 text-sm text-gold">{relocationConversation.questionsLead}</p>
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {relocationConversation.questions.map((question) => (
+                      <li
+                        key={question}
+                        className="rounded-[1.375rem] border border-line-gold-soft px-4 py-2 text-sm text-ink"
+                      >
+                        {question}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-5 rounded-2xl border border-line-gold-soft bg-navy-deep/60 px-4 py-3.5 font-serif text-base/[1.5] italic text-white sm:text-lg/[1.5]">
+                    {relocationConversation.noObligation}
+                  </p>
+                </article>
+              </li>
               {relocationStages.map((stage, i) => (
                 <li key={stage.id}>
                   <SelectCard
@@ -144,7 +174,7 @@ export function RelocationPlanner({ catalog }: { catalog: RelocationCatalog }) {
                       clearError("selection");
                     }}
                     onPreview={(on) => setPreview(on ? stage.key : null)}
-                    kicker={`${i + 1}. ${stage.when}`}
+                    kicker={`${i + 2}. ${stage.when}`}
                     title={stage.title}
                     summary={stage.summary}
                     included={
@@ -164,6 +194,11 @@ export function RelocationPlanner({ catalog }: { catalog: RelocationCatalog }) {
               ))}
             </ol>
             <p className="mt-4 text-sm text-ink-soft">{relocationExclusions}</p>
+
+            <div className="mt-8 border-t border-line-gold-soft pt-6">
+              <h3 className="text-sm text-gold">{relocationNext.title}</h3>
+              <p className="mt-2 max-w-[56ch] text-ink-soft">{relocationNext.text}</p>
+            </div>
 
             <div
               className="mt-12"
@@ -207,7 +242,7 @@ export function RelocationPlanner({ catalog }: { catalog: RelocationCatalog }) {
               </h2>
               <p className="mt-4 max-w-[46ch] text-ink-soft">
                 Tell us who&rsquo;s moving and when. We&rsquo;ll come back with a plan and a price —
-                usually within one business day.
+                usually within one business day. {site.reassurance}
               </p>
 
               <div className="mt-8 rounded-2xl border border-line-gold-soft p-5">

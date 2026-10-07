@@ -4,7 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Box } from "@/components/SiteModel";
+import { Box, HouseFront, Roof } from "@/components/SiteModel";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -12,7 +12,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const TILT = 56;
 const TURN = -36;
 
-/** A villa on its plot: ground floor, a setback upper floor, an overhanging roof, an annex. */
+/** A house on its plot: walls with a door and windows, a pitched roof, a garage wing. */
 function Villa() {
   return (
     <>
@@ -21,45 +21,55 @@ function Villa() {
         <span className="model-pool" style={{ left: 70, top: 262, width: 150, height: 34 }} />
       </div>
       <Box
-        x={60}
-        y={110}
-        w={220}
-        d={140}
-        h={62}
+        x={56}
+        y={100}
+        w={190}
+        d={124}
+        h={60}
         className="hero-part"
         explode={{ z: 40 }}
-        front={<span className="model-glass model-glass-wide" />}
+        front={<HouseFront />}
       />
-      <Box
-        x={92}
-        y={124}
-        w={150}
-        d={104}
-        h={50}
-        z={62}
+      <Roof
+        x={48}
+        y={92}
+        w={206}
+        d={140}
+        peak={44}
+        z={60}
         className="hero-part"
-        explode={{ x: -24, z: 140 }}
-        front={<span className="model-glass model-glass-band" />}
+        explode={{ x: -30, y: -20, z: 230 }}
       />
+      {/* The chimney, through the front slope near the ridge. */}
       <Box
-        x={76}
-        y={114}
-        w={186}
-        d={128}
-        h={7}
-        z={112}
+        x={214}
+        y={146}
+        w={12}
+        d={12}
+        h={48}
+        z={60}
         className="hero-part model-slab"
-        explode={{ x: -40, y: -20, z: 250 }}
+        explode={{ z: 320 }}
       />
       <Box
-        x={290}
-        y={150}
-        w={86}
+        x={246}
+        y={130}
+        w={70}
         d={90}
-        h={38}
+        h={34}
         className="hero-part"
         explode={{ x: 90, y: 10, z: 90 }}
         front={<span className="model-glass model-glass-band" />}
+      />
+      <Roof
+        x={240}
+        y={124}
+        w={82}
+        d={102}
+        peak={18}
+        z={34}
+        className="hero-part"
+        explode={{ x: 110, y: 20, z: 170 }}
       />
       <Box
         x={36}
@@ -69,6 +79,15 @@ function Villa() {
         h={30}
         className="hero-part model-tree"
         explode={{ x: -50, z: 60 }}
+      />
+      <Box
+        x={340}
+        y={100}
+        w={12}
+        d={12}
+        h={26}
+        className="hero-part model-tree"
+        explode={{ x: 40, y: -40, z: 50 }}
       />
       <Box
         x={366}

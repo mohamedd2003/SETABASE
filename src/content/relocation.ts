@@ -6,6 +6,43 @@
 
 export type RelocationStageId = "before-moving" | "moving" | "final-step";
 
+/** The relocation page's opening: spoken to the person moving, not only to the employer. */
+export const relocationOpening = {
+  title: "A move to Egypt, with a partner on the ground.",
+  paragraph:
+    "Relocating to another country is a big, personal decision. You may be leaving home, moving your family and starting a new job in a place you don't yet know. We understand how significant this move is — and we will personally guide you through every step.",
+  facts: [
+    "One point of contact, from the first call to the last box",
+    "A free, no-obligation first conversation",
+    "Three moving offers to compare",
+  ],
+};
+
+/** Before any stage of the move: the first conversation, with no obligation attached. */
+export const relocationConversation = {
+  when: "Before anything else",
+  title: "It starts with a conversation.",
+  summary:
+    "We begin with a phone or video call to get to know you, understand your situation and identify what you actually need.",
+  questionsLead: "What we explore together",
+  questions: [
+    "Who is relocating — an individual, a couple or a family?",
+    "Where will you work?",
+    "What kind of home and lifestyle are you looking for?",
+    "Do you need schools or childcare?",
+    "What support will you need before and after arrival?",
+    "What are your biggest concerns about the move?",
+  ],
+  noObligation:
+    "Your first conversation with us is simply an opportunity to get to know each other, understand your needs and discuss how we can support your move. There is no obligation to book a service.",
+};
+
+/** After the stages: what follows the first conversation. */
+export const relocationNext = {
+  title: "What happens next",
+  text: "Only once we understand your needs do we propose the right services, next steps and a personalised offer. We're not selling a package — we're becoming your trusted partner on the ground.",
+};
+
 export type RelocationStage = {
   id: RelocationStageId;
   title: string;
