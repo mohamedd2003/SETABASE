@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SETABASE night navy, the first colour of every screen. -->
+    <color name="launch_background">#071630</color>
+	<color name="ic_launcher_background">#1F325A</color>
+</resources>

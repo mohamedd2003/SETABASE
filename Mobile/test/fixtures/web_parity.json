@@ -1,0 +1,1474 @@
+{
+  "slugify": [
+    {
+      "input": "Tea and karkadé tasting",
+      "output": "tea-and-karkade-tasting"
+    },
+    {
+      "input": "Ramadan, Eid, Christmas and New Year",
+      "output": "ramadan-eid-christmas-and-new-year"
+    },
+    {
+      "input": "  --Hello__World--  ",
+      "output": "hello-world"
+    },
+    {
+      "input": "Crème brûlée à la carte — Ñandú",
+      "output": "creme-brulee-a-la-carte-nandu"
+    },
+    {
+      "input": "Toilet paper, hand towels, soap",
+      "output": "toilet-paper-hand-towels-soap"
+    },
+    {
+      "input": "Egyptian cooking workshop (koshari, molokheya)",
+      "output": "egyptian-cooking-workshop-koshari-molokheya"
+    },
+    {
+      "input": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+      "output": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-yyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+    },
+    {
+      "input": "Residence and visa",
+      "output": "residence-and-visa"
+    },
+    {
+      "input": "Property and facility management for the home",
+      "output": "property-and-facility-management-for-the-home"
+    }
+  ],
+  "splitFeature": [
+    {
+      "input": "Where to live — A district chosen around culture",
+      "output": {
+        "label": "Where to live",
+        "detail": "A district chosen around culture"
+      }
+    },
+    {
+      "input": "Plain feature",
+      "output": {
+        "label": "Plain feature"
+      }
+    },
+    {
+      "input": "A — B — C",
+      "output": {
+        "label": "A",
+        "detail": "B — C"
+      }
+    },
+    {
+      "input": "  Spaced  —  detail  ",
+      "output": {
+        "label": "Spaced",
+        "detail": "detail"
+      }
+    }
+  ],
+  "offers": [
+    {
+      "id": "essential-delivery",
+      "title": "Essential Delivery Pack",
+      "slug": "essential-delivery",
+      "category": "delivery",
+      "shortDescription": "The basics, restocked before anyone notices they're running low.",
+      "items": [
+        {
+          "name": "Toilet paper, hand towels, soap",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Water, coffee, tea",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Fresh fruit basket",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Fresh flowers",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Healthy snacks",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Office supplies",
+          "frequency": "Monthly"
+        },
+        {
+          "name": "Hand sanitizer, hygiene products",
+          "frequency": "Monthly"
+        }
+      ],
+      "costPrice": 14800,
+      "clientPrice": 22200,
+      "pricePerEmployee": 1110,
+      "priceOnRequest": false,
+      "isActive": true,
+      "sortOrder": 0
+    },
+    {
+      "id": "premium-delivery",
+      "title": "Premium Delivery Pack",
+      "slug": "premium-delivery",
+      "category": "delivery",
+      "shortDescription": "Fresh juice, a Thursday breakfast and a welcome kit for every new hire.",
+      "items": [
+        {
+          "name": "Smoothies and fresh juices",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Detox tea and infusion dispensers",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Chocolates and sweets",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Thursday breakfast",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Local and organic product basket",
+          "frequency": "Monthly"
+        },
+        {
+          "name": "Ambient scent diffusers",
+          "frequency": "Monthly"
+        },
+        {
+          "name": "Air purifiers",
+          "frequency": "Monthly"
+        },
+        {
+          "name": "New employee welcome kits",
+          "frequency": "Upon hiring"
+        }
+      ],
+      "costPrice": 17150,
+      "clientPrice": 25800,
+      "pricePerEmployee": 1290,
+      "priceOnRequest": false,
+      "isActive": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "essential-services",
+      "title": "Essential Services Pack",
+      "slug": "essential-services",
+      "category": "services",
+      "shortDescription": "Monthly health checks and training, plus money advice twice a year.",
+      "items": [
+        {
+          "name": "Quick health check-up",
+          "frequency": "Monthly"
+        },
+        {
+          "name": "Monthly training on company topics",
+          "frequency": "Monthly"
+        },
+        {
+          "name": "Payslip and benefits workshop",
+          "frequency": "Semi-annual"
+        },
+        {
+          "name": "Financial advisor",
+          "frequency": "Semi-annual"
+        }
+      ],
+      "costPrice": 8150,
+      "clientPrice": 12300,
+      "pricePerEmployee": 615,
+      "priceOnRequest": false,
+      "isActive": true,
+      "sortOrder": 2
+    },
+    {
+      "id": "premium-services",
+      "title": "Premium Services Pack",
+      "slug": "premium-services",
+      "category": "services",
+      "shortDescription": "A fitness coach every week, and mental wellness, yoga and nutrition every month.",
+      "items": [
+        {
+          "name": "Fitness coach",
+          "frequency": "Weekly"
+        },
+        {
+          "name": "Mental wellness coach",
+          "frequency": "Monthly"
+        },
+        {
+          "name": "Yoga and meditation classes",
+          "frequency": "Monthly"
+        },
+        {
+          "name": "Nutritionist consultation",
+          "frequency": "Monthly"
+        }
+      ],
+      "costPrice": 16100,
+      "clientPrice": 24200,
+      "pricePerEmployee": 1210,
+      "priceOnRequest": false,
+      "isActive": true,
+      "sortOrder": 3
+    },
+    {
+      "id": "flexible-pack",
+      "title": "Flexible Pack",
+      "slug": "flexible-pack",
+      "category": "flexible",
+      "shortDescription": "Build your own from 5 items or more, or add single items on top of any package, priced à la carte.",
+      "items": [
+        {
+          "name": "Toilet paper, hand towels, soap",
+          "frequency": "Weekly",
+          "price": 150,
+          "unit": "employee"
+        },
+        {
+          "name": "Water, coffee, tea",
+          "frequency": "Weekly",
+          "price": 280,
+          "unit": "employee"
+        },
+        {
+          "name": "Fresh fruit basket",
+          "frequency": "Weekly",
+          "price": 225,
+          "unit": "employee"
+        },
+        {
+          "name": "Fresh flowers",
+          "frequency": "Weekly",
+          "price": 2400,
+          "unit": "office"
+        },
+        {
+          "name": "Healthy snacks",
+          "frequency": "Weekly",
+          "price": 195,
+          "unit": "employee"
+        },
+        {
+          "name": "Office supplies",
+          "frequency": "Monthly",
+          "price": 85,
+          "unit": "employee"
+        },
+        {
+          "name": "Hand sanitizer, hygiene products",
+          "frequency": "Monthly",
+          "price": 60,
+          "unit": "employee"
+        },
+        {
+          "name": "Smoothies and fresh juices",
+          "frequency": "Weekly",
+          "price": 330,
+          "unit": "employee"
+        },
+        {
+          "name": "Detox tea and infusion dispensers",
+          "frequency": "Weekly",
+          "price": 115,
+          "unit": "employee"
+        },
+        {
+          "name": "Chocolates and sweets",
+          "frequency": "Weekly",
+          "price": 105,
+          "unit": "employee"
+        },
+        {
+          "name": "Thursday breakfast",
+          "frequency": "Weekly",
+          "price": 390,
+          "unit": "employee"
+        },
+        {
+          "name": "Local and organic product basket",
+          "frequency": "Monthly",
+          "price": 3000,
+          "unit": "office"
+        },
+        {
+          "name": "Ambient scent diffusers",
+          "frequency": "Monthly",
+          "price": 1200,
+          "unit": "office"
+        },
+        {
+          "name": "Air purifiers",
+          "frequency": "Monthly",
+          "price": 2100,
+          "unit": "office"
+        },
+        {
+          "name": "New employee welcome kits",
+          "frequency": "Upon hiring",
+          "price": 340,
+          "unit": "kit"
+        },
+        {
+          "name": "Quick health check-up",
+          "frequency": "Monthly",
+          "price": 300,
+          "unit": "employee"
+        },
+        {
+          "name": "Monthly training on company topics",
+          "frequency": "Monthly",
+          "price": 4500,
+          "unit": "office"
+        },
+        {
+          "name": "Payslip and benefits workshop",
+          "frequency": "Semi-annual",
+          "price": 4500,
+          "unit": "workshop"
+        },
+        {
+          "name": "Financial advisor",
+          "frequency": "Semi-annual",
+          "price": 6000,
+          "unit": "session"
+        },
+        {
+          "name": "Fitness coach",
+          "frequency": "Weekly",
+          "price": 7950,
+          "unit": "office"
+        },
+        {
+          "name": "Mental wellness coach",
+          "frequency": "Monthly",
+          "price": 6750,
+          "unit": "office"
+        },
+        {
+          "name": "Yoga and meditation classes",
+          "frequency": "Monthly",
+          "price": 5250,
+          "unit": "office"
+        },
+        {
+          "name": "Nutritionist consultation",
+          "frequency": "Monthly",
+          "price": 4200,
+          "unit": "office"
+        }
+      ],
+      "priceOnRequest": false,
+      "isActive": true,
+      "sortOrder": 4
+    },
+    {
+      "id": "event-pack",
+      "title": "Event Pack",
+      "slug": "event-pack",
+      "category": "event",
+      "shortDescription": "Team building, afterwork, seasonal celebrations and launches — priced on request for your team and calendar.",
+      "items": [
+        {
+          "name": "Felucca trip on the Nile with lunch",
+          "group": "Team building",
+          "price": 6000
+        },
+        {
+          "name": "Egyptian cooking workshop (koshari, molokheya)",
+          "group": "Team building",
+          "price": 7500
+        },
+        {
+          "name": "Desert safari and Bedouin evening",
+          "group": "Team building",
+          "price": 19500
+        },
+        {
+          "name": "Football or padel tournament",
+          "group": "Team building",
+          "price": 6000
+        },
+        {
+          "name": "Shisha evening and card games",
+          "group": "Afterwork",
+          "price": 3750
+        },
+        {
+          "name": "Tea and karkadé tasting",
+          "group": "Afterwork",
+          "price": 1950
+        },
+        {
+          "name": "Happy hour",
+          "group": "Afterwork",
+          "price": 6000
+        },
+        {
+          "name": "Outdoor cinema night",
+          "group": "Afterwork",
+          "price": 4500
+        },
+        {
+          "name": "Group iftar",
+          "group": "Ramadan, Eid, Christmas and New Year",
+          "price": 9750
+        },
+        {
+          "name": "Decoration with fanous lanterns",
+          "group": "Ramadan, Eid, Christmas and New Year",
+          "price": 3300
+        },
+        {
+          "name": "Kahk cookies for Eid",
+          "group": "Ramadan, Eid, Christmas and New Year",
+          "price": 3000
+        },
+        {
+          "name": "Christmas and New Year gifts",
+          "group": "Ramadan, Eid, Christmas and New Year",
+          "price": 6750
+        },
+        {
+          "name": "Cake and a small ceremony",
+          "group": "Company anniversaries",
+          "price": 4050
+        },
+        {
+          "name": "Egyptian or international catering",
+          "group": "Company anniversaries",
+          "price": 8250
+        },
+        {
+          "name": "Local gift (crafts, oriental perfumes)",
+          "group": "Company anniversaries",
+          "price": 4500
+        },
+        {
+          "name": "Oriental or international buffet",
+          "group": "Product launches",
+          "price": 6000
+        },
+        {
+          "name": "Event decoration and logistics",
+          "group": "Product launches",
+          "price": 4500
+        },
+        {
+          "name": "Team lunch at a local restaurant",
+          "group": "Milestone celebrations",
+          "price": 8250
+        },
+        {
+          "name": "Egyptian coffee and a recognition gift",
+          "group": "Milestone celebrations",
+          "price": 3450
+        }
+      ],
+      "priceOnRequest": true,
+      "isActive": true,
+      "sortOrder": 5
+    }
+  ],
+  "relocationPackages": [
+    {
+      "id": "before-moving",
+      "title": "Before moving",
+      "slug": "before-moving",
+      "stage": "before-moving",
+      "when": "From the day the job is confirmed",
+      "shortDescription": "We find the right district and home, and line up school or work for the family.",
+      "features": [
+        "Where to live — A district chosen around culture, religion, family size, age and the commute to the office.",
+        "Short-term rental, long-term rental or buying — Buying through Palmayya, our real estate company.",
+        "Viewings arranged and attended with the employee",
+        "School, university or work for the rest of the family",
+        "Orientation: how things work here, doctors, banks and a language course"
+      ],
+      "priceOnRequest": true,
+      "isActive": true,
+      "sortOrder": 0
+    },
+    {
+      "id": "moving",
+      "title": "Moving",
+      "slug": "moving",
+      "stage": "moving",
+      "when": "The move itself",
+      "shortDescription": "Door-to-door movement management, with three offers to choose from.",
+      "features": [
+        "Three offers from moving companies — Compared on deadline, container for the household and air freight for small things.",
+        "Packing, shipment tracking, and the customs and tax paperwork",
+        "What can and can't be shipped, explained up front",
+        "Storage in the home country or with the moving company"
+      ],
+      "priceOnRequest": true,
+      "isActive": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "final-step",
+      "title": "Settling in",
+      "slug": "final-step",
+      "stage": "final-step",
+      "when": "The first weeks in Egypt",
+      "shortDescription": "The rental contract signed, the utilities on, and the home furnished.",
+      "features": [
+        "Temporary accommodation while the home is prepared",
+        "Rental contract and paperwork, short or long term",
+        "Bank account, phone, internet, water and electricity set up",
+        "Home staging and furniture, from IKEA, ARIKA and others"
+      ],
+      "priceOnRequest": true,
+      "isActive": true,
+      "sortOrder": 2
+    },
+    {
+      "id": "options",
+      "title": "Options",
+      "slug": "options",
+      "stage": "options",
+      "when": "Any time",
+      "shortDescription": "Add any of these to the move, or on their own once the family has arrived.",
+      "features": [
+        "Residence and visa",
+        "Lawyer services",
+        "Language teacher",
+        "Culture teacher",
+        "Car rental",
+        "Drivers",
+        "Cleaning",
+        "Security",
+        "Events",
+        "Concierge",
+        "Property and facility management for the home"
+      ],
+      "priceOnRequest": true,
+      "isActive": true,
+      "sortOrder": 3
+    }
+  ],
+  "specialServicesCatalog": {
+    "fixedPackages": [
+      {
+        "id": "essential-delivery",
+        "title": "Essential Delivery Pack",
+        "kicker": "Delivery package",
+        "summary": "The basics, restocked before anyone notices they're running low.",
+        "perEmployee": 1110,
+        "items": [
+          {
+            "name": "Toilet paper, hand towels, soap",
+            "frequency": "Weekly",
+            "flexId": "toilet-paper-hand-towels-soap"
+          },
+          {
+            "name": "Water, coffee, tea",
+            "frequency": "Weekly",
+            "flexId": "water-coffee-tea"
+          },
+          {
+            "name": "Fresh fruit basket",
+            "frequency": "Weekly",
+            "flexId": "fresh-fruit-basket"
+          },
+          {
+            "name": "Fresh flowers",
+            "frequency": "Weekly",
+            "flexId": "fresh-flowers"
+          },
+          {
+            "name": "Healthy snacks",
+            "frequency": "Weekly",
+            "flexId": "healthy-snacks"
+          },
+          {
+            "name": "Office supplies",
+            "frequency": "Monthly",
+            "flexId": "office-supplies"
+          },
+          {
+            "name": "Hand sanitizer, hygiene products",
+            "frequency": "Monthly",
+            "flexId": "hand-sanitizer-hygiene-products"
+          }
+        ]
+      },
+      {
+        "id": "premium-delivery",
+        "title": "Premium Delivery Pack",
+        "kicker": "Delivery package",
+        "summary": "Fresh juice, a Thursday breakfast and a welcome kit for every new hire.",
+        "perEmployee": 1290,
+        "items": [
+          {
+            "name": "Smoothies and fresh juices",
+            "frequency": "Weekly",
+            "flexId": "smoothies-and-fresh-juices"
+          },
+          {
+            "name": "Detox tea and infusion dispensers",
+            "frequency": "Weekly",
+            "flexId": "detox-tea-and-infusion-dispensers"
+          },
+          {
+            "name": "Chocolates and sweets",
+            "frequency": "Weekly",
+            "flexId": "chocolates-and-sweets"
+          },
+          {
+            "name": "Thursday breakfast",
+            "frequency": "Weekly",
+            "flexId": "thursday-breakfast"
+          },
+          {
+            "name": "Local and organic product basket",
+            "frequency": "Monthly",
+            "flexId": "local-and-organic-product-basket"
+          },
+          {
+            "name": "Ambient scent diffusers",
+            "frequency": "Monthly",
+            "flexId": "ambient-scent-diffusers"
+          },
+          {
+            "name": "Air purifiers",
+            "frequency": "Monthly",
+            "flexId": "air-purifiers"
+          },
+          {
+            "name": "New employee welcome kits",
+            "frequency": "Upon hiring",
+            "flexId": "new-employee-welcome-kits"
+          }
+        ]
+      },
+      {
+        "id": "essential-services",
+        "title": "Essential Services Pack",
+        "kicker": "Services package",
+        "summary": "Monthly health checks and training, plus money advice twice a year.",
+        "perEmployee": 615,
+        "items": [
+          {
+            "name": "Quick health check-up",
+            "frequency": "Monthly",
+            "flexId": "quick-health-check-up"
+          },
+          {
+            "name": "Monthly training on company topics",
+            "frequency": "Monthly",
+            "flexId": "monthly-training-on-company-topics"
+          },
+          {
+            "name": "Payslip and benefits workshop",
+            "frequency": "Semi-annual",
+            "flexId": "payslip-and-benefits-workshop"
+          },
+          {
+            "name": "Financial advisor",
+            "frequency": "Semi-annual",
+            "flexId": "financial-advisor"
+          }
+        ]
+      },
+      {
+        "id": "premium-services",
+        "title": "Premium Services Pack",
+        "kicker": "Services package",
+        "summary": "A fitness coach every week, and mental wellness, yoga and nutrition every month.",
+        "perEmployee": 1210,
+        "items": [
+          {
+            "name": "Fitness coach",
+            "frequency": "Weekly",
+            "flexId": "fitness-coach"
+          },
+          {
+            "name": "Mental wellness coach",
+            "frequency": "Monthly",
+            "flexId": "mental-wellness-coach"
+          },
+          {
+            "name": "Yoga and meditation classes",
+            "frequency": "Monthly",
+            "flexId": "yoga-and-meditation-classes"
+          },
+          {
+            "name": "Nutritionist consultation",
+            "frequency": "Monthly",
+            "flexId": "nutritionist-consultation"
+          }
+        ]
+      }
+    ],
+    "flexItems": [
+      {
+        "id": "toilet-paper-hand-towels-soap",
+        "label": "Toilet paper, hand towels, soap",
+        "frequency": "Weekly",
+        "price": 150,
+        "unit": "employee"
+      },
+      {
+        "id": "water-coffee-tea",
+        "label": "Water, coffee, tea",
+        "frequency": "Weekly",
+        "price": 280,
+        "unit": "employee"
+      },
+      {
+        "id": "fresh-fruit-basket",
+        "label": "Fresh fruit basket",
+        "frequency": "Weekly",
+        "price": 225,
+        "unit": "employee"
+      },
+      {
+        "id": "fresh-flowers",
+        "label": "Fresh flowers",
+        "frequency": "Weekly",
+        "price": 2400,
+        "unit": "office"
+      },
+      {
+        "id": "healthy-snacks",
+        "label": "Healthy snacks",
+        "frequency": "Weekly",
+        "price": 195,
+        "unit": "employee"
+      },
+      {
+        "id": "office-supplies",
+        "label": "Office supplies",
+        "frequency": "Monthly",
+        "price": 85,
+        "unit": "employee"
+      },
+      {
+        "id": "hand-sanitizer-hygiene-products",
+        "label": "Hand sanitizer, hygiene products",
+        "frequency": "Monthly",
+        "price": 60,
+        "unit": "employee"
+      },
+      {
+        "id": "smoothies-and-fresh-juices",
+        "label": "Smoothies and fresh juices",
+        "frequency": "Weekly",
+        "price": 330,
+        "unit": "employee"
+      },
+      {
+        "id": "detox-tea-and-infusion-dispensers",
+        "label": "Detox tea and infusion dispensers",
+        "frequency": "Weekly",
+        "price": 115,
+        "unit": "employee"
+      },
+      {
+        "id": "chocolates-and-sweets",
+        "label": "Chocolates and sweets",
+        "frequency": "Weekly",
+        "price": 105,
+        "unit": "employee"
+      },
+      {
+        "id": "thursday-breakfast",
+        "label": "Thursday breakfast",
+        "frequency": "Weekly",
+        "price": 390,
+        "unit": "employee"
+      },
+      {
+        "id": "local-and-organic-product-basket",
+        "label": "Local and organic product basket",
+        "frequency": "Monthly",
+        "price": 3000,
+        "unit": "office"
+      },
+      {
+        "id": "ambient-scent-diffusers",
+        "label": "Ambient scent diffusers",
+        "frequency": "Monthly",
+        "price": 1200,
+        "unit": "office"
+      },
+      {
+        "id": "air-purifiers",
+        "label": "Air purifiers",
+        "frequency": "Monthly",
+        "price": 2100,
+        "unit": "office"
+      },
+      {
+        "id": "new-employee-welcome-kits",
+        "label": "New employee welcome kits",
+        "frequency": "Upon hiring",
+        "price": 340,
+        "unit": "kit"
+      },
+      {
+        "id": "quick-health-check-up",
+        "label": "Quick health check-up",
+        "frequency": "Monthly",
+        "price": 300,
+        "unit": "employee"
+      },
+      {
+        "id": "monthly-training-on-company-topics",
+        "label": "Monthly training on company topics",
+        "frequency": "Monthly",
+        "price": 4500,
+        "unit": "office"
+      },
+      {
+        "id": "payslip-and-benefits-workshop",
+        "label": "Payslip and benefits workshop",
+        "frequency": "Semi-annual",
+        "price": 4500,
+        "unit": "workshop"
+      },
+      {
+        "id": "financial-advisor",
+        "label": "Financial advisor",
+        "frequency": "Semi-annual",
+        "price": 6000,
+        "unit": "session"
+      },
+      {
+        "id": "fitness-coach",
+        "label": "Fitness coach",
+        "frequency": "Weekly",
+        "price": 7950,
+        "unit": "office"
+      },
+      {
+        "id": "mental-wellness-coach",
+        "label": "Mental wellness coach",
+        "frequency": "Monthly",
+        "price": 6750,
+        "unit": "office"
+      },
+      {
+        "id": "yoga-and-meditation-classes",
+        "label": "Yoga and meditation classes",
+        "frequency": "Monthly",
+        "price": 5250,
+        "unit": "office"
+      },
+      {
+        "id": "nutritionist-consultation",
+        "label": "Nutritionist consultation",
+        "frequency": "Monthly",
+        "price": 4200,
+        "unit": "office"
+      }
+    ],
+    "eventGroups": [
+      {
+        "id": "team-building",
+        "title": "Team building",
+        "ideas": [
+          {
+            "id": "felucca-trip-on-the-nile-with-lunch",
+            "label": "Felucca trip on the Nile with lunch",
+            "price": 6000
+          },
+          {
+            "id": "egyptian-cooking-workshop-koshari-molokheya",
+            "label": "Egyptian cooking workshop (koshari, molokheya)",
+            "price": 7500
+          },
+          {
+            "id": "desert-safari-and-bedouin-evening",
+            "label": "Desert safari and Bedouin evening",
+            "price": 19500
+          },
+          {
+            "id": "football-or-padel-tournament",
+            "label": "Football or padel tournament",
+            "price": 6000
+          }
+        ]
+      },
+      {
+        "id": "afterwork",
+        "title": "Afterwork",
+        "ideas": [
+          {
+            "id": "shisha-evening-and-card-games",
+            "label": "Shisha evening and card games",
+            "price": 3750
+          },
+          {
+            "id": "tea-and-karkade-tasting",
+            "label": "Tea and karkadé tasting",
+            "price": 1950
+          },
+          {
+            "id": "happy-hour",
+            "label": "Happy hour",
+            "price": 6000
+          },
+          {
+            "id": "outdoor-cinema-night",
+            "label": "Outdoor cinema night",
+            "price": 4500
+          }
+        ]
+      },
+      {
+        "id": "ramadan-eid-christmas-and-new-year",
+        "title": "Ramadan, Eid, Christmas and New Year",
+        "ideas": [
+          {
+            "id": "group-iftar",
+            "label": "Group iftar",
+            "price": 9750
+          },
+          {
+            "id": "decoration-with-fanous-lanterns",
+            "label": "Decoration with fanous lanterns",
+            "price": 3300
+          },
+          {
+            "id": "kahk-cookies-for-eid",
+            "label": "Kahk cookies for Eid",
+            "price": 3000
+          },
+          {
+            "id": "christmas-and-new-year-gifts",
+            "label": "Christmas and New Year gifts",
+            "price": 6750
+          }
+        ]
+      },
+      {
+        "id": "company-anniversaries",
+        "title": "Company anniversaries",
+        "ideas": [
+          {
+            "id": "cake-and-a-small-ceremony",
+            "label": "Cake and a small ceremony",
+            "price": 4050
+          },
+          {
+            "id": "egyptian-or-international-catering",
+            "label": "Egyptian or international catering",
+            "price": 8250
+          },
+          {
+            "id": "local-gift-crafts-oriental-perfumes",
+            "label": "Local gift (crafts, oriental perfumes)",
+            "price": 4500
+          }
+        ]
+      },
+      {
+        "id": "product-launches",
+        "title": "Product launches",
+        "ideas": [
+          {
+            "id": "oriental-or-international-buffet",
+            "label": "Oriental or international buffet",
+            "price": 6000
+          },
+          {
+            "id": "event-decoration-and-logistics",
+            "label": "Event decoration and logistics",
+            "price": 4500
+          }
+        ]
+      },
+      {
+        "id": "milestone-celebrations",
+        "title": "Milestone celebrations",
+        "ideas": [
+          {
+            "id": "team-lunch-at-a-local-restaurant",
+            "label": "Team lunch at a local restaurant",
+            "price": 8250
+          },
+          {
+            "id": "egyptian-coffee-and-a-recognition-gift",
+            "label": "Egyptian coffee and a recognition gift",
+            "price": 3450
+          }
+        ]
+      }
+    ],
+    "flexMinItems": 5
+  },
+  "relocationCatalog": {
+    "stages": [
+      {
+        "id": "before-moving",
+        "key": "before-moving",
+        "title": "Before moving",
+        "when": "From the day the job is confirmed",
+        "summary": "We find the right district and home, and line up school or work for the family.",
+        "items": [
+          {
+            "label": "Where to live",
+            "detail": "A district chosen around culture, religion, family size, age and the commute to the office."
+          },
+          {
+            "label": "Short-term rental, long-term rental or buying",
+            "detail": "Buying through Palmayya, our real estate company."
+          },
+          {
+            "label": "Viewings arranged and attended with the employee"
+          },
+          {
+            "label": "School, university or work for the rest of the family"
+          },
+          {
+            "label": "Orientation: how things work here, doctors, banks and a language course"
+          }
+        ]
+      },
+      {
+        "id": "moving",
+        "key": "moving",
+        "title": "Moving",
+        "when": "The move itself",
+        "summary": "Door-to-door movement management, with three offers to choose from.",
+        "items": [
+          {
+            "label": "Three offers from moving companies",
+            "detail": "Compared on deadline, container for the household and air freight for small things."
+          },
+          {
+            "label": "Packing, shipment tracking, and the customs and tax paperwork"
+          },
+          {
+            "label": "What can and can't be shipped, explained up front"
+          },
+          {
+            "label": "Storage in the home country or with the moving company"
+          }
+        ]
+      },
+      {
+        "id": "final-step",
+        "key": "final-step",
+        "title": "Settling in",
+        "when": "The first weeks in Egypt",
+        "summary": "The rental contract signed, the utilities on, and the home furnished.",
+        "items": [
+          {
+            "label": "Temporary accommodation while the home is prepared"
+          },
+          {
+            "label": "Rental contract and paperwork, short or long term"
+          },
+          {
+            "label": "Bank account, phone, internet, water and electricity set up"
+          },
+          {
+            "label": "Home staging and furniture, from IKEA, ARIKA and others"
+          }
+        ]
+      }
+    ],
+    "options": [
+      {
+        "id": "residence-and-visa",
+        "label": "Residence and visa"
+      },
+      {
+        "id": "lawyer-services",
+        "label": "Lawyer services"
+      },
+      {
+        "id": "language-teacher",
+        "label": "Language teacher"
+      },
+      {
+        "id": "culture-teacher",
+        "label": "Culture teacher"
+      },
+      {
+        "id": "car-rental",
+        "label": "Car rental"
+      },
+      {
+        "id": "drivers",
+        "label": "Drivers"
+      },
+      {
+        "id": "cleaning",
+        "label": "Cleaning"
+      },
+      {
+        "id": "security",
+        "label": "Security"
+      },
+      {
+        "id": "events",
+        "label": "Events"
+      },
+      {
+        "id": "concierge",
+        "label": "Concierge"
+      },
+      {
+        "id": "property-and-facility-management-for-the-home",
+        "label": "Property and facility management for the home"
+      }
+    ]
+  },
+  "estimates": [
+    {
+      "selection": {
+        "employees": 20,
+        "packages": [
+          "essential-delivery"
+        ],
+        "flexItems": []
+      },
+      "estimate": {
+        "subtotal": 22200,
+        "bundleDiscount": 0,
+        "volumeDiscount": 0,
+        "volumeRate": 0,
+        "monthly": 22200,
+        "perHire": 0,
+        "packageCount": 1,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 20,
+        "packages": [],
+        "flexItems": []
+      },
+      "estimate": {
+        "subtotal": 0,
+        "bundleDiscount": 0,
+        "volumeDiscount": 0,
+        "volumeRate": 0,
+        "monthly": 0,
+        "perHire": 0,
+        "packageCount": 0,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 60,
+        "packages": [
+          "essential-delivery",
+          "essential-services"
+        ],
+        "flexItems": []
+      },
+      "estimate": {
+        "subtotal": 103500,
+        "bundleDiscount": 10350,
+        "volumeDiscount": 9315,
+        "volumeRate": 0.1,
+        "monthly": 83835,
+        "perHire": 0,
+        "packageCount": 2,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 20,
+        "packages": [],
+        "flexItems": [
+          "toilet-paper-hand-towels-soap",
+          "water-coffee-tea",
+          "fresh-fruit-basket"
+        ]
+      },
+      "estimate": {
+        "subtotal": 13100,
+        "bundleDiscount": 0,
+        "volumeDiscount": 0,
+        "volumeRate": 0,
+        "monthly": 13100,
+        "perHire": 0,
+        "packageCount": 0,
+        "flexShortBy": 2
+      }
+    },
+    {
+      "selection": {
+        "employees": 37,
+        "packages": [],
+        "flexItems": [
+          "toilet-paper-hand-towels-soap",
+          "water-coffee-tea",
+          "fresh-flowers",
+          "new-employee-welcome-kits",
+          "payslip-and-benefits-workshop"
+        ]
+      },
+      "estimate": {
+        "subtotal": 19060,
+        "bundleDiscount": 0,
+        "volumeDiscount": 0,
+        "volumeRate": 0,
+        "monthly": 19060,
+        "perHire": 340,
+        "packageCount": 1,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 20,
+        "packages": [
+          "essential-delivery"
+        ],
+        "flexItems": [
+          "toilet-paper-hand-towels-soap",
+          "detox-tea-and-infusion-dispensers"
+        ]
+      },
+      "estimate": {
+        "subtotal": 24500,
+        "bundleDiscount": 0,
+        "volumeDiscount": 0,
+        "volumeRate": 0,
+        "monthly": 24500,
+        "perHire": 0,
+        "packageCount": 1,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 500,
+        "packages": [
+          "essential-delivery",
+          "premium-delivery",
+          "essential-services"
+        ],
+        "flexItems": [
+          "thursday-breakfast",
+          "ambient-scent-diffusers"
+        ]
+      },
+      "estimate": {
+        "subtotal": 1507500,
+        "bundleDiscount": 150750,
+        "volumeDiscount": 271350,
+        "volumeRate": 0.2,
+        "monthly": 1085400,
+        "perHire": 0,
+        "packageCount": 3,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 120,
+        "packages": [
+          "premium-delivery"
+        ],
+        "flexItems": []
+      },
+      "estimate": {
+        "subtotal": 154800,
+        "bundleDiscount": 0,
+        "volumeDiscount": 19350,
+        "volumeRate": 0.125,
+        "monthly": 135450,
+        "perHire": 0,
+        "packageCount": 1,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 200,
+        "packages": [
+          "essential-delivery",
+          "premium-delivery",
+          "essential-services",
+          "premium-services"
+        ],
+        "flexItems": [
+          "toilet-paper-hand-towels-soap",
+          "water-coffee-tea",
+          "fresh-fruit-basket",
+          "fresh-flowers",
+          "healthy-snacks",
+          "office-supplies",
+          "hand-sanitizer-hygiene-products",
+          "smoothies-and-fresh-juices",
+          "detox-tea-and-infusion-dispensers",
+          "chocolates-and-sweets",
+          "thursday-breakfast",
+          "local-and-organic-product-basket",
+          "ambient-scent-diffusers",
+          "air-purifiers",
+          "new-employee-welcome-kits",
+          "quick-health-check-up",
+          "monthly-training-on-company-topics",
+          "payslip-and-benefits-workshop",
+          "financial-advisor",
+          "fitness-coach",
+          "mental-wellness-coach",
+          "yoga-and-meditation-classes",
+          "nutritionist-consultation"
+        ]
+      },
+      "estimate": {
+        "subtotal": 845000,
+        "bundleDiscount": 84500,
+        "volumeDiscount": 114075,
+        "volumeRate": 0.15,
+        "monthly": 646425,
+        "perHire": 0,
+        "packageCount": 4,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 0,
+        "packages": [
+          "premium-services"
+        ],
+        "flexItems": []
+      },
+      "estimate": {
+        "subtotal": 1210,
+        "bundleDiscount": 0,
+        "volumeDiscount": 0,
+        "volumeRate": 0,
+        "monthly": 1210,
+        "perHire": 0,
+        "packageCount": 1,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": -3,
+        "packages": [
+          "premium-services"
+        ],
+        "flexItems": []
+      },
+      "estimate": {
+        "subtotal": 1210,
+        "bundleDiscount": 0,
+        "volumeDiscount": 0,
+        "volumeRate": 0,
+        "monthly": 1210,
+        "perHire": 0,
+        "packageCount": 1,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 7.9,
+        "packages": [],
+        "flexItems": [
+          "office-supplies",
+          "hand-sanitizer-hygiene-products",
+          "smoothies-and-fresh-juices",
+          "detox-tea-and-infusion-dispensers",
+          "chocolates-and-sweets",
+          "thursday-breakfast"
+        ]
+      },
+      "estimate": {
+        "subtotal": 7595,
+        "bundleDiscount": 0,
+        "volumeDiscount": 0,
+        "volumeRate": 0,
+        "monthly": 7595,
+        "perHire": 0,
+        "packageCount": 1,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 49,
+        "packages": [
+          "essential-delivery",
+          "premium-delivery"
+        ],
+        "flexItems": [
+          "payslip-and-benefits-workshop"
+        ]
+      },
+      "estimate": {
+        "subtotal": 118350,
+        "bundleDiscount": 11835,
+        "volumeDiscount": 0,
+        "volumeRate": 0,
+        "monthly": 106515,
+        "perHire": 0,
+        "packageCount": 2,
+        "flexShortBy": 0
+      }
+    },
+    {
+      "selection": {
+        "employees": 50,
+        "packages": [
+          "essential-delivery",
+          "premium-delivery"
+        ],
+        "flexItems": [
+          "payslip-and-benefits-workshop"
+        ]
+      },
+      "estimate": {
+        "subtotal": 120750,
+        "bundleDiscount": 12075,
+        "volumeDiscount": 10868,
+        "volumeRate": 0.1,
+        "monthly": 97808,
+        "perHire": 0,
+        "packageCount": 2,
+        "flexShortBy": 0
+      }
+    }
+  ],
+  "formatEgp": [
+    {
+      "input": 0,
+      "output": "0 EGP"
+    },
+    {
+      "input": 615,
+      "output": "615 EGP"
+    },
+    {
+      "input": 22200,
+      "output": "22,200 EGP"
+    },
+    {
+      "input": 1234567,
+      "output": "1,234,567 EGP"
+    },
+    {
+      "input": 999.5,
+      "output": "1,000 EGP"
+    },
+    {
+      "input": 1000.49,
+      "output": "1,000 EGP"
+    }
+  ]
+}

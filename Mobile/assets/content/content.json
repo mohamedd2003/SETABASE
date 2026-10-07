@@ -1,0 +1,1180 @@
+{
+  "generatedFrom": "../src/content (run tool/export_content.mjs to refresh)",
+  "site": {
+    "name": "SETABASE",
+    "url": "https://setabase.com",
+    "description": "SETABASE manages properties, buildings, relocations and real estate in New Cairo — one partner for owners, tenants, HOAs and companies instead of five.",
+    "keywords": [
+      "property management New Cairo",
+      "facility management Egypt",
+      "relocation to Egypt",
+      "corporate relocation Cairo",
+      "real estate New Cairo",
+      "HOA management Egypt",
+      "office wellness packages Cairo",
+      "SETABASE",
+      "Palmayya"
+    ],
+    "office": {
+      "short": "New Cairo, Egypt",
+      "full": "Building 6, Floor 3, Unit 9 · EDNC, New Cairo, Egypt",
+      "lines": [
+        "Building 6, Floor 3, Unit 9",
+        "EDNC, New Cairo, Egypt"
+      ],
+      "place": "EDNC, New Cairo",
+      "mapEmbed": "https://maps.google.com/maps?q=EDNC%20-%20SODIC%2C%20New%20Cairo&ll=30.0148299%2C31.5146165&z=15&output=embed",
+      "directions": "https://www.google.com/maps/dir/?api=1&destination=30.0148299%2C31.5146165"
+    },
+    "email": "hello@setabase.com",
+    "phone": "+20 000 000 0000",
+    "appUrl": "#",
+    "locations": "Currently serving the New Cairo region and Hurghada (Red Sea region), with expansion into other Egyptian cities.",
+    "credit": {
+      "label": "Powered by IO LAB",
+      "href": "https://www.iolabegy.com/"
+    },
+    "reassurance": "Your first enquiry is free of charge and without obligation.",
+    "pricingOnRequest": "There's no fixed price list — once we understand your requirements, we come back quickly with a personalised proposal based on your needs."
+  },
+  "landing": {
+    "title": "Which best describes you?",
+    "intro": "Pick one and we'll show you the services that fit.",
+    "audiences": [
+      {
+        "key": "private",
+        "href": "/private",
+        "answer": "Private",
+        "detail": "I own, rent or buy a home, or I'm moving to Egypt."
+      },
+      {
+        "key": "business",
+        "href": "/business",
+        "answer": "Business",
+        "detail": "An HOA, a developer, or an employer with staff to move or a workplace to run."
+      }
+    ]
+  },
+  "audiences": {
+    "private": {
+      "slug": "private",
+      "meta": {
+        "title": "Private",
+        "description": "Property management, facility management, relocation and real estate for individual owners, tenants, buyers and people moving to Egypt — one partner in New Cairo."
+      },
+      "switchLink": {
+        "label": "Business? →",
+        "href": "/business"
+      },
+      "hero": {
+        "title": "Everything your property needs, all in one place.",
+        "paragraph": "SETABASE manages rental properties, relocations and real estate for individual owners, tenants and people moving to Egypt — one partner in New Cairo instead of five.",
+        "cta": "Request a quote",
+        "art": "villa",
+        "photos": [
+          {
+            "src": "naomi-ellsworth-EMPLSuvDuhQ-unsplash.jpg",
+            "alt": "A contemporary two-storey home with deep overhanging roofs, floor-to-ceiling glass and a landscaped front garden",
+            "position": "42% 50%",
+            "source": "https://unsplash.com/photos/EMPLSuvDuhQ"
+          },
+          {
+            "src": "salman-saqib-GHlwOXqb8SU-unsplash.jpg",
+            "alt": "A two-storey villa with a cream façade, dark stone pillars and a pergola-shaded balcony",
+            "position": "48% 50%",
+            "source": "https://unsplash.com/photos/GHlwOXqb8SU"
+          },
+          {
+            "src": "tim-schmidbauer-_tEBCVrEnyo-unsplash.jpg",
+            "alt": "A white modernist villa with timber-screened terraces, framed by palm trees",
+            "position": "66% 50%",
+            "source": "https://unsplash.com/photos/_tEBCVrEnyo"
+          }
+        ],
+        "secondaryCta": "Explore services",
+        "strapline": "Four services, one point of contact.",
+        "summary": {
+          "eyebrow": "For individuals",
+          "rows": [
+            {
+              "id": "property-management",
+              "label": "Property Management",
+              "audience": "Owners & tenants"
+            },
+            {
+              "id": "facility-management",
+              "label": "Facility Management",
+              "audience": "Villas & multi-unit owners"
+            },
+            {
+              "id": "relocation",
+              "label": "Relocation",
+              "audience": "People moving to Egypt"
+            },
+            {
+              "id": "real-estate",
+              "label": "Real Estate",
+              "audience": "Sell, rent & invest"
+            }
+          ]
+        }
+      },
+      "services": {
+        "title": "What we do",
+        "subtitle": "Four services, tailored to individual owners and residents.",
+        "departments": [
+          {
+            "id": "property-management",
+            "eyebrow": "For owners & tenants",
+            "title": "Property Management",
+            "description": "We manage your property for you: tenants, rent, accounting, bills, maintenance and all the administration that comes with owning it.",
+            "detail": {
+              "intro": "Property Management is not just paperwork. SETABASE becomes your trusted local partner and looks after the property as a whole: the accounts, the invoices, the contractors, the legal side and whatever comes up inside the home — whether you live in it or someone else does.",
+              "groups": [
+                {
+                  "title": "You live in your property",
+                  "lead": "You own and enjoy your property. We take care of the management around it.",
+                  "items": [
+                    "Bookkeeping and accounting",
+                    "Managing invoices and payments",
+                    "Maintenance and repairs",
+                    "Coordinating contractors",
+                    "Handling problems inside the property",
+                    "Managing issues with elevators, electricity and utilities",
+                    "Legal and administrative matters",
+                    "Common charges",
+                    "Building and compound administration",
+                    "Owner requirements and requests",
+                    "Annual cost reporting"
+                  ]
+                },
+                {
+                  "title": "You rent out your property",
+                  "lead": "For owners and investors with an apartment, house, compound unit or investment property to let: the full management package.",
+                  "items": [
+                    "Finding and screening new tenants",
+                    "Preparing rental contracts",
+                    "Tenant communication",
+                    "Rent collection and payment follow-up",
+                    "Issuing invoices",
+                    "Managing maintenance and repairs",
+                    "Coordinating service providers",
+                    "Accounting and bookkeeping",
+                    "Annual reporting of property costs and expenses",
+                    "Support with administrative and legal matters"
+                  ]
+                }
+              ],
+              "steps": [
+                {
+                  "title": "Tell us about the property",
+                  "text": "A short call or message: what you own, where it is and what you'd like taken off your hands."
+                },
+                {
+                  "title": "A personalised proposal",
+                  "text": "We come back with what we'd take care of and what it costs — usually within one business day."
+                },
+                {
+                  "title": "We take over",
+                  "text": "One handover, then one point of contact for everything to do with the property."
+                }
+              ],
+              "pricing": "There's no fixed price list — once we understand your requirements, we come back quickly with a personalised proposal based on your needs.",
+              "closing": "Whether you live in it or rent it out, SETABASE looks after your property as if it were our own."
+            }
+          },
+          {
+            "id": "facility-management",
+            "eyebrow": "For villas & multi-unit owners",
+            "title": "Facility Management",
+            "description": "Security, cleaning, maintenance and the day-to-day running of your home or building, handled by our team.",
+            "note": "Currently serving the New Cairo region and Hurghada (Red Sea region), with expansion into other Egyptian cities.",
+            "detail": {
+              "intro": "It goes beyond the common areas. Facility Management can reach into the villa, the apartment or the office itself, and take the small everyday things off your plate too.",
+              "groups": [
+                {
+                  "title": "What we take care of",
+                  "items": [
+                    "Cleaning of individual apartments, houses and offices",
+                    "Regular cleaning services",
+                    "Maintenance and repairs",
+                    "Security",
+                    "Day-to-day building operations",
+                    "Concierge-type services",
+                    "Receiving or coordinating larger deliveries and packages when required"
+                  ]
+                }
+              ],
+              "steps": [
+                {
+                  "title": "A walk through the property",
+                  "text": "We visit, see what the home or building needs and agree the scope with you."
+                },
+                {
+                  "title": "A plan and a proposal",
+                  "text": "Schedules, staffing and a monthly price — usually within one business day of the visit."
+                },
+                {
+                  "title": "Our team takes over",
+                  "text": "Day-to-day operations, with one person at SETABASE answering to you."
+                }
+              ],
+              "pricing": "There's no fixed price list — once we understand your requirements, we come back quickly with a personalised proposal based on your needs.",
+              "closing": "Facility Management with SETABASE is about making your everyday life easier — not just keeping the building running."
+            }
+          },
+          {
+            "id": "relocation",
+            "eyebrow": "For people moving to Egypt",
+            "title": "Relocation",
+            "description": "Home finding, viewings, temporary accommodation and settling-in support for individuals, students, families and retirees moving to Egypt.",
+            "detail": {
+              "intro": "Relocating to another country is a big, personal decision. You may be leaving home, moving your family and starting again in a place you don't yet know. We understand how significant this move is — and we will personally guide you through every step.",
+              "steps": [
+                {
+                  "title": "It starts with a conversation",
+                  "text": "A no-obligation phone or video call to get to know you and what you actually need."
+                },
+                {
+                  "title": "Before moving",
+                  "text": "The district, the home, and school or work for the rest of the family."
+                },
+                {
+                  "title": "Moving",
+                  "text": "Door to door, with three moving offers to compare."
+                },
+                {
+                  "title": "Settling in",
+                  "text": "The contract signed, the utilities on and the home furnished."
+                }
+              ],
+              "pricing": "Every move is quoted on its own — once we understand yours, we come back quickly with a personalised offer. The first conversation commits you to nothing.",
+              "closing": "We're not selling a package — we're becoming your trusted partner on the ground."
+            }
+          },
+          {
+            "id": "real-estate",
+            "eyebrow": "For buyers & sellers",
+            "title": "Real Estate",
+            "description": "Buying, selling and investing in property across Egypt — with strong opportunities in New Cairo, Cairo, Sahel, and the Red Sea.",
+            "note": "Through Palmayya, our real estate sales company."
+          }
+        ]
+      },
+      "explainer": {
+        "title": "Property vs Facility Management — what's the difference?",
+        "intro": "People often mix them up, but they answer two different needs. Take a pipe leaking in an apartment:",
+        "columns": [
+          {
+            "title": "Property Management",
+            "summary": "Takes care of the money and the contracts of a property — it protects the owner's value and income.",
+            "example": "The property manager reports the leak, informs the owner and follows the case."
+          },
+          {
+            "title": "Facility Management",
+            "summary": "Takes care of how the building actually works — it keeps it safe, clean and running.",
+            "example": "The facility manager sends the plumber and checks that the repair is done properly."
+          }
+        ],
+        "closing": "One team, one point of contact."
+      },
+      "contact": {
+        "title": "Tell us what you need",
+        "intro": "Share a few details and we'll come back with a tailored quote — usually within one business day.",
+        "interests": [
+          {
+            "value": "property-management",
+            "label": "Property Management"
+          },
+          {
+            "value": "facility-management",
+            "label": "Facility Management"
+          },
+          {
+            "value": "relocation",
+            "label": "Relocation"
+          },
+          {
+            "value": "real-estate",
+            "label": "Real Estate"
+          }
+        ],
+        "submit": "Send request",
+        "helper": "We'll reply within one business day."
+      }
+    },
+    "business": {
+      "slug": "business",
+      "meta": {
+        "title": "Business",
+        "description": "Property management, facility management, corporate relocation, special services and real estate for HOAs, developers and employers in New Cairo — one partner instead of five."
+      },
+      "switchLink": {
+        "label": "Private? →",
+        "href": "/private"
+      },
+      "hero": {
+        "title": "Everything your property and your workplace need, all in one place.",
+        "paragraph": "SETABASE runs the administrative and technical side of buildings, teams, workplaces and relocations in New Cairo — so owners, HOAs and companies deal with one partner instead of five.",
+        "cta": "Request a quote",
+        "art": "towers",
+        "photos": [
+          {
+            "src": "tower-night.jpg",
+            "alt": "A curved glass office tower at night, one floor lit warm against blue windows",
+            "position": "50% 50%",
+            "source": "client-supplied/tower-night.jpg"
+          },
+          {
+            "src": "towers-dusk.jpg",
+            "alt": "Glass office buildings and a pale tower in low evening sun, with trees along the street",
+            "position": "60% 50%",
+            "source": "client-supplied/towers-dusk.jpg"
+          },
+          {
+            "src": "office-block.jpg",
+            "alt": "A tall office block with a deep overhanging roof and vertical fins, beside curved residential towers",
+            "position": "56% 50%",
+            "source": "client-supplied/office-block.jpg"
+          }
+        ],
+        "summary": {
+          "eyebrow": "Five departments, one team",
+          "rows": [
+            {
+              "id": "property-management",
+              "label": "Property Management",
+              "audience": "Communities & companies"
+            },
+            {
+              "id": "facility-management",
+              "label": "Facility Management",
+              "audience": "Buildings & companies"
+            },
+            {
+              "id": "relocation",
+              "label": "Corporate Relocation",
+              "audience": "Employees moving to Egypt"
+            },
+            {
+              "id": "special-services",
+              "label": "Special Services",
+              "audience": "Workplace wellbeing"
+            },
+            {
+              "id": "real-estate",
+              "label": "Real Estate",
+              "audience": "Sell, rent & invest"
+            }
+          ]
+        }
+      },
+      "services": {
+        "title": "What we do",
+        "subtitle": "Five services, each one a full team on its own.",
+        "departments": [
+          {
+            "id": "property-management",
+            "eyebrow": "For owners, communities & companies",
+            "title": "Property Management",
+            "description": "Full management of a property, a building or a portfolio — the money, the contracts, the suppliers and the paperwork — so the owner deals with one partner instead of five.",
+            "detail": {
+              "intro": "Property Management is not just administration. SETABASE becomes your trusted local partner and looks after the property as a whole: the accounts, the invoices, the contractors, the legal side and whatever comes up inside the building. For homeowners' associations and company-owned buildings, the same team also runs the owners' meetings, common charges and building-wide administration.",
+              "groups": [
+                {
+                  "title": "You live in your property",
+                  "lead": "You own and enjoy your property. We take care of the management around it.",
+                  "items": [
+                    "Bookkeeping and accounting",
+                    "Managing invoices and payments",
+                    "Maintenance and repairs",
+                    "Coordinating contractors",
+                    "Handling problems inside the property",
+                    "Managing issues with elevators, electricity and utilities",
+                    "Legal and administrative matters",
+                    "Common charges",
+                    "Building and compound administration",
+                    "Owner requirements and requests",
+                    "Annual cost reporting"
+                  ]
+                },
+                {
+                  "title": "You rent out your property",
+                  "lead": "For owners and investors with an apartment, house, compound unit or investment property to let: the full management package.",
+                  "items": [
+                    "Finding and screening new tenants",
+                    "Preparing rental contracts",
+                    "Tenant communication",
+                    "Rent collection and payment follow-up",
+                    "Issuing invoices",
+                    "Managing maintenance and repairs",
+                    "Coordinating service providers",
+                    "Accounting and bookkeeping",
+                    "Annual reporting of property costs and expenses",
+                    "Support with administrative and legal matters"
+                  ]
+                }
+              ],
+              "steps": [
+                {
+                  "title": "Tell us about the property",
+                  "text": "A short call or message: what you own, where it is and what you'd like taken off your hands."
+                },
+                {
+                  "title": "A personalised proposal",
+                  "text": "We come back with what we'd take care of and what it costs — usually within one business day."
+                },
+                {
+                  "title": "We take over",
+                  "text": "One handover, then one point of contact for everything to do with the property."
+                }
+              ],
+              "pricing": "There's no fixed price list — once we understand your requirements, we come back quickly with a personalised proposal based on your needs.",
+              "closing": "Whether you live in it or rent it out, SETABASE looks after your property as if it were our own."
+            }
+          },
+          {
+            "id": "facility-management",
+            "eyebrow": "For buildings & companies",
+            "title": "Facility Management",
+            "description": "Security, cleaning, maintenance and the day-to-day running of a building or office, handled by our team.",
+            "note": "Currently serving the New Cairo region and Hurghada (Red Sea region), with expansion into other Egyptian cities.",
+            "detail": {
+              "intro": "It goes beyond the common areas. Facility Management can reach into individual apartments, houses and offices, and take the small everyday things off your plate too.",
+              "groups": [
+                {
+                  "title": "What we take care of",
+                  "items": [
+                    "Cleaning of individual apartments, houses and offices",
+                    "Regular cleaning services",
+                    "Maintenance and repairs",
+                    "Security",
+                    "Day-to-day building operations",
+                    "Concierge-type services",
+                    "Receiving or coordinating larger deliveries and packages when required"
+                  ]
+                }
+              ],
+              "steps": [
+                {
+                  "title": "A walk through the building",
+                  "text": "We visit, see what the building or office needs and agree the scope with you."
+                },
+                {
+                  "title": "A plan and a proposal",
+                  "text": "Schedules, staffing and a monthly price — usually within one business day of the visit."
+                },
+                {
+                  "title": "Our team takes over",
+                  "text": "Day-to-day operations, with one person at SETABASE answering to you."
+                }
+              ],
+              "pricing": "There's no fixed price list — once we understand your requirements, we come back quickly with a personalised proposal based on your needs.",
+              "closing": "Facility Management with SETABASE is about making your everyday life easier — not just keeping the building running."
+            }
+          },
+          {
+            "id": "relocation",
+            "eyebrow": "For employers",
+            "title": "Corporate Relocation",
+            "description": "For companies and employers relocating employees and their families to Egypt — housing, paperwork and settling in, handled personally.",
+            "packagesHref": "/business/relocation",
+            "detail": {
+              "intro": "Relocating to another country is a big, personal decision. We understand how significant the move is for your employee and their family — and we guide them through it personally, step by step.",
+              "steps": [
+                {
+                  "title": "It starts with a conversation",
+                  "text": "A no-obligation phone or video call to get to know the employee and what they actually need."
+                },
+                {
+                  "title": "Before moving",
+                  "text": "The district, the home, and school or work for the rest of the family."
+                },
+                {
+                  "title": "Moving",
+                  "text": "Door to door, with three moving offers to compare."
+                },
+                {
+                  "title": "Settling in",
+                  "text": "The contract signed, the utilities on and the home furnished."
+                }
+              ],
+              "pricing": "Every relocation is quoted on its own — once we understand the move, we come back quickly with a personalised offer.",
+              "closing": "We're not selling a package — we're becoming your employee's trusted partner on the ground."
+            }
+          },
+          {
+            "id": "special-services",
+            "eyebrow": "For workplaces",
+            "title": "Special Services",
+            "description": "Subscription packages that take care of the office — supplies, wellness, and team events, priced per employee.",
+            "note": "Packages from 615 EGP per employee per month.",
+            "packagesHref": "/business/special-services#packages",
+            "detail": {
+              "steps": [
+                {
+                  "title": "Choose your packages",
+                  "text": "Ready packages, single items or events — the price shows as you pick."
+                },
+                {
+                  "title": "A one-month trial",
+                  "text": "We confirm the price for your office and start with a trial month."
+                },
+                {
+                  "title": "One team runs it",
+                  "text": "Deliveries, coaches and events on schedule, with one point of contact."
+                }
+              ],
+              "pricing": "Fixed prices per employee per month, shown on the packages page — with 10% off for two or more packages and volume discounts from 50 employees."
+            }
+          },
+          {
+            "id": "real-estate",
+            "eyebrow": "For investors & developers",
+            "title": "Real Estate",
+            "description": "Sourcing, developing and investing in property across Egypt — with strong opportunities in New Cairo, Cairo, Sahel, and the Red Sea.",
+            "note": "Through Palmayya, our real estate sales company."
+          }
+        ]
+      },
+      "explainer": {
+        "title": "Property vs Facility Management — what's the difference?",
+        "intro": "People often mix them up, but they answer two different needs. Take a pipe leaking in an apartment:",
+        "columns": [
+          {
+            "title": "Property Management",
+            "summary": "Takes care of the money and the contracts of a property — it protects the owner's value and income.",
+            "example": "The property manager reports the leak, informs the owner and follows the case."
+          },
+          {
+            "title": "Facility Management",
+            "summary": "Takes care of how the building actually works — it keeps it safe, clean and running.",
+            "example": "The facility manager sends the plumber and checks that the repair is done properly."
+          }
+        ],
+        "closing": "One team, one point of contact."
+      },
+      "contact": {
+        "title": "Tell us what you need",
+        "intro": "Share a few details and we'll come back with a tailored quote — usually within one business day.",
+        "interests": [
+          {
+            "value": "property-management",
+            "label": "Property Management"
+          },
+          {
+            "value": "facility-management",
+            "label": "Facility Management"
+          },
+          {
+            "value": "relocation",
+            "label": "Corporate Relocation"
+          },
+          {
+            "value": "special-services",
+            "label": "Special Services"
+          },
+          {
+            "value": "real-estate",
+            "label": "Real Estate"
+          }
+        ],
+        "submit": "Send request",
+        "helper": "We'll reply within one business day."
+      }
+    }
+  },
+  "explainer": {
+    "title": "Property vs Facility Management — what's the difference?",
+    "intro": "People often mix them up, but they answer two different needs. Take a pipe leaking in an apartment:",
+    "columns": [
+      {
+        "title": "Property Management",
+        "summary": "Takes care of the money and the contracts of a property — it protects the owner's value and income.",
+        "example": "The property manager reports the leak, informs the owner and follows the case."
+      },
+      {
+        "title": "Facility Management",
+        "summary": "Takes care of how the building actually works — it keeps it safe, clean and running.",
+        "example": "The facility manager sends the plumber and checks that the repair is done properly."
+      }
+    ],
+    "closing": "One team, one point of contact."
+  },
+  "relocation": {
+    "opening": {
+      "title": "A move to Egypt, with a partner on the ground.",
+      "paragraph": "Relocating to another country is a big, personal decision. You may be leaving home, moving your family and starting a new job in a place you don't yet know. We understand how significant this move is — and we will personally guide you through every step.",
+      "facts": [
+        "One point of contact, from the first call to the last box",
+        "A free, no-obligation first conversation",
+        "Three moving offers to compare"
+      ]
+    },
+    "conversation": {
+      "when": "Before anything else",
+      "title": "It starts with a conversation.",
+      "summary": "We begin with a phone or video call to get to know you, understand your situation and identify what you actually need.",
+      "questionsLead": "What we explore together",
+      "questions": [
+        "Who is relocating — an individual, a couple or a family?",
+        "Where will you work?",
+        "What kind of home and lifestyle are you looking for?",
+        "Do you need schools or childcare?",
+        "What support will you need before and after arrival?",
+        "What are your biggest concerns about the move?"
+      ],
+      "noObligation": "Your first conversation with us is simply an opportunity to get to know each other, understand your needs and discuss how we can support your move. There is no obligation to book a service."
+    },
+    "next": {
+      "title": "What happens next",
+      "text": "Only once we understand your needs do we propose the right services, next steps and a personalised offer. We're not selling a package — we're becoming your trusted partner on the ground."
+    },
+    "destinations": [
+      "New Cairo",
+      "Cairo",
+      "New Capital",
+      "Hurghada",
+      "Galala City or Sokhna",
+      "Sahel",
+      "Not decided yet"
+    ],
+    "exclusions": "We don't ship pets or cars — the regulations and taxes make it impractical."
+  },
+  "specialServices": {
+    "steps": [
+      {
+        "title": "Send your selection",
+        "text": "Packages, items or events, with the size of your team."
+      },
+      {
+        "title": "We confirm the price",
+        "text": "Usually within one business day, with your one-month trial set up."
+      },
+      {
+        "title": "One team runs it",
+        "text": "Deliveries, coaches and events on schedule, with one point of contact."
+      }
+    ],
+    "terms": [
+      "Start with a one-month trial, then a six-month minimum.",
+      "Contracts run 6 months, or 1, 2, 3 or 5 years.",
+      "Cancel a yearly contract with three months' notice.",
+      "Take two or more packages and save 10%.",
+      "Bigger teams pay less: 10% off from 50 employees, 12.5% from 100, 15% from 200, 20% from 500."
+    ],
+    "contractLengths": [
+      {
+        "value": "6-months",
+        "label": "6 months"
+      },
+      {
+        "value": "1-year",
+        "label": "1 year"
+      },
+      {
+        "value": "2-years",
+        "label": "2 years"
+      },
+      {
+        "value": "3-years",
+        "label": "3 years"
+      },
+      {
+        "value": "5-years",
+        "label": "5 years"
+      }
+    ]
+  },
+  "fallbackCatalog": {
+    "specialOffers": [
+      {
+        "id": "essential-delivery",
+        "title": "Essential Delivery Pack",
+        "slug": "essential-delivery",
+        "category": "delivery",
+        "shortDescription": "The basics, restocked before anyone notices they're running low.",
+        "items": [
+          {
+            "name": "Toilet paper, hand towels, soap",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Water, coffee, tea",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Fresh fruit basket",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Fresh flowers",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Healthy snacks",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Office supplies",
+            "frequency": "Monthly"
+          },
+          {
+            "name": "Hand sanitizer, hygiene products",
+            "frequency": "Monthly"
+          }
+        ],
+        "costPrice": 14800,
+        "clientPrice": 22200,
+        "pricePerEmployee": 1110,
+        "priceOnRequest": false,
+        "isActive": true,
+        "sortOrder": 0
+      },
+      {
+        "id": "premium-delivery",
+        "title": "Premium Delivery Pack",
+        "slug": "premium-delivery",
+        "category": "delivery",
+        "shortDescription": "Fresh juice, a Thursday breakfast and a welcome kit for every new hire.",
+        "items": [
+          {
+            "name": "Smoothies and fresh juices",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Detox tea and infusion dispensers",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Chocolates and sweets",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Thursday breakfast",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Local and organic product basket",
+            "frequency": "Monthly"
+          },
+          {
+            "name": "Ambient scent diffusers",
+            "frequency": "Monthly"
+          },
+          {
+            "name": "Air purifiers",
+            "frequency": "Monthly"
+          },
+          {
+            "name": "New employee welcome kits",
+            "frequency": "Upon hiring"
+          }
+        ],
+        "costPrice": 17150,
+        "clientPrice": 25800,
+        "pricePerEmployee": 1290,
+        "priceOnRequest": false,
+        "isActive": true,
+        "sortOrder": 1
+      },
+      {
+        "id": "essential-services",
+        "title": "Essential Services Pack",
+        "slug": "essential-services",
+        "category": "services",
+        "shortDescription": "Monthly health checks and training, plus money advice twice a year.",
+        "items": [
+          {
+            "name": "Quick health check-up",
+            "frequency": "Monthly"
+          },
+          {
+            "name": "Monthly training on company topics",
+            "frequency": "Monthly"
+          },
+          {
+            "name": "Payslip and benefits workshop",
+            "frequency": "Semi-annual"
+          },
+          {
+            "name": "Financial advisor",
+            "frequency": "Semi-annual"
+          }
+        ],
+        "costPrice": 8150,
+        "clientPrice": 12300,
+        "pricePerEmployee": 615,
+        "priceOnRequest": false,
+        "isActive": true,
+        "sortOrder": 2
+      },
+      {
+        "id": "premium-services",
+        "title": "Premium Services Pack",
+        "slug": "premium-services",
+        "category": "services",
+        "shortDescription": "A fitness coach every week, and mental wellness, yoga and nutrition every month.",
+        "items": [
+          {
+            "name": "Fitness coach",
+            "frequency": "Weekly"
+          },
+          {
+            "name": "Mental wellness coach",
+            "frequency": "Monthly"
+          },
+          {
+            "name": "Yoga and meditation classes",
+            "frequency": "Monthly"
+          },
+          {
+            "name": "Nutritionist consultation",
+            "frequency": "Monthly"
+          }
+        ],
+        "costPrice": 16100,
+        "clientPrice": 24200,
+        "pricePerEmployee": 1210,
+        "priceOnRequest": false,
+        "isActive": true,
+        "sortOrder": 3
+      },
+      {
+        "id": "flexible-pack",
+        "title": "Flexible Pack",
+        "slug": "flexible-pack",
+        "category": "flexible",
+        "shortDescription": "Build your own from 5 items or more, or add single items on top of any package, priced à la carte.",
+        "items": [
+          {
+            "name": "Toilet paper, hand towels, soap",
+            "frequency": "Weekly",
+            "price": 150,
+            "unit": "employee"
+          },
+          {
+            "name": "Water, coffee, tea",
+            "frequency": "Weekly",
+            "price": 280,
+            "unit": "employee"
+          },
+          {
+            "name": "Fresh fruit basket",
+            "frequency": "Weekly",
+            "price": 225,
+            "unit": "employee"
+          },
+          {
+            "name": "Fresh flowers",
+            "frequency": "Weekly",
+            "price": 2400,
+            "unit": "office"
+          },
+          {
+            "name": "Healthy snacks",
+            "frequency": "Weekly",
+            "price": 195,
+            "unit": "employee"
+          },
+          {
+            "name": "Office supplies",
+            "frequency": "Monthly",
+            "price": 85,
+            "unit": "employee"
+          },
+          {
+            "name": "Hand sanitizer, hygiene products",
+            "frequency": "Monthly",
+            "price": 60,
+            "unit": "employee"
+          },
+          {
+            "name": "Smoothies and fresh juices",
+            "frequency": "Weekly",
+            "price": 330,
+            "unit": "employee"
+          },
+          {
+            "name": "Detox tea and infusion dispensers",
+            "frequency": "Weekly",
+            "price": 115,
+            "unit": "employee"
+          },
+          {
+            "name": "Chocolates and sweets",
+            "frequency": "Weekly",
+            "price": 105,
+            "unit": "employee"
+          },
+          {
+            "name": "Thursday breakfast",
+            "frequency": "Weekly",
+            "price": 390,
+            "unit": "employee"
+          },
+          {
+            "name": "Local and organic product basket",
+            "frequency": "Monthly",
+            "price": 3000,
+            "unit": "office"
+          },
+          {
+            "name": "Ambient scent diffusers",
+            "frequency": "Monthly",
+            "price": 1200,
+            "unit": "office"
+          },
+          {
+            "name": "Air purifiers",
+            "frequency": "Monthly",
+            "price": 2100,
+            "unit": "office"
+          },
+          {
+            "name": "New employee welcome kits",
+            "frequency": "Upon hiring",
+            "price": 340,
+            "unit": "kit"
+          },
+          {
+            "name": "Quick health check-up",
+            "frequency": "Monthly",
+            "price": 300,
+            "unit": "employee"
+          },
+          {
+            "name": "Monthly training on company topics",
+            "frequency": "Monthly",
+            "price": 4500,
+            "unit": "office"
+          },
+          {
+            "name": "Payslip and benefits workshop",
+            "frequency": "Semi-annual",
+            "price": 4500,
+            "unit": "workshop"
+          },
+          {
+            "name": "Financial advisor",
+            "frequency": "Semi-annual",
+            "price": 6000,
+            "unit": "session"
+          },
+          {
+            "name": "Fitness coach",
+            "frequency": "Weekly",
+            "price": 7950,
+            "unit": "office"
+          },
+          {
+            "name": "Mental wellness coach",
+            "frequency": "Monthly",
+            "price": 6750,
+            "unit": "office"
+          },
+          {
+            "name": "Yoga and meditation classes",
+            "frequency": "Monthly",
+            "price": 5250,
+            "unit": "office"
+          },
+          {
+            "name": "Nutritionist consultation",
+            "frequency": "Monthly",
+            "price": 4200,
+            "unit": "office"
+          }
+        ],
+        "priceOnRequest": false,
+        "isActive": true,
+        "sortOrder": 4
+      },
+      {
+        "id": "event-pack",
+        "title": "Event Pack",
+        "slug": "event-pack",
+        "category": "event",
+        "shortDescription": "Team building, afterwork, seasonal celebrations and launches — priced on request for your team and calendar.",
+        "items": [
+          {
+            "name": "Felucca trip on the Nile with lunch",
+            "group": "Team building",
+            "price": 6000
+          },
+          {
+            "name": "Egyptian cooking workshop (koshari, molokheya)",
+            "group": "Team building",
+            "price": 7500
+          },
+          {
+            "name": "Desert safari and Bedouin evening",
+            "group": "Team building",
+            "price": 19500
+          },
+          {
+            "name": "Football or padel tournament",
+            "group": "Team building",
+            "price": 6000
+          },
+          {
+            "name": "Shisha evening and card games",
+            "group": "Afterwork",
+            "price": 3750
+          },
+          {
+            "name": "Tea and karkadé tasting",
+            "group": "Afterwork",
+            "price": 1950
+          },
+          {
+            "name": "Happy hour",
+            "group": "Afterwork",
+            "price": 6000
+          },
+          {
+            "name": "Outdoor cinema night",
+            "group": "Afterwork",
+            "price": 4500
+          },
+          {
+            "name": "Group iftar",
+            "group": "Ramadan, Eid, Christmas and New Year",
+            "price": 9750
+          },
+          {
+            "name": "Decoration with fanous lanterns",
+            "group": "Ramadan, Eid, Christmas and New Year",
+            "price": 3300
+          },
+          {
+            "name": "Kahk cookies for Eid",
+            "group": "Ramadan, Eid, Christmas and New Year",
+            "price": 3000
+          },
+          {
+            "name": "Christmas and New Year gifts",
+            "group": "Ramadan, Eid, Christmas and New Year",
+            "price": 6750
+          },
+          {
+            "name": "Cake and a small ceremony",
+            "group": "Company anniversaries",
+            "price": 4050
+          },
+          {
+            "name": "Egyptian or international catering",
+            "group": "Company anniversaries",
+            "price": 8250
+          },
+          {
+            "name": "Local gift (crafts, oriental perfumes)",
+            "group": "Company anniversaries",
+            "price": 4500
+          },
+          {
+            "name": "Oriental or international buffet",
+            "group": "Product launches",
+            "price": 6000
+          },
+          {
+            "name": "Event decoration and logistics",
+            "group": "Product launches",
+            "price": 4500
+          },
+          {
+            "name": "Team lunch at a local restaurant",
+            "group": "Milestone celebrations",
+            "price": 8250
+          },
+          {
+            "name": "Egyptian coffee and a recognition gift",
+            "group": "Milestone celebrations",
+            "price": 3450
+          }
+        ],
+        "priceOnRequest": true,
+        "isActive": true,
+        "sortOrder": 5
+      }
+    ],
+    "relocationPackages": [
+      {
+        "id": "before-moving",
+        "title": "Before moving",
+        "slug": "before-moving",
+        "stage": "before-moving",
+        "when": "From the day the job is confirmed",
+        "shortDescription": "We find the right district and home, and line up school or work for the family.",
+        "features": [
+          "Where to live — A district chosen around culture, religion, family size, age and the commute to the office.",
+          "Short-term rental, long-term rental or buying — Buying through Palmayya, our real estate company.",
+          "Viewings arranged and attended with the employee",
+          "School, university or work for the rest of the family",
+          "Orientation: how things work here, doctors, banks and a language course"
+        ],
+        "priceOnRequest": true,
+        "isActive": true,
+        "sortOrder": 0
+      },
+      {
+        "id": "moving",
+        "title": "Moving",
+        "slug": "moving",
+        "stage": "moving",
+        "when": "The move itself",
+        "shortDescription": "Door-to-door movement management, with three offers to choose from.",
+        "features": [
+          "Three offers from moving companies — Compared on deadline, container for the household and air freight for small things.",
+          "Packing, shipment tracking, and the customs and tax paperwork",
+          "What can and can't be shipped, explained up front",
+          "Storage in the home country or with the moving company"
+        ],
+        "priceOnRequest": true,
+        "isActive": true,
+        "sortOrder": 1
+      },
+      {
+        "id": "final-step",
+        "title": "Settling in",
+        "slug": "final-step",
+        "stage": "final-step",
+        "when": "The first weeks in Egypt",
+        "shortDescription": "The rental contract signed, the utilities on, and the home furnished.",
+        "features": [
+          "Temporary accommodation while the home is prepared",
+          "Rental contract and paperwork, short or long term",
+          "Bank account, phone, internet, water and electricity set up",
+          "Home staging and furniture, from IKEA, ARIKA and others"
+        ],
+        "priceOnRequest": true,
+        "isActive": true,
+        "sortOrder": 2
+      },
+      {
+        "id": "options",
+        "title": "Options",
+        "slug": "options",
+        "stage": "options",
+        "when": "Any time",
+        "shortDescription": "Add any of these to the move, or on their own once the family has arrived.",
+        "features": [
+          "Residence and visa",
+          "Lawyer services",
+          "Language teacher",
+          "Culture teacher",
+          "Car rental",
+          "Drivers",
+          "Cleaning",
+          "Security",
+          "Events",
+          "Concierge",
+          "Property and facility management for the home"
+        ],
+        "priceOnRequest": true,
+        "isActive": true,
+        "sortOrder": 3
+      }
+    ]
+  }
+}
